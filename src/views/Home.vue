@@ -3,6 +3,7 @@
     <Header/>
     <div class="page-wrapper">
       <div class="content container-fluid">
+
         <div class="page-header">
           <div class="row">
             <div class="col-sm-12">
@@ -14,6 +15,15 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+
+          <HomeBox link="#" image="src/assets/img/custom/class.png" title="UML-Klassendiagramm"
+                   description="Verwenden Sie den GReQL-Konverter auf einem Klassendiagramm."/>
+          <HomeBox link="#" image="src/assets/img/custom/sequenz.png" title="UML-Sequenzdiagramm"
+                   description="Verwenden Sie den GReQL-Konverter auf einem Sequenzdiagramm."/>
+        </div>
+
       </div>
     </div>
 
@@ -22,10 +32,11 @@
 
 <script>
 import Header from "@/components/Header.vue";
+import HomeBox from "@/components/HomeBox.vue";
 
 export default {
   name: 'Home',
-  components: {Header},
+  components: {HomeBox, Header},
   async created() {
   },
 }
