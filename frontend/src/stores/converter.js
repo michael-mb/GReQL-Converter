@@ -41,11 +41,6 @@ const actions = {
         this.code = ""
         this.parsedCode = undefined
     },
-    setCodeVariables(code, parsedCode){
-        this.code = code
-        this.parsedCode = parsedCode
-    },
-
     async parse(param) {
         try {
             this.spinner = true;
