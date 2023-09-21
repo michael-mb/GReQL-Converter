@@ -43,9 +43,9 @@
                 <h4 class="card-title"><i class="feather-list"></i> Abgeleitete Regeln</h4>
               </div>
               <div class="card-body">
-                <h4>... in progress
+                <span>
                 {{store.getParsedCode}}
-                </h4>
+                </span>
               </div>
             </div>
           </div>
