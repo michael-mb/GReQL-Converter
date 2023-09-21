@@ -1,34 +1,98 @@
+
 # GReQL - Converter
 
+GReQL converter is an application that converts PLANTUML code into GReQL for use with the JACK
+platform at the University of Duisburg Essen.
 
-## Recommended IDE Setup
+## Table of Contents
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Frontend Setup](#frontend-setup)
+  - [Backend Setup](#backend-setup)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Customize configuration
+## Project Structure
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```
+project-root/
+├── backend/
+│   ├── app.js
+│   
+├── frontend/
+│   ├── src/
+│   └── ...
+├── README.md
+└── ...
 ```
 
-### Compile and Hot-Reload for Development
+- `backend/`: Contains the Express.js backend code.
+- `frontend/`: Contains the Vue.js frontend code.
+- `README.md`: This README file.
 
-```sh
-npm run dev
-```
+## Prerequisites
 
-### Compile and Minify for Production
+Before you begin, ensure you have met the following requirements:
 
-```sh
-npm run build
-```
+- Node.js and npm installed (You can download them from [nodejs.org](https://nodejs.org/)).
 
-### Lint with [ESLint](https://eslint.org/)
+## Getting Started
 
-```sh
-npm run lint
-```
+### Frontend Setup
+
+1. Open a terminal and navigate to the `frontend` directory:
+
+   ```bash
+   cd frontend
+   ```
+
+2. Install the frontend dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   Your Vue.js app will be accessible at `http://localhost:8080`.
+
+### Backend Setup
+
+1. Open another terminal and navigate to the `backend` directory:
+
+   ```bash
+   cd backend
+   ```
+
+2. Install the backend dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the Express.js server:
+
+   ```bash
+    node app.js
+   ```
+
+   The Express.js server will start and listen on a port (e.g., 3000) specified in your `app.js` file.
+
+
+
+## Contributing
+
+If you'd like to contribute to this project, please follow these guidelines:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature`.
+3. Make your changes and commit them: `git commit -m 'Add some feature'`.
+4. Push to your forked repository: `git push origin feature/your-feature`.
+5. Create a pull request on the original repository.

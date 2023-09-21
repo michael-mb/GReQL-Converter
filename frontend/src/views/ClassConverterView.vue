@@ -1,0 +1,93 @@
+<!--suppress ES6UnusedImports -->
+<template>
+  <div class="main-wrapper" id="main-wrapper">
+    <Header/>
+    <div class="page-wrapper">
+      <div class="content container-fluid">
+
+        <div class="page-header">
+          <div class="row">
+            <div class="col-sm-12">
+              <h3 class="page-title">Class Converter</h3>
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                <li class="breadcrumb-item active">Class Converter</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-5 col-sm-12 d-flex">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"><i class="feather-terminal"></i> Code Editor</h4>
+              </div>
+              <div class="card-body">
+                <code-editor  v-model="code" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                              width="100%" @textarea="focus"></code-editor>
+
+                <a class="btn btn-primary btn-blog mb-2 mt-5" @click="parseCode">
+                  <i v-if="!store.isSpinning" class="feather-play-circle"></i>
+                  <span v-if="store.isSpinning" class="spinner-border spinner-border-sm me-2"></span>
+                  Parse Code
+                </a>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 col-sm-12 d-flex">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"><i class="feather-list"></i> Abgeleitete Regeln</h4>
+              </div>
+              <div class="card-body">
+                <h4>... in progress
+                {{store.getParsedCode}}
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<script setup>
+import hljs from 'highlight.js';
+import CodeEditor from 'simple-code-editor';
+import Header from "@/components/Header.vue";
+import {ref} from "vue";
+import useConverterStore from "@/stores/converter"
+import Swal from "sweetalert2";
+
+const store = useConverterStore()
+const defaultCode = '@startuml\n' + 'class Dwelling {\n' + '  +Int Windows\n' + '+void Lock()\n' + '}\n' + '@enduml'
+const code = ref(defaultCode)
+
+function focus(node) {
+  node.focus();
+}
+function parseCode(){
+  const param = {
+    code : code.value,
+    endpoint: "/convert"
+  }
+
+  store.parse(param).then(() => {
+    Swal.fire(store.toastOptions)
+  }).catch(() => {
+    Swal.fire(store.toastOptions)
+  }).finally(()=> {
+    store.toastOptions = {}
+  })
+}
+</script>
+
+<style scoped>
+
+</style>
