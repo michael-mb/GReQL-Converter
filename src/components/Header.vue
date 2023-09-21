@@ -17,6 +17,9 @@
           <li>
             <RouterLink :class="{ 'active': $route.name === 'home' }" to="/"><i class="feather-home"></i> <span>Home</span></RouterLink>
           </li>
+          <li>
+            <RouterLink :class="{ 'active': $route.name === 'class' }" to="/class"><i class="feather-file"></i> <span>Class Converter</span></RouterLink>
+          </li>
         </ul>
       </div>
     </div>
