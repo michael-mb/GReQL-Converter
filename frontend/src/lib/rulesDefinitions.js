@@ -32,10 +32,11 @@ export default {
         // CLASS & INTERFACE
         'defined_class_rule' : {
             rule_type: 'defined_class_rule',
+            rule_name: 'Class definition',
             info_text: 'Diese Regel leitet aus Ihrem Diagramm die Regeln ab, die mit jeder Klasse oder Schnittstelle' +
                 ' verbunden sein sollten.',
             info_image: 'src/assets/rules/defined_class_rule.png',
-            feedback: '',
+            feedback: '... no feedback yet',
             points: 0,
             existence: 'presence',
 
@@ -81,16 +82,17 @@ export default {
         'A_to_B_generalization' : {}
     },
     METHODS_TYPE: {
-        private: {
-            name: "private_method_name",
-            return_type: "void",
-            visibility: "private"
-        },
-        public: {
-            name: "public_method_name",
-            return_type: "void",
-            visibility: "public"
-        }
+        name: "public_method_name",
+        return_type: "void",
+        visibility: "public",
+        arguments: "",
+        is_static: false
+    },
+    ATTRIBUTE_TYPE: {
+        name: "attribute_name",
+        type: "string",
+        visibility: "public",
+        is_static: false
     },
     EXISTENCE_TYPE: {
         'presence': 'presence',

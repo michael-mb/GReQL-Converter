@@ -18,7 +18,6 @@
         </div>
 
         <div class="row">
-
           <div class="col-md-5 col-sm-12 d-flex">
             <div class="card">
               <div class="card-header">
@@ -37,15 +36,16 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-7 col-sm-12 d-flex">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"><i class="feather-list"></i> Abgeleitete Regeln</h4>
+                <h4 class="card-title"><i class="feather-list"></i> Derived Rules</h4>
               </div>
               <div class="card-body">
-                <span>
-                {{store.getParsedCode}}
-                </span>
+                <div class="accordion custom-accordion" id="custom-accordion-one">
+                  <DefineClass v-for="(rule, index) in store.rules" :rule="rule" :index="index"/>
+                </div>
               </div>
             </div>
           </div>
@@ -64,9 +64,37 @@ import Header from "@/components/Header.vue";
 import {ref} from "vue";
 import useConverterStore from "@/stores/converter"
 import Swal from "sweetalert2";
+import DefineClass from "@/components/rules/DefineClass.vue";
 
 const store = useConverterStore()
-const defaultCode = '@startuml\n' + 'class Dwelling {\n' + '  +Int Windows\n' + '+void Lock()\n' + '}\n' + '@enduml'
+const defaultCode = '@startuml\n' +
+    'skin rose\n' +
+    'title Observer\n' +
+    'interface Subject <<interface>> {\n' +
+    '    + registerObserver(observer: Observer)\n' +
+    '    + removeObserver(observer: Observer)\n' +
+    '    + notifyObservers()\n' +
+    '}\n' +
+    '\n' +
+    'interface Observer <<interface>> {\n' +
+    '    + update()\n' +
+    '}\n' +
+    '\n' +
+    'class MyTopic {\n' +
+    '    - observers: Observer[]\n' +
+    '    - number: int\n' +
+    '    + registerObserver(observer: Observer)\n' +
+    '    + removeObserver(observer: Observer)\n' +
+    '    + notifyObservers()\n' +
+    '}\n' +
+    '\n' +
+    'abstract class User {\n' +
+    '    - username: string\n' +
+    '    - alive: boolean \n' +
+    '    + update()\n' +
+    '}\n' +
+    '@enduml'
+//const defaultCode = '@startuml\n' + 'class Dwelling {\n' + '  +Int Windows\n' + '+void Lock()\n' + '}\n' + '@enduml'
 const code = ref(defaultCode)
 
 function focus(node) {
@@ -86,8 +114,11 @@ function parseCode(){
     store.toastOptions = {}
   })
 }
+
+function generateRule(){
+
+}
 </script>
 
 <style scoped>
-
 </style>
