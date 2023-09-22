@@ -17,6 +17,13 @@
         <h5 class="accordion-faq m-0 position-relative"> General Information</h5><br>
         <form>
           <div class="form-group row">
+            <label class="col-form-label col-md-3">Rule Type</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" v-model="rule.rule_type" readonly="readonly">
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label class="col-form-label col-md-3">Class name</label>
             <div class="col-md-9">
               <input type="text" class="form-control" v-model="rule.rule_specific.class_name" readonly="readonly">
@@ -241,7 +248,11 @@
           </div>
 
           <div class="">
-            <button @click="save($event, rule)" class="btn btn-primary">Save</button>
+            <button @click="save($event, rule)" class="btn btn-primary">
+              <i class="fa fa-save"></i> Save</button>
+
+            <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
+              <i class="fa fa-trash"></i> Delete</button>
           </div>
         </form>
       </div>
@@ -253,6 +264,9 @@
 import {ref} from "vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
 import Swal from "sweetalert2";
+import useConverterStore from "@/stores/converter";
+
+const store = useConverterStore()
 
 const props = defineProps({
   rule: Object,
@@ -293,6 +307,18 @@ function save(e, rule){
   Swal.fire({
     title: 'Success!',
     text: 'This rule was successfully updated!',
+    icon: 'success',
+    toast: true,
+    position: 'top-right',
+  })
+}
+
+function deleteRule(e, rule){
+  e.preventDefault()
+  store.deleteRule(rule)
+  Swal.fire({
+    title: 'Success!',
+    text: 'This rule was successfully deleted!',
     icon: 'success',
     toast: true,
     position: 'top-right',
@@ -394,5 +420,9 @@ input[type=range]::-webkit-slider-thumb {
 
 .arg_input {
   width: 50%;
+}
+
+.ml-1 {
+  margin-left: 5px;
 }
 </style>

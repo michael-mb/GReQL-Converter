@@ -46,6 +46,11 @@ const actions = {
         this.parsedCode = undefined
         this.rules = []
     },
+    deleteRule(rule) {
+        this.rules = this.rules.filter(r => {
+            return r !== rule
+        })
+    },
     generateRules(){
         let elements = this.parsedCode[0].elements
         elements.forEach( elem => {
@@ -67,8 +72,6 @@ const actions = {
                         let method = JSON.parse(JSON.stringify(rulesDefinitions.METHODS_TYPE))
                         method.name = member.name
                         method.return_type = member.returnType
-
-
                         method.arguments = member._arguments
 
                         if(member.accessor === '+')
@@ -79,8 +82,6 @@ const actions = {
                             method.visibility = "protected"
 
                         method.is_static = member.isStatic
-
-                        console.log("METHOD:", method)
                         rule.rule_specific.methods.push(method)
                     }
                     // Attribute
@@ -99,17 +100,9 @@ const actions = {
                         rule.rule_specific.attributes.push(attribute)
                     }
                 })
-
-                console.log("RULE:", rule)
                 this.rules.push(rule)
             }
         })
-
-/*
-        this.rules.push(
-           rulesDefinitions.RULE_TYPE_JSON.defined_class_rule
-      )
- */
     },
     async parse(param) {
         this.reset()
