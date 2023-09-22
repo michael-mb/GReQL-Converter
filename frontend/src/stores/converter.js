@@ -64,7 +64,9 @@ const actions = {
                 ...API_CONFIG.TOAST_OPTIONS.error,
                 text: error.message || 'An error occurred.',
             };
-
+            this.parsedCode = {
+                error: error.message
+            }
             this.spinner = false;
         }
     }
