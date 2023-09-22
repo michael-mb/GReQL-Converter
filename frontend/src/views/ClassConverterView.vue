@@ -76,6 +76,7 @@ import useConverterStore from "@/stores/converter"
 import Swal from "sweetalert2";
 import DefineClass from "@/components/rules/DefineClass.vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
+import {API_ENDPOINTS} from "@/config/config";
 
 const store = useConverterStore()
 const defaultCode = '@startuml\n' +
@@ -114,7 +115,7 @@ function focus(node) {
 function parseCode(){
   const param = {
     code : code.value,
-    endpoint: "/convert"
+    endpoint: API_ENDPOINTS.CONVERT
   }
 
   store.parse(param).then(() => {

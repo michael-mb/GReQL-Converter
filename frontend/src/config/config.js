@@ -1,3 +1,5 @@
 const BASE_API_URL = "http://localhost:3000"
-
-export {BASE_API_URL}
+const API_ENDPOINTS = {
+    CONVERT : "/convert"
+}
+export {BASE_API_URL, API_ENDPOINTS}
