@@ -25,7 +25,7 @@
                 <h4 class="card-title"><i class="feather-terminal"></i> Code Editor</h4>
               </div>
               <div class="card-body">
-                <code-editor  v-model="code" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                <code-editor  font-size="14px" v-model="code" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
                               width="100%" @textarea="focus"></code-editor>
 
                 <a class="btn btn-primary btn-blog mb-2 mt-5" @click="parseCode">
