@@ -31,7 +31,7 @@
                 <a class="btn btn-primary btn-blog mb-2 mt-5" @click="parseCode">
                   <i v-if="!store.isSpinning" class="feather-play-circle"></i>
                   <span v-if="store.isSpinning" class="spinner-border spinner-border-sm me-2"></span>
-                  Parse Code
+                  Code parsen
                 </a>
 
               </div>
