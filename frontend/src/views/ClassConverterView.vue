@@ -46,11 +46,21 @@
                 <div class="accordion custom-accordion" id="custom-accordion-one">
                   <DefineClass v-for="(rule, index) in store.rules" :rule="rule" :index="index"/>
                 </div>
+
+                <div class="dropdown dropdown-action" v-if="store.rules.length > 0 ">
+                  <a  class="mt-3 action-icon dropdown-toggl btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="feather-plus-circle"></i> Add Rule
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_class)" > <i class="feather-file-plus me-2"></i> Class definition</a>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -65,6 +75,7 @@ import {ref} from "vue";
 import useConverterStore from "@/stores/converter"
 import Swal from "sweetalert2";
 import DefineClass from "@/components/rules/DefineClass.vue";
+import rulesDefinitions from "@/lib/rulesDefinitions";
 
 const store = useConverterStore()
 const defaultCode = '@startuml\n' +
@@ -115,8 +126,12 @@ function parseCode(){
   })
 }
 
-function generateRule(){
-
+function addRule(type){
+  let rule
+  if(type === rulesDefinitions.RULE_TYPE.defined_class){
+    rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule))
+    store.addRule(rule)
+  }
 }
 </script>
 

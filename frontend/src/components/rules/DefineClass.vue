@@ -26,7 +26,7 @@
           <div class="form-group row">
             <label class="col-form-label col-md-3">Class name</label>
             <div class="col-md-9">
-              <input type="text" class="form-control" v-model="rule.rule_specific.class_name" readonly="readonly">
+              <input type="text" class="form-control" v-model="rule.rule_specific.class_name">
             </div>
           </div>
 

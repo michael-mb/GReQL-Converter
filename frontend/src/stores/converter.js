@@ -51,6 +51,9 @@ const actions = {
             return r !== rule
         })
     },
+    addRule(rule){
+        this.rules.push(rule)
+    },
     generateRules(){
         let elements = this.parsedCode[0].elements
         elements.forEach( elem => {
