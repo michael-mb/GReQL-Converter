@@ -6,9 +6,9 @@
           <span class="type"> CD </span> <span class="type_name">{{rule.rule_name}} - {{rule.rule_specific.class_name}}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
-        <span class="info-wrapper">
+        <a class="info-wrapper" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setDocumentation(rule)">
           <i class="feather-alert-circle"></i>
-        </span>
+        </a>
       </h5>
     </div>
 
@@ -359,6 +359,9 @@ function deleteRule(e, rule){
   })
 }
 
+function setDocumentation(rule){
+  store.setOffCanvas(rule)
+}
 </script>
 
 <style scoped>

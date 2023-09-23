@@ -29,7 +29,12 @@ const state = () => ({
     parsedCode: undefined,
     spinner: false,
     toastOptions: {},
-    rules: []
+    rules: [],
+    offCanvas: {
+        title: "... Test title",
+        info: "... information",
+        image: "src/assets/rules/testattribute.png"
+    }
 })
 
 const getters = {
@@ -37,7 +42,8 @@ const getters = {
         return state.parsedCode
     },
     isSpinning: (state) => state.spinner,
-    getRules: (state) => state.rules
+    getRules: (state) => state.rules,
+    getOffCanvas: (state) => state.offCanvas
 }
 
 const actions = {
@@ -45,6 +51,13 @@ const actions = {
         this.code = ""
         this.parsedCode = undefined
         this.rules = []
+    },
+    setOffCanvas(rule){
+        this.offCanvas = {
+            title: rule.rule_name,
+            info: rule.info_text,
+            image: rule.info_image
+        }
     },
     deleteRule(rule) {
         this.rules = this.rules.filter(r => {

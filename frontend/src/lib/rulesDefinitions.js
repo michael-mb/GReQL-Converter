@@ -31,7 +31,6 @@ export default {
             feedback: '... no feedback yet',
             points: 0,
             existence: 'presence',
-
             rule_specific: {
                 class_name: "Car",
                 abstract: false,
@@ -44,7 +43,7 @@ export default {
             rule_type: "count_attributes_rule",
             rule_name: "Count Attribute",
             existence: 'presence',
-            info_text: 'Diese Regel überprüft, ob das Modell genau N Attribute enthält',
+            info_text: 'Diese Regel überprüft, ob das Modell genau N Attribute enthält.',
             info_image: 'src/assets/rules/testattribute.png',
             points: 0,
             feedback: '... no feedback',
@@ -57,7 +56,7 @@ export default {
             rule_type: "count_methods_rule",
             rule_name: "Count Methods",
             existence: 'presence',
-            info_text: 'Diese Regel überprüft, ob das Modell genau N Methoden enthält',
+            info_text: 'Diese Regel überprüft, ob das Modell genau N Methoden enthält.',
             info_image: 'src/assets/rules/testmethods.png',
             points: 0,
             feedback: '... no feedback',
@@ -66,13 +65,6 @@ export default {
                 methods: 0,
             }
         },
-
-        /**
-        'class_with_attributes_rule' : {},
-        'class_with_methods_rule' : {},
-        'abstract_class_rule' : {},
-        'interface_rule' : {},
-         **/
 
         // RELATIONSHIPS
         'simple_association_rule'  : {},
@@ -115,5 +107,4 @@ export default {
         'one_to_many': 'one_to_many',
         'many_to_many': 'many_to_many'
     },
-    GREQL_TEMPLATE_TYPE: {},
 }

@@ -61,12 +61,25 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
                   </div>
-
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasLabel">{{store.getOffCanvas.title}}</h5>
+            <button type="button" class="btn-close text-reset mt-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="blog-image">
+            <img class="img-fluid" :src="store.getOffCanvas.image" alt="Post Image">
+          </div>
+          <div class="offcanvas-body">
+              {{store.getOffCanvas.info}}
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -138,18 +151,29 @@ function parseCode(){
 }
 
 function addRule(type){
-  let rule
-  if(type === rulesDefinitions.RULE_TYPE.defined_class){
-    rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule))
-  } else if (type === rulesDefinitions.RULE_TYPE.count_methods){
-    rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_methods_rule))
-  }  else if (type === rulesDefinitions.RULE_TYPE.count_attributes){
-    rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_attributes_rule))
+  let rule;
+  switch (type) {
+    case rulesDefinitions.RULE_TYPE.defined_class:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.count_methods:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_methods_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.count_attributes:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_attributes_rule));
+      break;
+    default:
+      alert("to implement")
+      break;
   }
 
-  store.addRule(rule)
+  store.addRule(rule);
 }
 </script>
 
 <style scoped>
+.blog-image img {
+  max-width: 350px;
+  max-height: 350px;
+}
 </style>
