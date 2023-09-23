@@ -5,13 +5,6 @@ export default {
         'count_attributes': 'count_attributes_rule',
         'count_methods': 'count_methods_rule',
 
-        /**
-        'attribute_class': 'class_with_attributes_rule', --
-        'methods_class': 'class_with_methods_rule', --
-        'abstract_class': 'abstract_class_rule',
-        'interface': 'interface_rule',
-         **/
-
         // RELATIONSHIPS
         'simple_association': 'simple_association_rule',
         'cardinality_association': 'cardinality_association_rule',
@@ -28,7 +21,6 @@ export default {
         'A_to_B_generalization': 'A_to_B_generalization'
     },
     RULE_TYPE_JSON: {
-        // ALL PARAMETERS
         // CLASS & INTERFACE
         'defined_class_rule' : {
             rule_type: 'defined_class_rule',
@@ -48,15 +40,31 @@ export default {
                 attributes: [],
             }
         },
-        // Only when the diagram has more than one attribute
         'count_attributes_rule' : {
-            class_name: "Car",
-            attributes: 0
+            rule_type: "count_attributes_rule",
+            rule_name: "Count Attribute",
+            existence: 'presence',
+            info_text: 'Diese Regel überprüft, ob das Modell genau N Attribute enthält',
+            info_image: 'src/assets/rules/testattribute.png',
+            points: 0,
+            feedback: '... no feedback',
+            rule_specific: {
+                class_name: "Car",
+                attributes: 0,
+            }
         },
-        // Only when the diagram has more than one method
         'count_methods_rule' : {
-            class_name: "Car",
-            methods: 0
+            rule_type: "count_methods_rule",
+            rule_name: "Count Methods",
+            existence: 'presence',
+            info_text: 'Diese Regel überprüft, ob das Modell genau N Methoden enthält',
+            info_image: 'src/assets/rules/testmethods.png',
+            points: 0,
+            feedback: '... no feedback',
+            rule_specific: {
+                class_name: "Car",
+                methods: 0,
+            }
         },
 
         /**
@@ -106,5 +114,6 @@ export default {
         'one_to_one' : 'one_to_one',
         'one_to_many': 'one_to_many',
         'many_to_many': 'many_to_many'
-    }
+    },
+    GREQL_TEMPLATE_TYPE: {},
 }

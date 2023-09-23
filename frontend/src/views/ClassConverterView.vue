@@ -44,7 +44,11 @@
               </div>
               <div class="card-body">
                 <div class="accordion custom-accordion" id="custom-accordion-one">
-                  <DefineClass v-for="(rule, index) in store.rules" :rule="rule" :index="index"/>
+                  <template v-for="(rule, index) in store.rules" >
+                    <DefineClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_class" :rule="rule" :index="index" />
+                    <Count v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.count_methods || rule.rule_type === rulesDefinitions.RULE_TYPE.count_attributes" :rule="rule" :index="index"/>
+                  </template>
+
                 </div>
 
                 <div class="dropdown dropdown-action" v-if="store.rules.length > 0 ">
@@ -54,6 +58,8 @@
 
                   <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_class)" > <i class="feather-file-plus me-2"></i> Class definition</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
                   </div>
 
                 </div>
@@ -77,6 +83,7 @@ import Swal from "sweetalert2";
 import DefineClass from "@/components/rules/DefineClass.vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
 import {API_ENDPOINTS} from "@/config/config";
+import Count from "@/components/rules/Count.vue";
 
 const store = useConverterStore()
 /*
@@ -134,8 +141,13 @@ function addRule(type){
   let rule
   if(type === rulesDefinitions.RULE_TYPE.defined_class){
     rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule))
-    store.addRule(rule)
+  } else if (type === rulesDefinitions.RULE_TYPE.count_methods){
+    rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_methods_rule))
+  }  else if (type === rulesDefinitions.RULE_TYPE.count_attributes){
+    rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_attributes_rule))
   }
+
+  store.addRule(rule)
 }
 </script>
 
