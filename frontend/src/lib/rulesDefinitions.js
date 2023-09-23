@@ -86,12 +86,16 @@ export default {
         return_type: "void",
         visibility: "public",
         arguments: "",
+        points: 0,
+        feedback: '... no feedback',
         is_static: false
     },
     ATTRIBUTE_TYPE: {
         name: "attribute_name",
         type: "string",
         visibility: "public",
+        points: 0,
+        feedback: '... no feedback',
         is_static: false
     },
     EXISTENCE_TYPE: {

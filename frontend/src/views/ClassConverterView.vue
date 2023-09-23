@@ -79,6 +79,7 @@ import rulesDefinitions from "@/lib/rulesDefinitions";
 import {API_ENDPOINTS} from "@/config/config";
 
 const store = useConverterStore()
+/*
 const defaultCode = '@startuml\n' +
     'skin rose\n' +
     'title Observer\n' +
@@ -106,7 +107,9 @@ const defaultCode = '@startuml\n' +
     '    + update()\n' +
     '}\n' +
     '@enduml'
-//const defaultCode = '@startuml\n' + 'class Dwelling {\n' + '  +Int Windows\n' + '+void Lock()\n' + '}\n' + '@enduml'
+
+ */
+const defaultCode = '@startuml\n' + 'class Dwelling {\n' + '  +Int Windows\n' + '+void Lock()\n' + '}\n' + '@enduml'
 const code = ref(defaultCode)
 
 function focus(node) {

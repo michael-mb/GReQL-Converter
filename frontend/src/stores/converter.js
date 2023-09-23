@@ -85,6 +85,9 @@ const actions = {
                             method.visibility = "protected"
 
                         method.is_static = member.isStatic
+                        method.feedback = "Die Klasse " + rule.rule_specific.class_name + " soll eine Methode namens "
+                            + method.name + " bereitstellen"
+
                         rule.rule_specific.methods.push(method)
                     }
                     // Attribute
@@ -100,9 +103,14 @@ const actions = {
                         else if (member.accessor === "#")
                             attribute.visibility = "protected"
 
+                        attribute.feedback = "Die Klasse " + rule.rule_specific.class_name + " soll ein Attribut " +
+                            "für die Eigenschaft " + attribute.name + " bereitstellen."
                         rule.rule_specific.attributes.push(attribute)
                     }
                 })
+
+                rule.feedback = "Es soll eine klasse mit der Name " + rule.rule_specific.class_name + " bereitgestellt " +
+                    "werden."
                 this.rules.push(rule)
             }
         })

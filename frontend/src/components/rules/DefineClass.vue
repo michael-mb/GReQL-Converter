@@ -15,7 +15,6 @@
     <div class="collapse" :class="isOpen === true ? 'show' : ''">
       <div class="card-body">
         <h5 class="accordion-faq m-0 position-relative"> General Information</h5><br>
-        <form>
           <div class="form-group row">
             <label class="col-form-label col-md-3">Rule Type</label>
             <div class="col-md-9">
@@ -75,6 +74,109 @@
               </div>
             </div>
           </div>
+
+          <div class="form-group row">
+            <label class="col-form-label col-md-3">Points</label>
+            <div class="col-md-9">
+              <div class="input-group">
+                <span class="input-group-text">{{rule.points}}</span>
+                <input v-model="rule.points" type="range" min="0" max="20" class="form-control" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-form-label col-md-12">Feedback</label>
+            <div class="col-md-12">
+              <textarea rows="5" cols="5" class="form-control" v-model="rule.feedback">
+              </textarea>
+            </div>
+          </div>
+
+          <hr>
+          <h5 class="accordion-faq m-0 position-relative">Attributes</h5><br>
+
+          <div v-for="(attribute, index) in attributes">
+            <h6>{{attribute.name}} # {{index}}</h6>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Name</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" v-model="attribute.name">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Type</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" v-model="attribute.type">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Visibility</label>
+              <div class="col-lg-9">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_public" value="public" v-model="attribute.visibility">
+                  <label class="form-check-label" for="attribute_visibility_public">
+                    Public
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_private" value="private" v-model="attribute.visibility">
+                  <label class="form-check-label" for="attribute_visibility_private">
+                    Private
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_protected" value="protected" v-model="attribute.visibility">
+                  <label class="form-check-label" for="attribute_visibility_protected">
+                    Protected
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Static</label>
+              <div class="col-lg-9">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index" id="attribute_static_true" :value="true" v-model="attribute.is_static">
+                  <label class="form-check-label" for="attribute_static_true">
+                    Yes
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index" id="attribute_static_false" :value="false" v-model="attribute.is_static">
+                  <label class="form-check-label" for="attribute_static_false">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-form-label col-md-3">Points</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <span class="input-group-text">{{attribute.points}}</span>
+                  <input v-model="attribute.points" type="range" min="0" max="20" class="form-control" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-form-label col-md-12">Attribute Feedback</label>
+              <div class="col-md-12">
+              <textarea rows="5" cols="5" class="form-control" v-model="attribute.feedback">
+              </textarea>
+              </div>
+            </div>
+
+          </div>
+          <div class="add_item" title="add attribute" @click="addAttribute(rule)">
+            <i class="fa fa-plus-circle"></i>
+          </div>
+
           <hr>
 
           <h5 class="accordion-faq m-0 position-relative"> Methods</h5><br>
@@ -145,8 +247,8 @@
                   {{method.arguments}}
                 </div>
                 <div>
-                    <input v-if="onAddArgMode === method" type="text" class="form-control arg_input" v-model="editedArg"
-                    @keydown.enter="addArgument(method)">
+                  <input v-if="onAddArgMode === method" type="text" class="form-control arg_input" v-model="editedArg"
+                         @keydown.enter="addArgument(method)">
                 </div>
                 <div class="add_arg" title="add argument" @click="onAddArgMode = method">
                   <i class="fa fa-plus"></i>
@@ -154,107 +256,39 @@
               </div>
             </div>
 
+            <div class="form-group row">
+              <label class="col-form-label col-md-3">Points</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <span class="input-group-text">{{method.points}}</span>
+                  <input v-model="method.points" type="range" min="0" max="20" class="form-control" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-form-label col-md-12">Method Feedback</label>
+              <div class="col-md-12">
+              <textarea rows="5" cols="5" class="form-control" v-model="method.feedback">
+              </textarea>
+              </div>
+            </div>
+
           </div>
           <div class="add_item" title="add method" @click="addMethod(rule)">
             <i class="fa fa-plus-circle"></i>
           </div>
-
           <hr>
 
-          <h5 class="accordion-faq m-0 position-relative">Attributes</h5><br>
+          <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
 
-          <div v-for="(attribute, index) in attributes">
-            <h6>{{attribute.name}} # {{index}}</h6>
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Name</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" v-model="attribute.name">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Type</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" v-model="attribute.type">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Visibility</label>
-              <div class="col-lg-9">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_public" value="public" v-model="attribute.visibility">
-                  <label class="form-check-label" for="attribute_visibility_public">
-                    Public
-                  </label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_private" value="private" v-model="attribute.visibility">
-                  <label class="form-check-label" for="attribute_visibility_private">
-                    Private
-                  </label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_protected" value="protected" v-model="attribute.visibility">
-                  <label class="form-check-label" for="attribute_visibility_protected">
-                    Protected
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Static</label>
-              <div class="col-lg-9">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index" id="attribute_static_true" :value="true" v-model="attribute.is_static">
-                  <label class="form-check-label" for="attribute_static_true">
-                    Yes
-                  </label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index" id="attribute_static_false" :value="false" v-model="attribute.is_static">
-                  <label class="form-check-label" for="attribute_static_false">
-                    No
-                  </label>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="add_item" title="add attribute" @click="addAttribute(rule)">
-            <i class="fa fa-plus-circle"></i>
-          </div>
-
-          <hr>
-          <h5 class="accordion-faq m-0 position-relative"> For the Feedback</h5><br>
-
-          <div class="form-group row">
-            <label class="col-form-label col-md-3">Points</label>
-            <div class="col-md-9">
-              <div class="input-group">
-                <span class="input-group-text">{{rule.points}}</span>
-                <input v-model="rule.points" type="range" min="1" max="20" class="form-control" required>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-form-label col-md-12">Feedback</label>
-            <div class="col-md-12">
-              <textarea rows="5" cols="5" class="form-control" v-model="rule.feedback">
-              </textarea>
-            </div>
-          </div>
-
-          <div class="">
+          <div>
             <button @click="save($event, rule)" class="btn btn-primary">
               <i class="fa fa-save"></i> Save</button>
 
             <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
               <i class="fa fa-trash"></i> Delete</button>
           </div>
-        </form>
       </div>
     </div>
   </div>
