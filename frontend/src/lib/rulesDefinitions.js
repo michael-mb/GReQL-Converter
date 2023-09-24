@@ -1,9 +1,15 @@
+import rulesExplanations from "@/helpers/rulesExplanations";
+
 export default {
     RULE_TYPE: {
         // CLASS & INTERFACE
         'defined_class': 'defined_class_rule',
         'count_attributes': 'count_attributes_rule',
         'count_methods': 'count_methods_rule',
+
+        // GENERALIZATION & SPECIALIZATION
+        'has_generalization': 'has_generalization_rule',
+        'A_to_B_generalization': 'A_to_B_generalization',
 
         // RELATIONSHIPS
         'simple_association': 'simple_association_rule',
@@ -14,19 +20,14 @@ export default {
         'aggregation_association': 'aggregation_association_rule',
 
         // ASSOCIATION CLASS
-        'class_association': 'class_association_rule',
-
-        // GENERALIZATION & SPECIALIZATION
-        'has_generalization': 'has_generalization_rule',
-        'A_to_B_generalization': 'A_to_B_generalization'
+        'class_association': 'class_association_rule'
     },
     RULE_TYPE_JSON: {
         // CLASS & INTERFACE
         'defined_class_rule' : {
             rule_type: 'defined_class_rule',
             rule_name: 'Class definition',
-            info_text: 'Diese Regel leitet aus Ihrem Diagramm die Regeln ab, die mit jeder Klasse oder Schnittstelle' +
-                ' verbunden sein sollten.',
+            info_text: rulesExplanations.defined_class_rule,
             info_image: 'src/assets/rules/defined_class_rule.png',
             feedback: '... no feedback yet',
             points: 0,
@@ -43,8 +44,8 @@ export default {
             rule_type: "count_attributes_rule",
             rule_name: "Count Attribute",
             existence: 'presence',
-            info_text: 'Diese Regel überprüft, ob das Modell genau N Attribute enthält.',
-            info_image: 'src/assets/rules/testattribute.png',
+            info_text: rulesExplanations.count_attributes_rule,
+            info_image: '',
             points: 0,
             feedback: '... no feedback',
             rule_specific: {
@@ -56,8 +57,8 @@ export default {
             rule_type: "count_methods_rule",
             rule_name: "Count Methods",
             existence: 'presence',
-            info_text: 'Diese Regel überprüft, ob das Modell genau N Methoden enthält.',
-            info_image: 'src/assets/rules/testmethods.png',
+            info_text: rulesExplanations.count_methods_rule,
+            info_image: '',
             points: 0,
             feedback: '... no feedback',
             rule_specific: {
@@ -65,6 +66,10 @@ export default {
                 methods: 0,
             }
         },
+
+        // GENERALIZATION & SPECIALIZATION
+        'has_generalization_rule' : {},
+        'A_to_B_generalization' : {},
 
         // RELATIONSHIPS
         'simple_association_rule'  : {},
@@ -75,11 +80,8 @@ export default {
         'aggregation_association_rule' : {},
 
         // ASSOCIATION CLASS
-        'class_association_rule' : {},
+        'class_association_rule' : {}
 
-        // GENERALIZATION & SPECIALIZATION
-        'has_generalization_rule' : {},
-        'A_to_B_generalization' : {}
     },
     METHODS_TYPE: {
         name: "public_method_name",

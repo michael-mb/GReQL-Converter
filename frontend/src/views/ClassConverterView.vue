@@ -69,14 +69,15 @@
 
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
           <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasLabel">{{store.getOffCanvas.title}}</h5>
+            <h3 class="offcanvas-title" id="offcanvasLabel">{{store.getOffCanvas.title}}</h3>
             <button type="button" class="btn-close text-reset mt-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="blog-image">
-            <img class="img-fluid" :src="store.getOffCanvas.image" alt="Post Image">
+            <img v-if="store.getOffCanvas.image !== ''" class="img-fluid" :src="store.getOffCanvas.image" alt="Post Image">
           </div>
           <div class="offcanvas-body">
-              {{store.getOffCanvas.info}}
+            <span class="off-icon"><i class="feather-alert-octagon"></i></span>
+            <span class="off-text">{{store.getOffCanvas.info}}</span>
           </div>
         </div>
 
@@ -176,4 +177,21 @@ function addRule(type){
   max-width: 350px;
   max-height: 350px;
 }
+
+.off-icon {
+  font-size: 40px;
+  color: #6b36de;
+  position: absolute;
+  top: -6px;
+}
+
+.off-text {
+  margin-left: 50px;
+  font-size: 19px;
+}
+.offcanvas-body {
+  position: relative;
+  margin-top: 20px;
+}
+
 </style>

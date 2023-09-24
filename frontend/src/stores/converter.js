@@ -33,7 +33,7 @@ const state = () => ({
     offCanvas: {
         title: "... Test title",
         info: "... information",
-        image: "src/assets/rules/testattribute.png"
+        image: ""
     }
 })
 
