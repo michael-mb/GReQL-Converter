@@ -10,7 +10,7 @@ export default {
 
         // GENERALIZATION & SPECIALIZATION
         'has_generalization': 'has_generalization_rule',
-        'A_to_B_generalization': 'A_to_B_generalization',
+        'generalization': 'generalization_rule',
 
         // RELATIONSHIPS
         'simple_association': 'simple_association_rule',
@@ -41,6 +41,7 @@ export default {
                 attributes: [],
             }
         },
+        // ENUM
         'defined_enum_rule' : {
             rule_type: 'defined_enum_rule',
             rule_name: 'Enum definition',
@@ -54,6 +55,7 @@ export default {
                 attributes: [],
             }
         },
+        // ATTRIBUTE RULE
         'count_attributes_rule' : {
             rule_type: "count_attributes_rule",
             rule_name: "Count Attribute",
@@ -67,6 +69,7 @@ export default {
                 attributes: 0,
             }
         },
+        // METHOD RULE
         'count_methods_rule' : {
             rule_type: "count_methods_rule",
             rule_name: "Count Methods",
@@ -82,8 +85,21 @@ export default {
         },
 
         // GENERALIZATION & SPECIALIZATION
+        'generalization_rule' : {
+            rule_type: "generalization_rule",
+            rule_name: "Generalization",
+            existence: "presence",
+            info_text: rulesExplanations.generalization_rule,
+            info_image: "src/assets/rules/generalization_rule.png",
+            points: 0,
+            feedback: '... no feedback',
+            rule_specific: {
+                class_child: "child",
+                class_parent: "parent",
+                type: "inheritance" // implementation
+            }
+        },
         'has_generalization_rule' : {},
-        'A_to_B_generalization' : {},
 
         // RELATIONSHIPS
         'simple_association_rule'  : {},
@@ -128,4 +144,8 @@ export default {
         'one_to_many': 'one_to_many',
         'many_to_many': 'many_to_many'
     },
+    GENERALIZATION_TYPE: {
+        'inheritance': 'inheritance',
+        'implementation': 'implementation'
+    }
 }

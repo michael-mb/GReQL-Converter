@@ -71,20 +71,37 @@ const actions = {
         const elements = this.parsedCode[0].elements;
 
         elements.forEach((elem) => {
+            // CLASS , ENUM, INTERFACE
+            let rule;
             if (elem.name && elem.title) {
-                let rule;
-
-                if (elem.stereotypes.includes("enum")) {
+                if (elem.stereotypes.includes("enum"))
                     rule = this.generateEnumRule(elem);
-                } else {
+                else
                     rule = this.generateClassRule(elem);
-                }
-
-                this.rules.push(rule);
             }
+            // GENERALIZATION & SPECIALIZATION
+            else if (elem.leftArrowHead.includes("<|"))
+                rule = this.generateGeneralizationRule(elem)
+
+            this.rules.push(rule);
         });
     },
 
+    generateGeneralizationRule(elem){
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.generalization_rule))
+        rule.rule_specific.class_parent = elem.left
+        rule.rule_specific.class_child = elem.right
+
+        if(elem.leftArrowBody === "-" && elem.rightArrowBody === "-"){
+            rule.rule_specific.type = rulesDefinitions.GENERALIZATION_TYPE.inheritance
+            rule.feedback = `Das Diagramm sollte eine Klasse ${elem.right} enthalten, die von einer Oberklasse ${elem.left} erbt.`
+        }
+        else if(elem.leftArrowBody === "." && elem.rightArrowBody === "."){
+            rule.rule_specific.type = rulesDefinitions.GENERALIZATION_TYPE.implementation
+            rule.feedback = `Das Diagramm sollte eine Klasse/Schnittstelle ${elem.right} enthalten, die einer Schnittstelle ${elem.left} implementiert.`
+        }
+        return rule;
+    },
     generateEnumRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_enum_rule));
         rule.rule_specific.enum_class_name = elem.name;

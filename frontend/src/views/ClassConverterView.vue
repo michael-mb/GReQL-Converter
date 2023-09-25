@@ -47,6 +47,7 @@
                   <template v-for="(rule, index) in store.rules" >
                     <DefineClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_class" :rule="rule" :index="index" />
                     <DefineEnum v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_enum" :rule="rule" :index="index" />
+                    <Generalization v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.generalization" :rule="rule" :index="index"/>
                     <Count v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.count_methods || rule.rule_type === rulesDefinitions.RULE_TYPE.count_attributes" :rule="rule" :index="index"/>
                   </template>
 
@@ -60,6 +61,7 @@
                   <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_class)" > <i class="feather-file-plus me-2"></i> Class definition</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_enum)" > <i class="feather-file-plus me-2"></i> Enum definition</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.generalization)" > <i class="feather-file-plus me-2"></i> Generalization</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
                   </div>
@@ -102,10 +104,11 @@ import {API_ENDPOINTS} from "@/config/config";
 import Count from "@/components/rules/Count.vue";
 import DefineEnum from "@/components/rules/DefineEnum.vue";
 import default_test_code from "@/helpers/default_test_code";
+import Generalization from "@/components/rules/Generalization.vue";
 
 const store = useConverterStore()
 
-const defaultCode = default_test_code.default_class_test
+const defaultCode = default_test_code.generalization_test.code
 
 const code = ref(defaultCode)
 
@@ -142,6 +145,9 @@ function addRule(type){
     case rulesDefinitions.RULE_TYPE.defined_enum:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_enum_rule));
       break;
+    case rulesDefinitions.RULE_TYPE.generalization:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.generalization_rule));
+      break;
     default:
       alert("to implement")
       break;
@@ -153,8 +159,6 @@ function addRule(type){
 
 <style scoped>
 .blog-image img {
-  max-width: 350px;
-  max-height: 350px;
 }
 
 .off-icon {
@@ -171,6 +175,10 @@ function addRule(type){
 .offcanvas-body {
   position: relative;
   margin-top: 20px;
+}
+
+.offcanvas-start {
+  width: 700px;
 }
 
 </style>
