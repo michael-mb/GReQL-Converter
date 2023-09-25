@@ -9,5 +9,7 @@ export default {
         "vorhanden sein sollten. Diese Regel ist nicht obligatorisch und wird daher nicht automatisch generiert.",
     generalization_rule: "Diese Regel dient dazu, die verschiedenen Generalisierungsbeziehungen zwischen den " +
         "verschiedenen Klassen und Schnittstellen zu definieren: \n" +
-        "Die Implementierung von Schnittstellen und die Vererbung von Klassen."
+        "Die Implementierung von Schnittstellen und die Vererbung von Klassen.",
+    has_generalization_child_rule: "Diese Regel überprüft, ob das Modell eine Klasse enthält, auf die in mindestens einer / N " +
+        "Generalisierung verwiesen wird."
 }

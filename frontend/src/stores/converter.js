@@ -132,6 +132,7 @@ const actions = {
         }
 
         elem.members.forEach((member) => {
+            // METHODS
             if (member.returnType) {
                 const method = JSON.parse(JSON.stringify(rulesDefinitions.METHODS_TYPE));
                 method.name = member.name;
@@ -142,7 +143,9 @@ const actions = {
                 method.feedback = `Die Klasse ${rule.rule_specific.class_name} soll eine Methode namens ${method.name} bereitstellen.`;
 
                 rule.rule_specific.methods.push(method);
-            } else if (member.type) {
+            }
+            // ATTRIBUTES
+            else if (member.type) {
                 const attribute = JSON.parse(JSON.stringify(rulesDefinitions.ATTRIBUTE_TYPE));
                 attribute.name = member.name;
                 attribute.type = member.type;

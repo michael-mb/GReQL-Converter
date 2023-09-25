@@ -3,7 +3,7 @@
     <div class="card-header">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toogle">
-          <span class="type"> CT </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_name}}  # {{index + 1}}
+          <span class="type"> HG </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_name}} # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
         <a class="info-wrapper" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setDocumentation(rule)">
@@ -15,36 +15,55 @@
     <div class="collapse" :class="isOpen === true ? 'show' : ''">
       <div class="card-body">
         <h5 class="accordion-faq m-0 position-relative"> General Information</h5><br>
-          <div class="form-group row">
-            <label class="col-form-label col-md-3">Rule Type</label>
-            <div class="col-md-9">
-              <input type="text" class="form-control" v-model="rule.rule_type" readonly="readonly">
-            </div>
+        <div class="form-group row">
+          <label class="col-form-label col-md-3">Rule Type</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" v-model="rule.rule_type" readonly="readonly">
           </div>
-
-          <div class="form-group row">
-            <label class="col-form-label col-md-3">Class name</label>
-            <div class="col-md-9">
-              <input type="text" class="form-control" v-model="rule.rule_specific.class_name">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-form-label col-md-3">Range</label>
-            <div class="col-md-9">
-              <select class="form-select" v-model="rule.existence">
-                <option>presence</option>
-                <option>absence</option>
-              </select>
-            </div>
-          </div>
+        </div>
 
         <div class="form-group row">
-          <label class="col-form-label col-md-3">{{globalUtils.capitalize(countType)}}</label>
+          <label class="col-form-label col-md-3">Range</label>
+          <div class="col-md-9">
+            <select class="form-select" v-model="rule.existence">
+              <option>presence</option>
+              <option>absence</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-form-label col-md-3">Class name</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control" v-model="rule.rule_specific.class_name">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label">Type</label>
+          <div class="col-lg-9">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" :name="'generalization_' + index" id="generalization_inheritance" value="inheritance" v-model="rule.rule_specific.type">
+              <label class="form-check-label" for="generalization_inheritance">
+                Inheritance
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" :name="'generalization_' + index" id="generalization_implementation" value="implementation" v-model="rule.rule_specific.type">
+              <label class="form-check-label" for="generalization_implementation">
+                Implementation
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-form-label col-md-3">Child number</label>
           <div class="col-md-9">
             <div class="input-group">
-              <span class="input-group-text">{{rule.rule_specific[countType]}}</span>
-              <input v-model="rule.rule_specific[countType]" type="range" min="0" max="20" class="form-control" required>
+              <span class="input-group-text">{{rule.rule_specific.number}}</span>
+              <input v-model="rule.rule_specific.number" type="range" min="1" max="20" class="form-control" required>
             </div>
           </div>
         </div>
@@ -70,11 +89,9 @@
         <hr>
 
         <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
-
-        <div>
-          <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
-            <i class="fa fa-trash"></i> Delete</button>
-        </div>
+        <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
+          <i class="fa fa-trash"></i> Delete
+        </button>
       </div>
     </div>
   </div>
@@ -85,20 +102,19 @@ import {ref} from "vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
 import Swal from "sweetalert2";
 import useConverterStore from "@/stores/converter";
-import globalUtils from "@/helpers/globalUtils";
 
 const store = useConverterStore()
+
 const props = defineProps({
   rule: Object,
   index: Number
 })
-const countType = props.rule.rule_type === rulesDefinitions.RULE_TYPE_JSON.count_attributes_rule.rule_type ?
-    'attributes' : 'methods'
 const isOpen = ref(false)
 
 function toogle(){
   isOpen.value = !isOpen.value
 }
+
 function deleteRule(e, rule){
   e.preventDefault()
   store.deleteRule(rule)

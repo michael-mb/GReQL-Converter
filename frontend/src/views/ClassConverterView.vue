@@ -48,6 +48,7 @@
                     <DefineClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_class" :rule="rule" :index="index" />
                     <DefineEnum v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_enum" :rule="rule" :index="index" />
                     <Generalization v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.generalization" :rule="rule" :index="index"/>
+                    <HasGeneralizationChild v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.has_generalization_child" :rule="rule" :index="index"/>
                     <Count v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.count_methods || rule.rule_type === rulesDefinitions.RULE_TYPE.count_attributes" :rule="rule" :index="index"/>
                   </template>
 
@@ -62,6 +63,8 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_class)" > <i class="feather-file-plus me-2"></i> Class definition</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_enum)" > <i class="feather-file-plus me-2"></i> Enum definition</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.generalization)" > <i class="feather-file-plus me-2"></i> Generalization</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.has_generalization_child)" > <i class="feather-file-plus me-2"></i> Has Gen_ Child</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
                   </div>
@@ -105,10 +108,11 @@ import Count from "@/components/rules/Count.vue";
 import DefineEnum from "@/components/rules/DefineEnum.vue";
 import default_test_code from "@/helpers/default_test_code";
 import Generalization from "@/components/rules/Generalization.vue";
+import HasGeneralizationChild from "@/components/rules/HasGeneralizationChild.vue";
 
 const store = useConverterStore()
 
-const defaultCode = default_test_code.generalization_test.code
+const defaultCode = default_test_code.complete_generalization_test.code
 
 const code = ref(defaultCode)
 
@@ -148,6 +152,9 @@ function addRule(type){
     case rulesDefinitions.RULE_TYPE.generalization:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.generalization_rule));
       break;
+    case rulesDefinitions.RULE_TYPE.has_generalization_child:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.has_generalization_child_rule));
+      break;
     default:
       alert("to implement")
       break;
@@ -159,6 +166,7 @@ function addRule(type){
 
 <style scoped>
 .blog-image img {
+  width: unset !important;
 }
 
 .off-icon {

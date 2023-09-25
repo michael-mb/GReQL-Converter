@@ -9,7 +9,7 @@ export default {
         'count_methods': 'count_methods_rule',
 
         // GENERALIZATION & SPECIALIZATION
-        'has_generalization': 'has_generalization_rule',
+        'has_generalization_child': 'has_generalization_child_rule',
         'generalization': 'generalization_rule',
 
         // RELATIONSHIPS
@@ -94,12 +94,26 @@ export default {
             points: 0,
             feedback: '... no feedback',
             rule_specific: {
-                class_child: "child",
-                class_parent: "parent",
+                class_child: "Child",
+                class_parent: "Parent",
                 type: "inheritance" // implementation
             }
         },
-        'has_generalization_rule' : {},
+        // HAS GENERALIZATION CHILD
+        'has_generalization_child_rule' : {
+            rule_type: "has_generalization_child_rule",
+            rule_name: "Has Generalization",
+            existence: "presence",
+            info_text: rulesExplanations.has_generalization_child_rule,
+            info_image: "src/assets/rules/generalization_mini.png",
+            points: 0,
+            feedback: '... no feedback',
+            rule_specific: {
+                class_name: "Parent",
+                type: "inheritance",
+                number: 1
+            }
+        },
 
         // RELATIONSHIPS
         'simple_association_rule'  : {},

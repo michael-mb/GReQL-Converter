@@ -55,63 +55,63 @@ export default {
     },
     complete_generalization_test: {
         code: "@startuml\n" +
-                "\n" +
+            "\n" +
             "skin rose\n" +
             "\n" +
             "title Generalization\n" +
             "\n" +
             "class Animal {\n" +
-            "  +makeSound(): void\n" +
+            "  +makeSound()\n" +
             "}\n" +
             "\n" +
             "class Mammal {\n" +
-            "  +giveBirth(): void\n" +
+            "  +Int giveBirth()\n" +
             "}\n" +
             "\n" +
             "class Bird {\n" +
-            "  +layEggs(): void\n" +
+            "  +Int layEggs()\n" +
             "}\n" +
             "\n" +
             "class Dog {\n" +
-            "  +makeSound(): void\n" +
-            "  +giveBirth(): void\n" +
+            "  +makeSound()\n" +
+            "  +Int giveBirth()\n" +
             "}\n" +
             "\n" +
             "class Cat {\n" +
-            "  +makeSound(): void\n" +
-            "  +giveBirth(): void\n" +
+            "  +makeSound()\n" +
+            "  +Int giveBirth()\n" +
             "}\n" +
             "\n" +
             "class Parrot {\n" +
-            "  +makeSound(): void\n" +
-            "  +layEggs(): void\n" +
+            "  +makeSound()\n" +
+            "  +Int layEggs()\n" +
             "}\n" +
             "\n" +
             "interface Swimmer <<interface>>{\n" +
-            "  +swim(): void\n" +
+            "  +swim()\n" +
             "}\n" +
             "\n" +
             "interface Flyer <<interface>>{\n" +
-            "  +fly(): void\n" +
+            "  +fly()\n" +
             "}\n" +
             "\n" +
             "class Dolphin {\n" +
-            "  +makeSound(): void\n" +
-            "  +giveBirth(): void\n" +
-            "  +swim(): void\n" +
+            "  +makeSound()\n" +
+            "  +Int giveBirth()\n" +
+            "  +swim()\n" +
             "}\n" +
             "\n" +
             "class Bat {\n" +
-            "  +makeSound(): void\n" +
-            "  +giveBirth(): void\n" +
-            "  +fly(): void\n" +
+            "  +makeSound()\n" +
+            "  +Int giveBirth()\n" +
+            "  +fly()\n" +
             "}\n" +
             "\n" +
             "class Duck {\n" +
-            "  +makeSound(): void\n" +
-            "  +layEggs(): void\n" +
-            "  +swim(): void\n" +
-            "  +fly(): void\n" +
+            "  +makeSound()\n" +
+            "  +Int layEggs()\n" +
+            "  +swim()\n" +
+            "  +fly()\n" +
             "}\n" +
             "\n" +
             "Animal <|-- Mammal\n" +

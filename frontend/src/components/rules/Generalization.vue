@@ -4,7 +4,7 @@
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toogle">
           <span class="type"> G </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_child}}
-          -> {{rule.rule_specific.class_parent }}  # {{index + 1}}
+          => {{rule.rule_specific.class_parent }}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
         <a class="info-wrapper" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setDocumentation(rule)">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-lg-3 col-form-label">Is Abstract</label>
+          <label class="col-lg-3 col-form-label">Type</label>
           <div class="col-lg-9">
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" :name="'generalization_' + index" id="generalization_inheritance" value="inheritance" v-model="rule.rule_specific.type">
