@@ -112,7 +112,7 @@ import HasGeneralizationChild from "@/components/rules/HasGeneralizationChild.vu
 
 const store = useConverterStore()
 
-const defaultCode = default_test_code.complete_generalization_test.code
+const defaultCode = default_test_code.generalization_test.code
 
 const code = ref(defaultCode)
 

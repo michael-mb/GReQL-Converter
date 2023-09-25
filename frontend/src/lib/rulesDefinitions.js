@@ -83,7 +83,6 @@ export default {
                 methods: 0,
             }
         },
-
         // GENERALIZATION & SPECIALIZATION
         'generalization_rule' : {
             rule_type: "generalization_rule",
