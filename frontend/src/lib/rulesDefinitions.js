@@ -4,6 +4,7 @@ export default {
     RULE_TYPE: {
         // CLASS & INTERFACE
         'defined_class': 'defined_class_rule',
+        'defined_enum': 'defined_enum_rule',
         'count_attributes': 'count_attributes_rule',
         'count_methods': 'count_methods_rule',
 
@@ -37,6 +38,19 @@ export default {
                 abstract: false,
                 interface: false,
                 methods: [],
+                attributes: [],
+            }
+        },
+        'defined_enum_rule' : {
+            rule_type: 'defined_enum_rule',
+            rule_name: 'Enum definition',
+            info_text: rulesExplanations.defined_class_rule,
+            info_image: 'src/assets/rules/defined_class_rule.png',
+            feedback: '... no feedback yet',
+            points: 0,
+            existence: 'presence',
+            rule_specific: {
+                enum_class_name: "Car",
                 attributes: [],
             }
         },
@@ -99,6 +113,11 @@ export default {
         points: 0,
         feedback: '... no feedback',
         is_static: false
+    },
+    ENUM_ATTRIBUTE_TYPE: {
+        name: "ENUM_ATTR",
+        points: 0,
+        feedback: '... no feedback',
     },
     EXISTENCE_TYPE: {
         'presence': 'presence',

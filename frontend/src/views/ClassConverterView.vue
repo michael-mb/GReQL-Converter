@@ -46,6 +46,7 @@
                 <div class="accordion custom-accordion" id="custom-accordion-one">
                   <template v-for="(rule, index) in store.rules" >
                     <DefineClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_class" :rule="rule" :index="index" />
+                    <DefineEnum v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_enum" :rule="rule" :index="index" />
                     <Count v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.count_methods || rule.rule_type === rulesDefinitions.RULE_TYPE.count_attributes" :rule="rule" :index="index"/>
                   </template>
 
@@ -58,6 +59,7 @@
 
                   <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_class)" > <i class="feather-file-plus me-2"></i> Class definition</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_enum)" > <i class="feather-file-plus me-2"></i> Enum definition</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
                   </div>
@@ -98,39 +100,13 @@ import DefineClass from "@/components/rules/DefineClass.vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
 import {API_ENDPOINTS} from "@/config/config";
 import Count from "@/components/rules/Count.vue";
+import DefineEnum from "@/components/rules/DefineEnum.vue";
+import default_test_code from "@/helpers/default_test_code";
 
 const store = useConverterStore()
-/*
-const defaultCode = '@startuml\n' +
-    'skin rose\n' +
-    'title Observer\n' +
-    'interface Subject <<interface>> {\n' +
-    '    + registerObserver(observer: Observer)\n' +
-    '    + removeObserver(observer: Observer)\n' +
-    '    + notifyObservers()\n' +
-    '}\n' +
-    '\n' +
-    'interface Observer <<interface>> {\n' +
-    '    + update()\n' +
-    '}\n' +
-    '\n' +
-    'class MyTopic {\n' +
-    '    - observers: Observer[]\n' +
-    '    - number: int\n' +
-    '    + registerObserver(observer: Observer)\n' +
-    '    + removeObserver(observer: Observer)\n' +
-    '    + notifyObservers()\n' +
-    '}\n' +
-    '\n' +
-    'abstract class User {\n' +
-    '    - username: string\n' +
-    '    - alive: boolean \n' +
-    '    + update()\n' +
-    '}\n' +
-    '@enduml'
 
- */
-const defaultCode = '@startuml\n' + 'class Dwelling {\n' + '  +Int Windows\n' + '+void Lock()\n' + '}\n' + '@enduml'
+const defaultCode = default_test_code.default_class_test
+
 const code = ref(defaultCode)
 
 function focus(node) {
@@ -162,6 +138,9 @@ function addRule(type){
       break;
     case rulesDefinitions.RULE_TYPE.count_attributes:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_attributes_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.defined_enum:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_enum_rule));
       break;
     default:
       alert("to implement")

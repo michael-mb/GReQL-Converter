@@ -67,66 +67,91 @@ const actions = {
     addRule(rule){
         this.rules.push(rule)
     },
-    generateRules(){
-        let elements = this.parsedCode[0].elements
-        elements.forEach( elem => {
-            // Class or Interface
-            if(elem.name && elem.title){
-                let rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule))
-                rule.rule_specific.class_name = elem.name
+    generateRules() {
+        const elements = this.parsedCode[0].elements;
 
-                if(elem.isAbstract)
-                    rule.rule_specific.abstract = elem.isAbstract
+        elements.forEach((elem) => {
+            if (elem.name && elem.title) {
+                let rule;
 
-                if(elem.stereotypes.includes("interface"))
-                    rule.rule_specific.interface = true
+                if (elem.stereotypes.includes("enum")) {
+                    rule = this.generateEnumRule(elem);
+                } else {
+                    rule = this.generateClassRule(elem);
+                }
 
-                // Methods & Attributes
-                elem.members.forEach(member => {
-                    // Method
-                    if(member.returnType){
-                        let method = JSON.parse(JSON.stringify(rulesDefinitions.METHODS_TYPE))
-                        method.name = member.name
-                        method.return_type = member.returnType
-                        method.arguments = member._arguments
-
-                        if(member.accessor === '+')
-                            method.visibility = "public"
-                        else if (member.accessor === "-")
-                            method.visibility = "private"
-                        else if (member.accessor === "#")
-                            method.visibility = "protected"
-
-                        method.is_static = member.isStatic
-                        method.feedback = "Die Klasse " + rule.rule_specific.class_name + " soll eine Methode namens "
-                            + method.name + " bereitstellen"
-
-                        rule.rule_specific.methods.push(method)
-                    }
-                    // Attribute
-                    else if (member.type){
-                        let attribute = JSON.parse(JSON.stringify(rulesDefinitions.ATTRIBUTE_TYPE))
-                        attribute.name = member.name
-                        attribute.type = member.type
-
-                        if(member.accessor === '+')
-                            attribute.visibility = "public"
-                        else if (member.accessor === "-")
-                            attribute.visibility = "private"
-                        else if (member.accessor === "#")
-                            attribute.visibility = "protected"
-
-                        attribute.feedback = "Die Klasse " + rule.rule_specific.class_name + " soll ein Attribut " +
-                            "für die Eigenschaft " + attribute.name + " bereitstellen."
-                        rule.rule_specific.attributes.push(attribute)
-                    }
-                })
-
-                rule.feedback = "Es soll eine klasse mit der Name " + rule.rule_specific.class_name + " bereitgestellt " +
-                    "werden."
-                this.rules.push(rule)
+                this.rules.push(rule);
             }
-        })
+        });
+    },
+
+    generateEnumRule(elem) {
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_enum_rule));
+        rule.rule_specific.enum_class_name = elem.name;
+
+        elem.members.forEach((member) => {
+            const attribute = JSON.parse(JSON.stringify(rulesDefinitions.ENUM_ATTRIBUTE_TYPE));
+            attribute.name = member.name;
+
+            attribute.feedback = `Die Enum ${rule.rule_specific.enum_class_name} soll ein Attribut für die Eigenschaft ${attribute.name} bereitstellen.`;
+
+            rule.rule_specific.attributes.push(attribute);
+        });
+
+        rule.feedback = `Es soll eine Enum mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
+        return rule;
+    },
+
+    generateClassRule(elem) {
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule));
+        rule.rule_specific.class_name = elem.name;
+
+        if (elem.isAbstract) {
+            rule.rule_specific.abstract = elem.isAbstract;
+        }
+
+        if (elem.stereotypes.includes("interface")) {
+            rule.rule_specific.interface = true;
+        }
+
+        elem.members.forEach((member) => {
+            if (member.returnType) {
+                const method = JSON.parse(JSON.stringify(rulesDefinitions.METHODS_TYPE));
+                method.name = member.name;
+                method.return_type = member.returnType;
+                method.arguments = member._arguments;
+
+                method.visibility = this.getVisibility(member.accessor);
+                method.feedback = `Die Klasse ${rule.rule_specific.class_name} soll eine Methode namens ${method.name} bereitstellen.`;
+
+                rule.rule_specific.methods.push(method);
+            } else if (member.type) {
+                const attribute = JSON.parse(JSON.stringify(rulesDefinitions.ATTRIBUTE_TYPE));
+                attribute.name = member.name;
+                attribute.type = member.type;
+
+                attribute.visibility = this.getVisibility(member.accessor);
+                attribute.feedback = `Die Klasse ${rule.rule_specific.class_name} soll ein Attribut für die Eigenschaft ${attribute.name} bereitstellen.`;
+
+                rule.rule_specific.attributes.push(attribute);
+            }
+        });
+
+        rule.feedback = `Es soll eine Klasse mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
+        return rule;
+    },
+
+    getVisibility(accessor) {
+        switch (accessor) {
+            case '+':
+                return 'public';
+            case '-':
+                return 'private';
+            case '#':
+                return 'protected';
+            default:
+                return 'public';
+        }
     },
     async parse(param) {
         this.reset()
