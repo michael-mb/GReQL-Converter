@@ -43,13 +43,13 @@
             <label class="col-lg-3 col-form-label">Is Interface</label>
             <div class="col-lg-9">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="interface" id="interface_yes" :value="true" v-model="rule.rule_specific.interface">
+                <input class="form-check-input" type="radio" :name="'interface_' + index" id="interface_yes" :value="true" v-model="rule.rule_specific.interface">
                 <label class="form-check-label" for="interface_yes">
                   Yes
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="interface" id="interface_no" :value="false" v-model="rule.rule_specific.interface">
+                <input class="form-check-input" type="radio" :name="'interface_' + index" id="interface_no" :value="false" v-model="rule.rule_specific.interface">
                 <label class="form-check-label" for="interface_no">
                   No
                 </label>
@@ -61,13 +61,13 @@
             <label class="col-lg-3 col-form-label">Is Abstract</label>
             <div class="col-lg-9">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="abstract" id="abstract_yes" :value="true" v-model="rule.rule_specific.abstract">
+                <input class="form-check-input" type="radio" :name="'abstract_' + index" id="abstract_yes" :value="true" v-model="rule.rule_specific.abstract">
                 <label class="form-check-label" for="abstract_yes">
                   Yes
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="abstract" id="abstract_no" :value="false" v-model="rule.rule_specific.abstract">
+                <input class="form-check-input" type="radio" :name="'abstract_' + index" id="abstract_no" :value="false" v-model="rule.rule_specific.abstract">
                 <label class="form-check-label" for="abstract_no">
                   No
                 </label>
@@ -96,8 +96,8 @@
           <hr>
           <h5 class="accordion-faq m-0 position-relative">Attributes</h5><br>
 
-          <div v-for="(attribute, index) in attributes">
-            <h6>{{attribute.name}} # {{index}}</h6>
+          <div v-for="(attribute, attribute_index) in attributes">
+            <h6>{{attribute.name}} # {{attribute_index}}</h6>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name</label>
               <div class="col-lg-9">
@@ -116,19 +116,19 @@
               <label class="col-lg-3 col-form-label">Visibility</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_public" value="public" v-model="attribute.visibility">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" id="attribute_visibility_public" value="public" v-model="attribute.visibility">
                   <label class="form-check-label" for="attribute_visibility_public">
                     Public
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_private" value="private" v-model="attribute.visibility">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" id="attribute_visibility_private" value="private" v-model="attribute.visibility">
                   <label class="form-check-label" for="attribute_visibility_private">
                     Private
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index" id="attribute_visibility_protected" value="protected" v-model="attribute.visibility">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" id="attribute_visibility_protected" value="protected" v-model="attribute.visibility">
                   <label class="form-check-label" for="attribute_visibility_protected">
                     Protected
                   </label>
@@ -140,13 +140,13 @@
               <label class="col-lg-3 col-form-label">Static</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index" id="attribute_static_true" :value="true" v-model="attribute.is_static">
+                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" id="attribute_static_true" :value="true" v-model="attribute.is_static">
                   <label class="form-check-label" for="attribute_static_true">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index" id="attribute_static_false" :value="false" v-model="attribute.is_static">
+                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" id="attribute_static_false" :value="false" v-model="attribute.is_static">
                   <label class="form-check-label" for="attribute_static_false">
                     No
                   </label>
@@ -181,8 +181,8 @@
 
           <h5 class="accordion-faq m-0 position-relative"> Methods</h5><br>
 
-          <div v-for="(method, index) in methods">
-            <h6>{{method.name}} # {{index}}</h6>
+          <div v-for="(method, method_index) in methods">
+            <h6>{{method.name}} # {{method_index}}</h6>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name</label>
               <div class="col-lg-9">
@@ -198,23 +198,23 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-lg-3 col-form-label">Visibility</label>
+              <label class="col-lg-3 col-form-label">Visibility </label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index" id="method_visibility_public" value="public" v-model="method.visibility">
+                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" id="method_visibility_public" :value="'public'" v-model="method.visibility">
                   <label class="form-check-label" for="method_visibility_public">
                     Public
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index" id="method_visibility_private" value="private" v-model="method.visibility">
+                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" id="method_visibility_private" :value="'private'" v-model="method.visibility">
                   <label class="form-check-label" for="method_visibility_private">
                     Private
                   </label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index" id="method_visibility_protected" value="protected" v-model="method.visibility">
+                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" id="method_visibility_protected" :value="'protected'" v-model="method.visibility">
                   <label class="form-check-label" for="method_visibility_protected">
                     Protected
                   </label>
@@ -226,13 +226,13 @@
               <label class="col-lg-3 col-form-label">Static</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_static_'+index" id="method_static_true" :value="true" v-model="method.is_static">
+                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" id="method_static_true" :value="true" v-model="method.is_static">
                   <label class="form-check-label" for="method_static_true">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_static_'+index" id="method_static_false" :value="false" v-model="method.is_static">
+                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" id="method_static_false" :value="false" v-model="method.is_static">
                   <label class="form-check-label" for="method_static_false">
                     No
                   </label>
@@ -309,8 +309,8 @@ const props = defineProps({
 const isOpen = ref(false)
 
 
-const methods = ref(props.rule.rule_specific.methods)
-const attributes = ref(props.rule.rule_specific.attributes)
+const methods = ref(JSON.parse(JSON.stringify(props.rule.rule_specific.methods)))
+const attributes = ref(JSON.parse(JSON.stringify(props.rule.rule_specific.attributes)))
 
 const onAddArgMode = ref({})
 const editedArg = ref("")
@@ -320,7 +320,7 @@ function toogle(){
 }
 
 function addMethod(){
-  methods.value.push({...rulesDefinitions.METHODS_TYPE})
+  methods.value.push(JSON.parse(JSON.stringify(rulesDefinitions.METHODS_TYPE)))
 }
 
 function addArgument(method){
@@ -330,7 +330,7 @@ function addArgument(method){
 }
 
 function addAttribute(){
-  attributes.value.push({...rulesDefinitions.ATTRIBUTE_TYPE})
+  attributes.value.push(JSON.parse(JSON.stringify(rulesDefinitions.ATTRIBUTE_TYPE)))
 }
 
 function save(e, rule){

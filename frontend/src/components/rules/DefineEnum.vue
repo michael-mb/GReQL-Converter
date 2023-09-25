@@ -61,8 +61,8 @@
           <hr>
           <h5 class="accordion-faq m-0 position-relative">Attributes</h5><br>
 
-          <div v-for="(attribute, index) in attributes">
-            <h6>{{attribute.name}} # {{index}}</h6>
+          <div v-for="(attribute, attribute_index) in attributes">
+            <h6>{{attribute.name}} # {{attribute_index}}</h6>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name</label>
               <div class="col-lg-9">
@@ -124,14 +124,14 @@ const props = defineProps({
 })
 const isOpen = ref(false)
 
-const attributes = ref(props.rule.rule_specific.attributes)
+const attributes = ref(JSON.parse(JSON.stringify(props.rule.rule_specific.attributes)))
 
 function toogle(){
   isOpen.value = !isOpen.value
 }
 
 function addAttribute(){
-  attributes.value.push({...rulesDefinitions.ENUM_ATTRIBUTE_TYPE})
+  attributes.value.push(JSON.parse(JSON.stringify(rulesDefinitions.ENUM_ATTRIBUTE_TYPE)))
 }
 
 function save(e, rule){
