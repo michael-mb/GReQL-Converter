@@ -207,10 +207,10 @@ const actions = {
     }
 }
 
-const useConverterStore = defineStore('converterStore', {
+const useClassConverterStore = defineStore('classConverterStore', {
     state,
     getters,
     actions
 });
 
-export default useConverterStore
+export default useClassConverterStore

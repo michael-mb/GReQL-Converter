@@ -84,10 +84,10 @@
 import {ref} from "vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
 import Swal from "sweetalert2";
-import useConverterStore from "@/stores/converter";
+import useClassConverterStore from "@/stores/classConverter";
 import globalUtils from "@/helpers/globalUtils";
 
-const store = useConverterStore()
+const store = useClassConverterStore()
 const props = defineProps({
   rule: Object,
   index: Number

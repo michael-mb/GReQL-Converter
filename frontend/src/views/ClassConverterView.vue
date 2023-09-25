@@ -99,7 +99,7 @@ import hljs from 'highlight.js';
 import CodeEditor from 'simple-code-editor';
 import Header from "@/components/Header.vue";
 import {ref} from "vue";
-import useConverterStore from "@/stores/converter"
+import useClassConverterStore from "@/stores/classConverter"
 import Swal from "sweetalert2";
 import DefineClass from "@/components/rules/DefineClass.vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
@@ -110,9 +110,9 @@ import default_test_code from "@/helpers/default_test_code";
 import Generalization from "@/components/rules/Generalization.vue";
 import HasGeneralizationChild from "@/components/rules/HasGeneralizationChild.vue";
 
-const store = useConverterStore()
+const store = useClassConverterStore()
 
-const defaultCode = default_test_code.generalization_test.code
+const defaultCode = default_test_code.complete_generalization_test.code
 
 const code = ref(defaultCode)
 
