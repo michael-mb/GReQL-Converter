@@ -11,5 +11,5 @@ export default {
         "verschiedenen Klassen und Schnittstellen zu definieren: \n" +
         "Die Implementierung von Schnittstellen und die Vererbung von Klassen.",
     has_generalization_child_rule: "Diese Regel überprüft, ob das Modell eine Klasse enthält, auf die in mindestens einer / N " +
-        "Generalisierung verwiesen wird."
+        "Generalisierungen verwiesen wird."
 }
