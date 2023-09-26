@@ -25,7 +25,7 @@
               </div>
               <div class="card-body">
                 <code-editor  font-size="14px" v-model="code" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
-                              width="100%" @textarea="focus"></code-editor>
+                              width="100%" :autofocus="true"></code-editor>
 
                 <a class="btn btn-primary btn-blog mb-2 mt-5" @click="parseCode">
                   <i v-if="!store.isSpinning" class="feather-play-circle"></i>
@@ -112,13 +112,9 @@ import HasGeneralizationChild from "@/components/rules/HasGeneralizationChild.vu
 
 const store = useClassConverterStore()
 
-const defaultCode = default_test_code.complete_generalization_test.code
+const defaultCode = default_test_code.generalization_test.code
 
 const code = ref(defaultCode)
-
-function focus(node) {
-  node.focus();
-}
 function parseCode(){
   const param = {
     code : code.value,
