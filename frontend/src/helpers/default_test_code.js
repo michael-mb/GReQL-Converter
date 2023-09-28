@@ -153,9 +153,6 @@ export default {
             "ClassC \"1\" -- \"1\" ClassE : Association\n" +
             "@enduml"
     },
-    complex_association_rule: {
-        code: ""
-    },
     association_class_rule: {
         code: "@startuml\n" +
             "\n" +

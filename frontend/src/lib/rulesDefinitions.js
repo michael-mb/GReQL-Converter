@@ -178,7 +178,7 @@ export default {
             rule_name: "Association Class",
             existence: "presence",
             info_text: rulesExplanations.association_class_rule,
-            info_image: "src/assets/rules/ass_clrelations.png",
+            info_image: "src/assets/rules/ass_class.png",
             points: 0,
             feedback: "... Es muss eine Assoziationsklasse C auf der Beziehung zwischen Klasse A und Klasse B haben.",
             rule_specific: {

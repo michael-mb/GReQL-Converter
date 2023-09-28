@@ -22,8 +22,19 @@
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title"><i class="feather-terminal"></i> Code Editor</h4>
+
               </div>
               <div class="card-body">
+                <div class="form-group row">
+                  <label class="col-form-label col-md-4 default_label">Default Code</label>
+                  <div class="col-md-8">
+                    <select class="form-select" v-model="defaultCode" @change="updateDefaultCode">
+                      <option v-for="(item, key) in default_test_code" :value="item"
+                      :selected="defaultCode === item">{{ key }}</option>
+                    </select>
+                  </div>
+                </div>
+
                 <code-editor  font-size="14px" v-model="code" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
                               width="100%" :autofocus="true"></code-editor>
 
@@ -127,9 +138,14 @@ import AssociationClass from "@/components/rules/AssociationClass.vue";
 
 const store = useClassConverterStore()
 
-const defaultCode = default_test_code.association_rule.code
+const defaultCode = ref(default_test_code.association_rule)
+const code = ref(defaultCode.value.code)
 
-const code = ref(defaultCode)
+function updateDefaultCode (){
+  code.value = defaultCode.value.code
+
+}
+
 function parseCode(){
   const param = {
     code : code.value,
@@ -215,4 +231,7 @@ function addRule(type){
   width: 700px;
 }
 
+.default_label {
+  font-size: 20px;
+}
 </style>
