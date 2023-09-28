@@ -128,6 +128,33 @@ export default {
             "\n" +
             "\n" +
             "@enduml"
+    },
+    association_rule: {
+        code: "@startuml\n" +
+            "\n" +
+            "skin rose\n" +
+            "\n" +
+            "title Relationships - Class Diagram\n" +
+            "\n" +
+            "class ClassA {}\n" +
+            "\n" +
+            "class ClassB {}\n" +
+            "\n" +
+            "class ClassC {}\n" +
+            "\n" +
+            "class ClassD {}\n" +
+            "\n" +
+            "class ClassE {}\n" +
+            "\n" +
+            "ClassA \"1..2\" -- \"0..*\" ClassB : Association\n" +
+            "ClassA o-- \"*\" ClassC : Aggregation\n" +
+            "ClassB *-- \"0..2\" ClassC : Composition\n" +
+            "ClassC -- ClassD  : Association\n" +
+            "ClassC \"1\" -- \"1\" ClassE : Association\n" +
+            "@enduml"
+    },
+    complex_association_rule: {
+        code: ""
     }
     
 }

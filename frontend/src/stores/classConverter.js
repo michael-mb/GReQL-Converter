@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia';
 import {BASE_API_URL} from "@/config/config";
 import rulesDefinitions from "@/lib/rulesDefinitions";
+import globalUtils from "@/helpers/globalUtils";
 
 const API_CONFIG = {
     BASE_URL: BASE_API_URL,
@@ -83,10 +84,52 @@ const actions = {
             else if (elem.leftArrowHead.includes("<|"))
                 rule = this.generateGeneralizationRule(elem)
 
-            this.rules.push(rule);
-        });
-    },
+            // SIMPLE ASSOCIATION
+            else if (globalUtils.isStringEmpty(elem.leftArrowHead) && globalUtils.isStringEmpty(elem.rightArrowHead)
+                && elem.leftArrowBody.includes("-") && elem.rightArrowBody.includes("-"))
+                rule = this.generateSimpleAssociationRule(elem)
 
+            // AGGREGATION
+            else if (elem.leftArrowHead.includes("o")){
+                rule = this.generateAggregationRule(elem)
+            }
+            // COMPOSITION
+            else if (elem.leftArrowHead.includes("*")){
+                rule = this.generateCompositionRule(elem)
+            }
+
+            if(rule !== undefined)
+                this.rules.push(rule);
+        });
+
+    },
+    generateAggregationRule(elem){
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.aggregation_rule))
+        rule.rule_specific.class_aggregate = elem.left
+        rule.rule_specific.class_element = elem.right
+        rule.rule_specific.aggregate_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
+        rule.rule_specific.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+        rule.feedback = `Es sollte eine Aggregationsbeziehung zwischen ${elem.left} und ${elem.right} bestehen, in der ${elem.left} das Aggregat und ${elem.right} das Element ist.`
+        return rule
+    },
+    generateCompositionRule(elem){
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.composition_rule))
+        rule.rule_specific.class_composite = elem.left
+        rule.rule_specific.class_element = elem.right
+        rule.rule_specific.composite_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
+        rule.rule_specific.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+        rule.feedback = `Es sollte eine Kompositionsbeziehung zwischen ${elem.left} und ${elem.right} bestehen, in der ${elem.left} das Komposite und ${elem.right} das Element ist.`
+        return rule
+    },
+    generateSimpleAssociationRule(elem){
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.simple_association_rule))
+        rule.rule_specific.class_A = elem.left
+        rule.rule_specific.class_B = elem.right
+        rule.rule_specific.A_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
+        rule.rule_specific.B_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+        rule.feedback = `Es sollte eine Associationsbeziehung zwischen ${elem.left} und ${elem.right} bestehen.`
+        return rule
+    },
     generateGeneralizationRule(elem){
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.generalization_rule))
         rule.rule_specific.class_parent = elem.left

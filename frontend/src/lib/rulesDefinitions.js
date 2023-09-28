@@ -14,11 +14,9 @@ export default {
 
         // RELATIONSHIPS
         'simple_association': 'simple_association_rule',
-        'cardinality_association': 'cardinality_association_rule',
-        'no_association' : 'no_association_rule',
-        'oriented_association': 'oriented_association_rule',
-        'composition_association': 'composition_association_rule',
-        'aggregation_association': 'aggregation_association_rule',
+        'composition': 'composition_rule',
+        'aggregation': 'aggregation_rule',
+        'no_association_rule': 'no_association_rule',
 
         // ASSOCIATION CLASS
         'class_association': 'class_association_rule'
@@ -115,12 +113,52 @@ export default {
         },
 
         // RELATIONSHIPS
-        'simple_association_rule'  : {},
-        'cardinality_association_rule' : {},
+        'simple_association_rule': {
+            rule_type: "simple_association_rule",
+            rule_name: "Simple Association",
+            existence: "presence",
+            info_text: rulesExplanations.simple_association_rule,
+            info_image: "src/assets/rules/association.png",
+            points: 0,
+            feedback: "... no feedback",
+            rule_specific: {
+                class_A: "Class A",
+                class_B: "Class B",
+                A_multiplicity: "1",
+                B_multiplicity: "1"
+            }
+        },
+        'composition_rule' : {
+            rule_type: "composition_rule",
+            rule_name: "Composition Rule",
+            existence: "presence",
+            info_text: rulesExplanations.aggregation_composition_rule,
+            info_image: "src/assets/rules/association.png",
+            points: 0,
+            feedback: "... no feedback",
+            rule_specific: {
+                class_composite: "Composite",
+                class_element: "Element",
+                composite_multiplicity: "1",
+                element_multiplicity: "*",
+            }
+        },
+        'aggregation_rule' : {
+            rule_type: "aggregation_rule",
+            rule_name: "Aggregation Rule",
+            existence: "presence",
+            info_text: rulesExplanations.aggregation_composition_rule,
+            info_image: "src/assets/rules/association.png",
+            points: 0,
+            feedback: "... no feedback",
+            rule_specific: {
+                class_aggregate: "Aggregate",
+                class_element: "Element",
+                aggregate_multiplicity: "1",
+                element_multiplicity: "*",
+            }
+        },
         'no_association_rule' : {},
-        'oriented_association_rule' : {},
-        'composition_association_rule' : {},
-        'aggregation_association_rule' : {},
 
         // ASSOCIATION CLASS
         'class_association_rule' : {}

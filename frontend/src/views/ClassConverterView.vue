@@ -48,6 +48,9 @@
                     <DefineClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_class" :rule="rule" :index="index" />
                     <DefineEnum v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_enum" :rule="rule" :index="index" />
                     <Generalization v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.generalization" :rule="rule" :index="index"/>
+                    <SimpleAssociation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.simple_association" :rule="rule" :index="index"/>
+                    <Aggregation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.aggregation" :rule="rule" :index="index"/>
+                    <Composition v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.composition" :rule="rule" :index="index"/>
                     <HasGeneralizationChild v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.has_generalization_child" :rule="rule" :index="index"/>
                     <Count v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.count_methods || rule.rule_type === rulesDefinitions.RULE_TYPE.count_attributes" :rule="rule" :index="index"/>
                   </template>
@@ -63,6 +66,9 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_class)" > <i class="feather-file-plus me-2"></i> Class definition</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_enum)" > <i class="feather-file-plus me-2"></i> Enum definition</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.generalization)" > <i class="feather-file-plus me-2"></i> Generalization</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.aggregation)" > <i class="feather-file-plus me-2"></i> Aggregation</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.composition)" > <i class="feather-file-plus me-2"></i> Composition</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.simple_association)" > <i class="feather-file-plus me-2"></i> Simple Association</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.has_generalization_child)" > <i class="feather-file-plus me-2"></i> Has Gen_ Child</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
@@ -109,10 +115,13 @@ import DefineEnum from "@/components/rules/DefineEnum.vue";
 import default_test_code from "@/helpers/default_test_code";
 import Generalization from "@/components/rules/Generalization.vue";
 import HasGeneralizationChild from "@/components/rules/HasGeneralizationChild.vue";
+import Aggregation from "@/components/rules/Aggregation.vue";
+import Composition from "@/components/rules/Composition.vue";
+import SimpleAssociation from "@/components/rules/SimpleAssociation.vue";
 
 const store = useClassConverterStore()
 
-const defaultCode = default_test_code.generalization_test.code
+const defaultCode = default_test_code.association_rule.code
 
 const code = ref(defaultCode)
 function parseCode(){
@@ -150,6 +159,15 @@ function addRule(type){
       break;
     case rulesDefinitions.RULE_TYPE.has_generalization_child:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.has_generalization_child_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.aggregation:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.aggregation_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.composition:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.composition_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.simple_association:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.simple_association_rule));
       break;
     default:
       alert("to implement")

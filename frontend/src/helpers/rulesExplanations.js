@@ -11,5 +11,9 @@ export default {
         "verschiedenen Klassen und Schnittstellen zu definieren: \n" +
         "Die Implementierung von Schnittstellen und die Vererbung von Klassen.",
     has_generalization_child_rule: "Diese Regel überprüft, ob das Modell eine Klasse enthält, auf die in mindestens einer / N " +
-        "Generalisierungen verwiesen wird."
+        "Generalisierungen verwiesen wird.",
+    simple_association_rule: "Diese Regel dient dazu, die Assoziationen zwischen den verschiedenen Klassen zu " +
+        "identifizieren und so die Beziehungen zwischen ihnen zu definieren.",
+    aggregation_composition_rule: "Diese Regel definiert die verschiedenen Aggregations- und Kompositionsbeziehungen," +
+        " die zwischen verschiedenen Klassen im Diagramm bestehen."
 }
