@@ -35,7 +35,8 @@ const state = () => ({
         title: "... Test title",
         info: "... information",
         image: ""
-    }
+    },
+    GReQLGeneratedCode: ""
 })
 
 const getters = {
@@ -44,7 +45,8 @@ const getters = {
     },
     isSpinning: (state) => state.spinner,
     getRules: (state) => state.rules,
-    getOffCanvas: (state) => state.offCanvas
+    getOffCanvas: (state) => state.offCanvas,
+    getGReQLGeneratedCode: (state) => state.GReQLGeneratedCode
 }
 
 const actions = {
@@ -59,6 +61,9 @@ const actions = {
             info: rule.info_text,
             image: rule.info_image
         }
+    },
+    setGReQLGeneratedCode (code){
+      this.GReQLGeneratedCode = code
     },
     deleteRule(rule) {
         this.rules = this.rules.filter(r => {

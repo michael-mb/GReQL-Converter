@@ -74,7 +74,6 @@
                   <a  class="mt-3 action-icon dropdown-toggl btn btn-primary" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="feather-plus-circle"></i> Add Rule
                   </a>
-
                   <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_class)" > <i class="feather-file-plus me-2"></i> Class definition</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.defined_enum)" > <i class="feather-file-plus me-2"></i> Enum definition</a>
@@ -89,8 +88,23 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
                   </div>
+                  <a class="ml-2 mt-3 btn btn-primary" @click="generateGReQLRules">
+                    <i class="feather-repeat"></i> Generate GReQL Code
+                  </a>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 d-flex" v-if="!globalUtils.isStringEmpty(GReQLCode)">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title"><i class="feather-code"></i> GReQL Code</h4>
+            </div>
+            <div class="card-body" ref="greQL_container">
+              <code-editor   font-size="14px" v-model="GReQLCode" theme="github" :line-nums="true" :languages="[['xml', 'xml']]" :header="true"
+                            width="100%" ></code-editor>
             </div>
           </div>
         </div>
@@ -108,7 +122,6 @@
             <span class="off-text">{{store.getOffCanvas.info}}</span>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -135,15 +148,16 @@ import Composition from "@/components/rules/Composition.vue";
 import SimpleAssociation from "@/components/rules/SimpleAssociation.vue";
 import TestAssociation from "@/components/rules/TestAssociation.vue";
 import AssociationClass from "@/components/rules/AssociationClass.vue";
+import GReQLRulesgenerator from "@/lib/GReQLRulesgenerator";
+import globalUtils from "@/helpers/globalUtils";
 
 const store = useClassConverterStore()
 
 const defaultCode = ref(default_test_code.association_rule_test)
 const code = ref(defaultCode.value.code)
-
+const GReQLCode = ref("")
 function updateDefaultCode (){
   code.value = defaultCode.value.code
-
 }
 
 function parseCode(){
@@ -204,6 +218,18 @@ function addRule(type){
 
   store.addRule(rule);
 }
+function generateGReQLRules(){
+  GReQLCode.value = GReQLRulesgenerator.generateGReQLRules(store.getRules)
+  store.setGReQLGeneratedCode(GReQLCode.value)
+  scrollDown()
+}
+
+function scrollDown() {
+  window.scrollBy({
+    top: window.innerHeight,
+    behavior: 'smooth',
+  });
+}
 </script>
 
 <style scoped>
@@ -233,5 +259,9 @@ function addRule(type){
 
 .default_label {
   font-size: 20px;
+}
+
+.ml-2 {
+  margin-left: 15px;
 }
 </style>
