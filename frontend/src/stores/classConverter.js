@@ -97,6 +97,7 @@ const actions = {
             else if (elem.leftArrowHead.includes("*")){
                 rule = this.generateCompositionRule(elem)
             }
+            // ASSOCIATED CLASS
             else if(elem.leftType.includes("UseCase") && elem.leftArrowBody.includes(".") && elem.rightArrowBody.includes("."))
                 rule = this.generateAssociationClassRule(elem)
 
