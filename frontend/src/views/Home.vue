@@ -20,8 +20,8 @@
 
           <HomeBox link="/class" image="src/assets/img/custom/class.png" title="UML-Klassendiagramm"
                    description="Verwenden Sie den GReQL-Konverter auf einem Klassendiagramm."/>
-          <HomeBox link="#" image="src/assets/img/custom/sequenz.png" title="UML-Sequenzdiagramm"
-                   description="Verwenden Sie den GReQL-Konverter auf einem Sequenzdiagramm."/>
+          <!--HomeBox link="#" image="src/assets/img/custom/sequenz.png" title="UML-Sequenzdiagramm"
+                   description="Verwenden Sie den GReQL-Konverter auf einem Sequenzdiagramm."/-->
         </div>
 
       </div>

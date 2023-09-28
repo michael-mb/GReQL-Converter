@@ -164,7 +164,7 @@ export default {
             "title Association - Class Diagram\n" +
             "\n" +
             "class Student {\n" +
-            "  Name\n" +
+            " Name: String\n" +
             "}\n" +
             "\n" +
             "class Enrollment {\n" +
