@@ -165,6 +165,7 @@ function parseCode(){
     code : code.value,
     endpoint: API_ENDPOINTS.CONVERT
   }
+  GReQLCode.value = ""
 
   store.parse(param).then(() => {
     Swal.fire(store.toastOptions)
