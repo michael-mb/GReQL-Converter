@@ -138,7 +138,7 @@ import AssociationClass from "@/components/rules/AssociationClass.vue";
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.association_rule)
+const defaultCode = ref(default_test_code.association_rule_test)
 const code = ref(defaultCode.value.code)
 
 function updateDefaultCode (){
