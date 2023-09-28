@@ -26,7 +26,7 @@
               </div>
               <div class="card-body">
                 <div class="form-group row">
-                  <label class="col-form-label col-md-4 default_label">Default Code</label>
+                  <label class="col-form-label col-md-4 default_label">Code Sample</label>
                   <div class="col-md-8">
                     <select class="form-select" v-model="defaultCode" @change="updateDefaultCode">
                       <option v-for="(item, key) in default_test_code" :value="item"
