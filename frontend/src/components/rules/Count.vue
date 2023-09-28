@@ -2,7 +2,7 @@
   <div class="card mb-1">
     <div class="card-header">
       <h5 class="accordion-faq m-0 position-relative">
-        <a class="custom-accordion-title text-reset d-block" @click="toogle">
+        <a class="custom-accordion-title text-reset d-block" @click="toggle">
           <span class="type"> CT </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_name}}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
@@ -96,7 +96,7 @@ const countType = props.rule.rule_type === rulesDefinitions.RULE_TYPE_JSON.count
     'attributes' : 'methods'
 const isOpen = ref(false)
 
-function toogle(){
+function toggle(){
   isOpen.value = !isOpen.value
 }
 function deleteRule(e, rule){

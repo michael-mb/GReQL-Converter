@@ -2,7 +2,7 @@
   <div class="card mb-1">
     <div class="card-header">
       <h5 class="accordion-faq m-0 position-relative">
-        <a class="custom-accordion-title text-reset d-block" @click="toogle">
+        <a class="custom-accordion-title text-reset d-block" @click="toggle">
           <span class="type"> ED </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.enum_class_name}}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
@@ -126,7 +126,7 @@ const isOpen = ref(false)
 
 const attributes = ref(JSON.parse(JSON.stringify(props.rule.rule_specific.attributes)))
 
-function toogle(){
+function toggle(){
   isOpen.value = !isOpen.value
 }
 

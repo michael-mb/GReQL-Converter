@@ -2,7 +2,7 @@
   <div class="card mb-1">
     <div class="card-header">
       <h5 class="accordion-faq m-0 position-relative">
-        <a class="custom-accordion-title text-reset d-block" @click="toogle">
+        <a class="custom-accordion-title text-reset d-block" @click="toggle">
           <span class="type"> G </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_child}}
           => {{rule.rule_specific.class_parent }}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
@@ -108,7 +108,7 @@ const props = defineProps({
 })
 const isOpen = ref(false)
 
-function toogle(){
+function toggle(){
   isOpen.value = !isOpen.value
 }
 
