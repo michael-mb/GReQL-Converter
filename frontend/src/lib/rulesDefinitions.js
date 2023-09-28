@@ -118,7 +118,7 @@ export default {
             rule_name: "Simple Association",
             existence: "presence",
             info_text: rulesExplanations.simple_association_rule,
-            info_image: "src/assets/rules/association.png",
+            info_image: "src/assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
             rule_specific: {
@@ -133,7 +133,7 @@ export default {
             rule_name: "Composition",
             existence: "presence",
             info_text: rulesExplanations.aggregation_composition_rule,
-            info_image: "src/assets/rules/association.png",
+            info_image: "src/assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
             rule_specific: {
@@ -148,7 +148,7 @@ export default {
             rule_name: "Aggregation",
             existence: "presence",
             info_text: rulesExplanations.aggregation_composition_rule,
-            info_image: "src/assets/rules/association.png",
+            info_image: "src/assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
             rule_specific: {
@@ -163,7 +163,7 @@ export default {
             rule_name: "Test Association",
             existence: "absence",
             info_text: rulesExplanations.test_association_rule,
-            info_image: "src/assets/rules/association.png",
+            info_image: "src/assets/rules/relations.png",
             points: 0,
             feedback: "... Es sollte keine Assoziation zwischen Klasse A und Klasse B bestehen.",
             rule_specific: {
@@ -178,7 +178,7 @@ export default {
             rule_name: "Association Class",
             existence: "presence",
             info_text: rulesExplanations.association_class_rule,
-            info_image: "src/assets/rules/ass_class.png",
+            info_image: "src/assets/rules/ass_clrelations.png",
             points: 0,
             feedback: "... Es muss eine Assoziationsklasse C auf der Beziehung zwischen Klasse A und Klasse B haben.",
             rule_specific: {

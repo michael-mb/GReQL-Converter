@@ -127,7 +127,7 @@ import AssociationClass from "@/components/rules/AssociationClass.vue";
 
 const store = useClassConverterStore()
 
-const defaultCode = default_test_code.association_class_rule.code
+const defaultCode = default_test_code.association_rule.code
 
 const code = ref(defaultCode)
 function parseCode(){
