@@ -19,7 +19,7 @@ export default {
         'test_association': 'test_association_rule',
 
         // ASSOCIATION CLASS
-        'class_association': 'class_association_rule'
+        'association_class': 'association_class_rule'
     },
     RULE_TYPE_JSON: {
         // CLASS & INTERFACE
@@ -173,8 +173,20 @@ export default {
         },
 
         // ASSOCIATION CLASS
-        'class_association_rule' : {}
-
+        'association_class_rule' : {
+            rule_type: "association_class_rule",
+            rule_name: "Association Class",
+            existence: "presence",
+            info_text: rulesExplanations.association_class_rule,
+            info_image: "src/assets/rules/ass_class.png",
+            points: 0,
+            feedback: "... Es muss eine Assoziationsklasse C auf der Beziehung zwischen Klasse A und Klasse B haben.",
+            rule_specific: {
+                class_A: "Class A",
+                class_B: "Class B",
+                class_C: "Class C"
+            }
+        }
     },
     METHODS_TYPE: {
         name: "public_method_name",

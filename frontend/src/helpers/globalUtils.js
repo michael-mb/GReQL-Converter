@@ -7,5 +7,8 @@ export default {
     },
     isStringEmpty: function (str){
         return str.trim().length === 0
-    }
+    },
+    split: function (str){
+        return  str.split(',').map(item => item.trim());
+    },
 }

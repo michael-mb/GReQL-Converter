@@ -155,6 +155,27 @@ export default {
     },
     complex_association_rule: {
         code: ""
+    },
+    association_class_rule: {
+        code: "@startuml\n" +
+            "\n" +
+            "skin rose\n" +
+            "\n" +
+            "title Association - Class Diagram\n" +
+            "\n" +
+            "class Student {\n" +
+            "  Name\n" +
+            "}\n" +
+            "\n" +
+            "class Enrollment {\n" +
+            "  drop()\n" +
+            "  cancel()\n" +
+            "}\n" +
+            "\n" +
+            "Student \"0..*\" - \"1..*\" Course\n" +
+            "(Student, Course) .. Enrollment\n" +
+            "\n" +
+            "@enduml"
     }
     
 }

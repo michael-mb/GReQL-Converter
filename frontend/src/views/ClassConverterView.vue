@@ -51,6 +51,7 @@
                     <SimpleAssociation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.simple_association" :rule="rule" :index="index"/>
                     <Aggregation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.aggregation" :rule="rule" :index="index"/>
                     <Composition v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.composition" :rule="rule" :index="index"/>
+                    <AssociationClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.association_class" :rule="rule" :index="index"/>
                     <HasGeneralizationChild v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.has_generalization_child" :rule="rule" :index="index"/>
                     <TestAssociation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.test_association" :rule="rule" :index="index" />
                     <Count v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.count_methods || rule.rule_type === rulesDefinitions.RULE_TYPE.count_attributes" :rule="rule" :index="index"/>
@@ -72,6 +73,7 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.simple_association)" > <i class="feather-file-plus me-2"></i> Simple Association</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.has_generalization_child)" > <i class="feather-file-plus me-2"></i> Has Gen_ Child</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.association_class)" > <i class="feather-file-plus me-2"></i> Association Class</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)" > <i class="feather-file-plus me-2"></i> Has Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
@@ -121,10 +123,11 @@ import Aggregation from "@/components/rules/Aggregation.vue";
 import Composition from "@/components/rules/Composition.vue";
 import SimpleAssociation from "@/components/rules/SimpleAssociation.vue";
 import TestAssociation from "@/components/rules/TestAssociation.vue";
+import AssociationClass from "@/components/rules/AssociationClass.vue";
 
 const store = useClassConverterStore()
 
-const defaultCode = default_test_code.association_rule.code
+const defaultCode = default_test_code.association_class_rule.code
 
 const code = ref(defaultCode)
 function parseCode(){
@@ -174,6 +177,9 @@ function addRule(type){
       break;
     case rulesDefinitions.RULE_TYPE.test_association:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.test_association_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.association_class:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.association_class_rule));
       break;
     default:
       alert("to implement")

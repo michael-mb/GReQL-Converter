@@ -97,11 +97,23 @@ const actions = {
             else if (elem.leftArrowHead.includes("*")){
                 rule = this.generateCompositionRule(elem)
             }
+            else if(elem.leftType.includes("UseCase") && elem.leftArrowBody.includes(".") && elem.rightArrowBody.includes("."))
+                rule = this.generateAssociationClassRule(elem)
 
             if(rule !== undefined)
                 this.rules.push(rule);
         });
 
+    },
+
+    generateAssociationClassRule(elem){
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.association_class_rule))
+        const classes = globalUtils.split(elem.left)
+        rule.rule_specific.class_A = classes[0]
+        rule.rule_specific.class_B = classes[1]
+        rule.rule_specific.class_C = elem.right
+        rule.feedback = `Es muss eine Assoziationsklasse ${elem.right} auf der Beziehung zwischen Klasse ${classes[0]} und Klasse ${classes[1]} haben.`
+        return rule
     },
     generateAggregationRule(elem){
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.aggregation_rule))
