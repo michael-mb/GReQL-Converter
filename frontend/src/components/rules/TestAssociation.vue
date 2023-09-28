@@ -3,7 +3,7 @@
     <div class="card-header">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toogle">
-          <span class="type"> SA </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_A}}
+          <span class="type"> TA </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_A}}
           - {{rule.rule_specific.class_B }}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
@@ -41,23 +41,9 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-form-label col-md-3">A Multiplicity</label>
-          <div class="col-md-9">
-            <input type="text" class="form-control" v-model="rule.rule_specific.A_multiplicity">
-          </div>
-        </div>
-
-        <div class="form-group row">
           <label class="col-form-label col-md-3">Class B</label>
           <div class="col-md-9">
             <input type="text" class="form-control" v-model="rule.rule_specific.class_B">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-form-label col-md-3">B Multiplicity</label>
-          <div class="col-md-9">
-            <input type="text" class="form-control" v-model="rule.rule_specific.B_multiplicity">
           </div>
         </div>
 

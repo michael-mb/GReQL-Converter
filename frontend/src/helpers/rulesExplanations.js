@@ -15,5 +15,7 @@ export default {
     simple_association_rule: "Diese Regel dient dazu, die Assoziationen zwischen den verschiedenen Klassen zu " +
         "identifizieren und so die Beziehungen zwischen ihnen zu definieren.",
     aggregation_composition_rule: "Diese Regel definiert die verschiedenen Aggregations- und Kompositionsbeziehungen," +
-        " die zwischen verschiedenen Klassen im Diagramm bestehen."
+        " die zwischen verschiedenen Klassen im Diagramm bestehen.",
+    test_association_rule: "Diese Regel dient einfach dazu, festzustellen, ob es eine Assoziation zwischen zwei Klassen" +
+        " gibt, unabhängig von der Art der Assoziation (Aggregation, Komposition oder sogar einfache Assoziation)."
 }

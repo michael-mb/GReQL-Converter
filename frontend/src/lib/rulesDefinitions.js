@@ -16,7 +16,7 @@ export default {
         'simple_association': 'simple_association_rule',
         'composition': 'composition_rule',
         'aggregation': 'aggregation_rule',
-        'no_association_rule': 'no_association_rule',
+        'test_association': 'test_association_rule',
 
         // ASSOCIATION CLASS
         'class_association': 'class_association_rule'
@@ -158,7 +158,19 @@ export default {
                 element_multiplicity: "*",
             }
         },
-        'no_association_rule' : {},
+        'test_association_rule' : {
+            rule_type: "test_association_rule",
+            rule_name: "Test Association",
+            existence: "absence",
+            info_text: rulesExplanations.test_association_rule,
+            info_image: "src/assets/rules/association.png",
+            points: 0,
+            feedback: "... Es sollte keine Assoziation zwischen Klasse A und Klasse B bestehen.",
+            rule_specific: {
+                class_A: "Class A",
+                class_B: "Class B",
+            }
+        },
 
         // ASSOCIATION CLASS
         'class_association_rule' : {}
