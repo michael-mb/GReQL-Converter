@@ -130,7 +130,7 @@ export default {
         },
         'composition_rule' : {
             rule_type: "composition_rule",
-            rule_name: "Composition Rule",
+            rule_name: "Composition",
             existence: "presence",
             info_text: rulesExplanations.aggregation_composition_rule,
             info_image: "src/assets/rules/association.png",
@@ -145,7 +145,7 @@ export default {
         },
         'aggregation_rule' : {
             rule_type: "aggregation_rule",
-            rule_name: "Aggregation Rule",
+            rule_name: "Aggregation",
             existence: "presence",
             info_text: rulesExplanations.aggregation_composition_rule,
             info_image: "src/assets/rules/association.png",
