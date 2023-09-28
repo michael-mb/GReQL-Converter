@@ -3,7 +3,7 @@
     <div class="card-header">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toggle">
-          <span class="type"> AG </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_aggregate}}
+          <span class="type"> A </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_aggregate}}
           => {{rule.rule_specific.class_element }}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
