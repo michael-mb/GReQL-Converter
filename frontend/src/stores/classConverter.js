@@ -174,7 +174,6 @@ const actions = {
         rule.feedback = `Es soll eine Enum mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
         return rule;
     },
-
     generateClassRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule));
         rule.rule_specific.class_name = elem.name;
@@ -229,6 +228,7 @@ const actions = {
                 return 'public';
         }
     },
+
     async parse(param) {
         this.reset()
 
