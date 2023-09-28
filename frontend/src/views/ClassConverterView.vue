@@ -103,8 +103,8 @@
               <h4 class="card-title"><i class="feather-code"></i> GReQL Code</h4>
             </div>
             <div class="card-body" ref="greQL_container">
-              <code-editor   font-size="14px" v-model="GReQLCode" theme="github" :line-nums="true" :languages="[['xml', 'xml']]" :header="true"
-                            width="100%" ></code-editor>
+              <code-editor   font-size="14px" v-model="GReQLCode" theme="github" @textarea="focus" :line-nums="true" :languages="[['xml', 'xml']]" :header="true"
+                            width="100%" :autofocus="true"></code-editor>
             </div>
           </div>
         </div>
@@ -217,6 +217,10 @@ function addRule(type){
   }
 
   store.addRule(rule);
+}
+
+function focus(node) {
+  node.focus();
 }
 function generateGReQLRules(){
   GReQLCode.value = GReQLRulesgenerator.generateGReQLRules(store.getRules)
