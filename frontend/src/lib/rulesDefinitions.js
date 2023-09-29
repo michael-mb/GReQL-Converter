@@ -214,11 +214,6 @@ export default {
         'presence': 'presence',
         'absence' : 'absence'
     },
-    CARDINALITY_TYPE: {
-        'one_to_one' : 'one_to_one',
-        'one_to_many': 'one_to_many',
-        'many_to_many': 'many_to_many'
-    },
     GENERALIZATION_TYPE: {
         'inheritance': 'inheritance',
         'implementation': 'implementation'
