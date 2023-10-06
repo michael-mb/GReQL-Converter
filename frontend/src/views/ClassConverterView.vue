@@ -150,10 +150,11 @@ import TestAssociation from "@/components/rules/TestAssociation.vue";
 import AssociationClass from "@/components/rules/AssociationClass.vue";
 import GReQLRulesgenerator from "@/lib/GReQLRulesgenerator";
 import globalUtils from "@/helpers/globalUtils";
+import xmlFormat from 'xml-formatter';
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.association_rule_test)
+const defaultCode = ref(default_test_code.easy_test)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
 function updateDefaultCode (){
@@ -224,7 +225,8 @@ function focus(node) {
   node.focus();
 }
 function generateGReQLRules(){
-  GReQLCode.value = GReQLRulesgenerator.generateGReQLRules(store.getRules)
+
+  GReQLCode.value = xmlFormat(GReQLRulesgenerator.generateGReQLRules(store.getRules))
   store.setGReQLGeneratedCode(GReQLCode.value)
   scrollDown()
 }

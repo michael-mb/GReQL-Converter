@@ -1,6 +1,12 @@
 export default {
     easy_test: {
-        code: "@startuml\n" + "class Dwelling {\n" + "  +Int Windows\n" + "+void Lock()\n" + "}\n" + "@enduml"
+        code: "@startuml\n" +
+            "class Dwelling {\n" +
+            "  - Windows : Int\n" +
+            "  + Time : Date\n" +
+            "  +void Lock()\n" +
+            "}\n" +
+            "@enduml"
     },
     class_test:  {
         code: "@startuml\n" +

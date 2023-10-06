@@ -183,8 +183,10 @@ const actions = {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule));
         rule.rule_specific.class_name = elem.name;
 
+        let abstractText = ""
         if (elem.isAbstract) {
             rule.rule_specific.abstract = elem.isAbstract;
+            abstractText = "abstracte "
         }
 
         if (elem.stereotypes.includes("interface")) {
@@ -206,18 +208,19 @@ const actions = {
             }
             // ATTRIBUTES
             else if (member.type) {
+                console.log(member)
                 const attribute = JSON.parse(JSON.stringify(rulesDefinitions.ATTRIBUTE_TYPE));
                 attribute.name = member.name;
                 attribute.type = member.type;
 
                 attribute.visibility = this.getVisibility(member.accessor);
-                attribute.feedback = `Die Klasse ${rule.rule_specific.class_name} soll ein Attribut für die Eigenschaft ${attribute.name} bereitstellen.`;
+                attribute.feedback = `Die Klasse ${rule.rule_specific.class_name} soll ein ${attribute.visibility} Attribut für die Eigenschaft ${attribute.name} und type ${attribute.type} bereitstellen.`;
 
                 rule.rule_specific.attributes.push(attribute);
             }
         });
 
-        rule.feedback = `Es soll eine Klasse mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
+        rule.feedback = `Es soll eine ${abstractText} Klasse mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
         return rule;
     },
 
