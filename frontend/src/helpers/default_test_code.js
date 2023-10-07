@@ -8,6 +8,13 @@ export default {
             "}\n" +
             "@enduml"
     },
+    easy_method_test: {
+        code: "@startuml\n" +
+            "class Dwelling {\n" +
+            " +void Lock()\n" +
+            "}\n" +
+            "@enduml"
+    },
     class_test:  {
         code: "@startuml\n" +
                 "skin rose\n" +

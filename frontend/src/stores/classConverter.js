@@ -208,7 +208,6 @@ const actions = {
             }
             // ATTRIBUTES
             else if (member.type) {
-                console.log(member)
                 const attribute = JSON.parse(JSON.stringify(rulesDefinitions.ATTRIBUTE_TYPE));
                 attribute.name = member.name;
                 attribute.type = member.type;
