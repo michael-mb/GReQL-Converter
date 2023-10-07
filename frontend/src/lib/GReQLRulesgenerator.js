@@ -21,7 +21,7 @@ export default {
                     break
                 default:
                     // TODO: How to handle Enums ?
-                    console.log("Not supported 😢");
+                    console.log(rule.rule_type + " - Not supported 😢");
             }
         })
 
