@@ -84,7 +84,7 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.association_class)" > <i class="feather-file-plus me-2"></i> Association Class</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.has_generalization_child)" > <i class="feather-file-plus me-2"></i> Has Gen_ Child</a>
-                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)" > <i class="feather-file-plus me-2"></i> Has Association</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)" > <i class="feather-file-plus me-2"></i> Test Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                   </div>
                   <a class="ml-2 mt-3 btn btn-primary" @click="generateGReQLRules">

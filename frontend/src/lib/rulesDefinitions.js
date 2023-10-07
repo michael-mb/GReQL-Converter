@@ -54,14 +54,13 @@ export default {
             }
         },
         // METHOD RULE
-        'count_methods_rule' : {
+        'count_methods_rule' : { // Done *
             rule_type: "count_methods_rule",
             rule_name: "Count Methods",
             existence: 'absence',
             info_text: rulesExplanations.count_methods_rule,
             info_image: '',
             points: 0,
-            feedback: '... no feedback',
             rule_specific: {
                 methods: 0,
             }
@@ -143,14 +142,13 @@ export default {
                 element_multiplicity: "*",
             }
         },
-        'test_association_rule' : {
+        'test_association_rule' : { // Done *
             rule_type: "test_association_rule",
             rule_name: "Test Association",
             existence: "absence",
             info_text: rulesExplanations.test_association_rule,
             info_image: "src/assets/rules/relations.png",
             points: 0,
-            feedback: "... Es sollte keine Assoziation zwischen Klasse A und Klasse B bestehen.",
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",

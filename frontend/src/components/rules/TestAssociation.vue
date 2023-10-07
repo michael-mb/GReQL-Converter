@@ -57,14 +57,6 @@
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-form-label col-md-12">Feedback</label>
-          <div class="col-md-12">
-            <textarea rows="5" cols="5" class="form-control" v-model="rule.feedback">
-            </textarea>
-          </div>
-        </div>
-
         <hr>
 
         <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>

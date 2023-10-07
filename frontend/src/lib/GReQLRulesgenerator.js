@@ -13,6 +13,9 @@ export default {
                 case 'composition_rule':
                     code += this.generateCompositionRule(rule)
                     break
+                case 'test_association_rule':
+                    code += this.generateTestAssociationRule(rule)
+                    break
                 case 'count_methods_rule':
                     code += this.generateCountMethodsRule(rule)
                     break
@@ -187,6 +190,28 @@ export default {
               </rule>`
         return code
     },
+
+    generateTestAssociationRule: function (rule) {
+        let feedback
+        if(rule.existence === "absence")
+            feedback = `Im Diagramm gibt es eine directe Association zwischen die Klasse "${rule.rule_specific.class_B}" und die Klasse "${rule.rule_specific.class_A}". Das kann durch eine bessere Modellierung vermieden werden.`
+        else
+            feedback = `Im Diagramm  gibt es keine directe Association zwischen die Klasse "${rule.rule_specific.class_B}" und die Klasse "${rule.rule_specific.class_A}". Das kann durch eine bessere Modellierung vermieden werden.`
+
+        let code = "<!-- Test Association Rule -->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+                    <query>from x,y : V{Class}
+                           with
+                              isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
+                              isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
+                              x --> V{Property} --> V{Association} &lt;-- V{Property} &lt;-- y
+                           report 1 end
+                    </query>
+                    <feedback prefix="Hinweis">${feedback}</feedback>
+                  </rule>`
+        return code
+    },
+
     getVisibility: function (accessor) {
         switch (accessor.visibility){
             case 'public':
@@ -246,5 +271,6 @@ export default {
         }
 
         return range;
-    }
+    },
+
 }
