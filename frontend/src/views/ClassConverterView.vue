@@ -86,7 +86,6 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.has_generalization_child)" > <i class="feather-file-plus me-2"></i> Has Gen_ Child</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)" > <i class="feather-file-plus me-2"></i> Has Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
-                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)"> <i class="feather-file-plus me-2"></i> Count Attributes</a>
                   </div>
                   <a class="ml-2 mt-3 btn btn-primary" @click="generateGReQLRules">
                     <i class="feather-repeat"></i> Generate GReQL Code
@@ -154,7 +153,7 @@ import xmlFormat from 'xml-formatter';
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.easy_method_test)
+const defaultCode = ref(default_test_code.aggregation_composition_rule_test)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
 function updateDefaultCode (){
@@ -185,9 +184,6 @@ function addRule(type){
       break;
     case rulesDefinitions.RULE_TYPE.count_methods:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_methods_rule));
-      break;
-    case rulesDefinitions.RULE_TYPE.count_attributes:
-      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_attributes_rule));
       break;
     case rulesDefinitions.RULE_TYPE.defined_enum:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_enum_rule));

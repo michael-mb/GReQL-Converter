@@ -53,31 +53,16 @@ export default {
                 attributes: [],
             }
         },
-        // ATTRIBUTE RULE
-        'count_attributes_rule' : {
-            rule_type: "count_attributes_rule",
-            rule_name: "Count Attribute",
-            existence: 'presence',
-            info_text: rulesExplanations.count_attributes_rule,
-            info_image: '',
-            points: 0,
-            feedback: '... no feedback',
-            rule_specific: {
-                class_name: "Car",
-                attributes: 0,
-            }
-        },
         // METHOD RULE
         'count_methods_rule' : {
             rule_type: "count_methods_rule",
             rule_name: "Count Methods",
-            existence: 'presence',
+            existence: 'absence',
             info_text: rulesExplanations.count_methods_rule,
             info_image: '',
             points: 0,
             feedback: '... no feedback',
             rule_specific: {
-                class_name: "Car",
                 methods: 0,
             }
         },

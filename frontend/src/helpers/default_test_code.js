@@ -53,7 +53,7 @@ export default {
     },
     generalization_test: {
         code: "@startuml\n" +
-                "skin rose\n" +
+            "skin rose\n" +
             "title Generalization\n" +
             "\n" +
             "class Animal {}\n" +
@@ -62,6 +62,7 @@ export default {
             "class Bat {}\n" +
             "\n" +
             "Animal <|-- Mammal\n" +
+            "Animal <|-- Bat\n" +
             "Flyer <|.. Bat\n" +
             "\n" +
             "@enduml"
@@ -185,6 +186,23 @@ export default {
             "Student \"0..*\" - \"1..*\" Course\n" +
             "(Student, Course) .. Enrollment\n" +
             "\n" +
+            "@enduml"
+    },
+    aggregation_composition_rule_test: {
+        code: "@startuml\n" +
+            "\n" +
+            "skin rose\n" +
+            "\n" +
+            "title Relationships - Class Diagram\n" +
+            "\n" +
+            "class ClassA {}\n" +
+            "\n" +
+            "class ClassB {}\n" +
+            "\n" +
+            "class ClassC {}\n" +
+            "\n" +
+            "ClassA o-- \"*\" ClassC : Aggregation\n" +
+            "ClassB *-- \"0..2\" ClassC : Composition\n" +
             "@enduml"
     },
     battleship_diagram_test: {

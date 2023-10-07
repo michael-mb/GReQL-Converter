@@ -6,8 +6,18 @@ export default {
             switch (rule.rule_type){
                 case 'defined_class_rule':
                     code += this.generateDefineClassRule(rule)
-                    break;
+                    break
+                case 'generalization_rule':
+                    code += this.generateGeneralizationRule(rule)
+                    break
+                case 'composition_rule':
+                    code += this.generateCompositionRule(rule)
+                    break
+                case 'count_methods_rule':
+                    code += this.generateCountMethodsRule(rule)
+                    break
                 default:
+                    // TODO: How to handle Enums ?
                     console.log("Not supported 😢");
             }
         })
@@ -27,7 +37,8 @@ export default {
         else
             abstractCode = `and (not x.isAbstract)`
 
-        let code = `<rule type="${rule.existence}" points="${rule.points}">
+        let code = "<!-- Class Definition -->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
         <query>from x : V{Class} with isDefined(x.name) and  
                stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
                ${abstractCode}
@@ -37,6 +48,7 @@ export default {
         </rule>
          `
 
+        /*
         if(rule.rule_specific.attributes.length !== 0){
             rule.rule_specific.attributes.forEach(attribute => {
                 code += this.generateAttributeRule(rule, attribute)
@@ -48,10 +60,10 @@ export default {
                 code += this.generateMethodRule(rule, method)
             })
         }
+         */
 
         return code
     },
-
     generateAttributeRule: function (rule, attribute){
         /***
         TODO: To be done
@@ -125,6 +137,56 @@ export default {
         return code
     },
 
+    generateGeneralizationRule: function (rule) {
+        // TODO: Cannot handle implementation 😢
+        // TODO: Cannot recognize interface
+
+        let code = "<!-- Generalization rule -->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+            <query>from a,b : V{Class}
+                   with
+                      isDefined(a.name) and a.name="${rule.rule_specific.class_child}" and
+                      isDefined(b.name) and b.name="${rule.rule_specific.class_parent}" and
+                      a --> V{Generalization} --> b
+                   report 1 end
+            </query>
+            <feedback>${rule.feedback}</feedback>
+          </rule>`
+        return code
+    },
+
+    generateCompositionRule: function (rule) {
+        console.log("Composition Rule:", rule)
+
+        let code = "<!-- Composition rule -->"
+        code += "<!-- TODO: How to do it ? -->"
+        code += `  <rule type="${rule.existence}" points="${rule.points}">
+                    <query>from a,b : V{Class}, p: V{Property}
+                           with
+                              isDefined(a.name) and a.name="${rule.rule_specific.class_composite}" and
+                              isDefined(b.name) and b.name="${rule.rule_specific.class_element}" and
+                              b --> p and
+                              isDefined(p.aggregation) and p.aggregation="composite"
+                           report 1 end
+                    </query>
+                    <feedback>${rule.feedback}</feedback>
+                  </rule>`
+        return code;
+    },
+
+    generateCountMethodsRule: function (rule){
+        let code = "<!-- Count Methods Rule -->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+                    <query>let c := count(from y : V{Operation} with isDefined(y.name) report y end) in
+                              from x : set(1)
+                              with
+                                 c&lt;>${rule.rule_specific.methods}
+                              report c as "count" end
+                    </query>
+                    <feedback>Das Diagramm sollte genau ${rule.rule_specific.methods} Methoden enthalten, enthält aber {count}.</feedback>
+              </rule>`
+        return code
+    },
     getVisibility: function (accessor) {
         switch (accessor.visibility){
             case 'public':
@@ -161,5 +223,28 @@ export default {
             default:
                 return "!prim"
         }
+    },
+    getMultiplicity: function(multiplicity){
+        const range = {};
+
+        if (multiplicity === '*') {
+            range.min = 0;
+            range.max = -1;
+        } else if (multiplicity === '+') {
+            range.min = 1;
+            range.max = -1;
+        } else if (/^\d+$/.test(multiplicity)) {
+            const n = parseInt(multiplicity, 10);
+            range.min = n;
+            range.max = n;
+        } else if (/^\d+\.\.\d+$/.test(s)) {
+            const [minStr, maxStr] = multiplicity.split('..');
+            range.min = parseInt(minStr, 10);
+            range.max = parseInt(maxStr, 10);
+        } else {
+            throw new Error('invalid multiplicity format');
+        }
+
+        return range;
     }
 }

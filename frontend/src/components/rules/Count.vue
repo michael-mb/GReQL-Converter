@@ -3,7 +3,7 @@
     <div class="card-header">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toggle">
-          <span class="type"> CT </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_name}}  # {{index + 1}}
+          <span class="type"> CT </span> <span class="type_name">{{rule.rule_name}}   # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
         <a class="info-wrapper" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setDocumentation(rule)">
@@ -22,12 +22,6 @@
             </div>
           </div>
 
-          <div class="form-group row">
-            <label class="col-form-label col-md-3">Class name</label>
-            <div class="col-md-9">
-              <input type="text" class="form-control" v-model="rule.rule_specific.class_name">
-            </div>
-          </div>
 
           <div class="form-group row">
             <label class="col-form-label col-md-3">Range</label>
