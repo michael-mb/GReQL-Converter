@@ -5,24 +5,23 @@ export default {
         // CLASS & INTERFACE
         'defined_class': 'defined_class_rule',
         'defined_enum': 'defined_enum_rule',
-        'count_attributes': 'count_attributes_rule',
-        'count_methods': 'count_methods_rule',
 
         // GENERALIZATION & SPECIALIZATION
-        'has_generalization_child': 'has_generalization_child_rule',
         'generalization': 'generalization_rule',
 
         // RELATIONSHIPS
         'simple_association': 'simple_association_rule',
         'composition': 'composition_rule',
         'aggregation': 'aggregation_rule',
-        'test_association': 'test_association_rule',
 
         // ASSOCIATION CLASS
         'association_class': 'association_class_rule',
 
         // OPTIONAL
-        'nomination_consistency': 'nomination_consistency_rule'
+        'nomination_consistency': 'nomination_consistency_rule',
+        'test_association': 'test_association_rule',
+        'count_methods': 'count_methods_rule',
+
     },
     RULE_TYPE_JSON: {
         // CLASS & INTERFACE
@@ -54,18 +53,6 @@ export default {
             rule_specific: {
                 enum_class_name: "Car",
                 attributes: [],
-            }
-        },
-        // METHOD RULE
-        'count_methods_rule' : { // Done *
-            rule_type: "count_methods_rule",
-            rule_name: "Count Methods",
-            existence: 'absence',
-            info_text: rulesExplanations.count_methods_rule,
-            info_image: '',
-            points: 0,
-            rule_specific: {
-                methods: 0,
             }
         },
         // GENERALIZATION & SPECIALIZATION
@@ -129,19 +116,6 @@ export default {
                 element_multiplicity: "*",
             }
         },
-        'test_association_rule' : { // Done *
-            rule_type: "test_association_rule",
-            rule_name: "Test Association",
-            existence: "absence",
-            info_text: rulesExplanations.test_association_rule,
-            info_image: "src/assets/rules/relations.png",
-            points: 0,
-            rule_specific: {
-                class_A: "Class A",
-                class_B: "Class B",
-            }
-        },
-
         // ASSOCIATION CLASS
         'association_class_rule' : {
             rule_type: "association_class_rule",
@@ -163,6 +137,29 @@ export default {
             rule_name: "Nomination Consistency",
             info_text: rulesExplanations.nomination_consistency,
             info_image: "",
+        },
+        'count_methods_rule' : { // Done *
+            rule_type: "count_methods_rule",
+            rule_name: "Count Methods",
+            existence: 'absence',
+            info_text: rulesExplanations.count_methods_rule,
+            info_image: '',
+            points: 0,
+            rule_specific: {
+                methods: 0,
+            }
+        },
+        'test_association_rule' : { // Done *
+            rule_type: "test_association_rule",
+            rule_name: "Test Association",
+            existence: "absence",
+            info_text: rulesExplanations.test_association_rule,
+            info_image: "src/assets/rules/relations.png",
+            points: 0,
+            rule_specific: {
+                class_A: "Class A",
+                class_B: "Class B",
+            }
         },
     },
     METHODS_TYPE: {
