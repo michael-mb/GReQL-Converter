@@ -19,7 +19,10 @@ export default {
         'test_association': 'test_association_rule',
 
         // ASSOCIATION CLASS
-        'association_class': 'association_class_rule'
+        'association_class': 'association_class_rule',
+
+        // OPTIONAL
+        'nomination_consistency': 'nomination_consistency_rule'
     },
     RULE_TYPE_JSON: {
         // CLASS & INTERFACE
@@ -153,7 +156,15 @@ export default {
                 class_B: "Class B",
                 class_C: "Class C"
             }
-        }
+        },
+        // OPTIONAL
+        'nomination_consistency' : {
+            rule_type: "nomination_consistency_rule",
+            rule_name: "Nomination Consistency",
+            info_text: rulesExplanations.nomination_consistency,
+            info_image: "",
+            points: 0
+        },
     },
     METHODS_TYPE: {
         name: "public_method_name",

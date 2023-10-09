@@ -22,6 +22,9 @@ export default {
                 case 'simple_association_rule':
                     code += this.generateSimpleAssociationRule(rule)
                     break
+                case 'nomination_consistency_rule':
+                    code += this.generateNominationConsistency(rule)
+                    break
                 default:
                     // TODO: How to handle Enums ?
                     console.log(rule.rule_type + " - Not supported 😢");
@@ -235,6 +238,20 @@ export default {
                     </query>
                     <feedback prefix="Hinweis">${feedback}</feedback>
                   </rule>`
+        return code
+    },
+
+    generateNominationConsistency: function (rule){
+        let code = "<!-- Nomination Consistency  Rule -->"
+        code +=`<rule type="absence" points="${rule.points}">
+                <query>from x,y : V{Property} 
+                with 
+                    isDefined(x.name) and isDefined(y.name) and
+                    x.name=capitalizeFirst(x.name) and
+                    not (y.name=capitalizeFirst(y.name)) 
+                    report x.name, y.name end</query>
+                <feedback>Hinweis (ohne Punktabzug): Ein Diagramm sollte eine konsistente Schreibweise enthalten, in der entweder alle Attribute mit einem Grossbuchstaben oder alle Attribute mit einem Kleinbuchstaben beginnen.</feedback>
+                </rule>`
         return code
     },
 

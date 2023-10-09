@@ -63,8 +63,8 @@
                     <Aggregation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.aggregation" :rule="rule" :index="index"/>
                     <Composition v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.composition" :rule="rule" :index="index"/>
                     <AssociationClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.association_class" :rule="rule" :index="index"/>
-                    <HasGeneralizationChild v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.has_generalization_child" :rule="rule" :index="index"/>
                     <TestAssociation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.test_association" :rule="rule" :index="index" />
+                    <NominationConsistency v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.nomination_consistency" :rule="rule" :index="index" />
                     <Count v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.count_methods || rule.rule_type === rulesDefinitions.RULE_TYPE.count_attributes" :rule="rule" :index="index"/>
                   </template>
 
@@ -85,6 +85,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)" > <i class="feather-file-plus me-2"></i> Test Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.nomination_consistency)" > <i class="feather-file-plus me-2"></i> Nomination Consistency</a>
                   </div>
                   <a class="ml-2 mt-3 btn btn-primary" @click="generateGReQLRules">
                     <i class="feather-repeat"></i> Generate GReQL Code
@@ -148,6 +149,7 @@ import AssociationClass from "@/components/rules/AssociationClass.vue";
 import GReQLRulesgenerator from "@/lib/GReQLRulesgenerator";
 import globalUtils from "@/helpers/globalUtils";
 import xmlFormat from 'xml-formatter';
+import NominationConsistency from "@/components/rules/NominationConsistency.vue";
 
 const store = useClassConverterStore()
 
@@ -203,6 +205,9 @@ function addRule(type){
       break;
     case rulesDefinitions.RULE_TYPE.association_class:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.association_class_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.nomination_consistency:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.nomination_consistency));
       break;
     default:
       alert("to implement")
