@@ -167,6 +167,27 @@ export default {
             "ClassC \"1\" -- \"1\" ClassE : Association\n" +
             "@enduml"
     },
+    simple_association_rule_test: {
+        code: "@startuml\n" +
+            "\n" +
+            "skin rose\n" +
+            "\n" +
+            "title Relationships - Class Diagram\n" +
+            "\n" +
+            "class ClassA {}\n" +
+            "\n" +
+            "class ClassB {}\n" +
+            "\n" +
+            "class ClassC {}\n" +
+            "\n" +
+            "class ClassD {}\n" +
+            "\n" +
+            "ClassA -- ClassC\n" +
+            "ClassB \"0..3\" -- \"0..2\" ClassC  \n" +
+            "ClassC \"2\" -- \"+\" ClassD \n" +
+            "\n" +
+            "@enduml"
+    },
     association_class_rule_test: {
         code: "@startuml\n" +
             "\n" +

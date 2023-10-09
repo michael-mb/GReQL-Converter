@@ -19,6 +19,9 @@ export default {
                 case 'count_methods_rule':
                     code += this.generateCountMethodsRule(rule)
                     break
+                case 'simple_association_rule':
+                    code += this.generateSimpleAssociationRule(rule)
+                    break
                 default:
                     // TODO: How to handle Enums ?
                     console.log(rule.rule_type + " - Not supported 😢");
@@ -175,6 +178,29 @@ export default {
                     <feedback>${rule.feedback}</feedback>
                   </rule>`
         return code;
+    },
+
+    generateSimpleAssociationRule: function (rule) {
+        console.log("Simple Rule: ", rule)
+        /**
+         * TODO: Not working 😢
+         */
+        let code = "<!-- Simple Association Rule -->"
+        code += "<!-- TODO: How to do it ? With cardinality ??? -->"
+        code += `  <rule type="${rule.existence}" points="${rule.points}">
+                    <query>from x,y : V{Class}, a,b: V{Property}
+                           with
+                              isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
+                              isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
+                              x --> a and
+                              a --> V{Association} &lt;-- V{Property} &lt;-- y and
+                              isDefined(a.lower) and a.lower="1" 
+                              and (not isDefined(a.upper) or a.upper="1")
+                           report 1 end
+                    </query>
+                    <feedback>Das Diagramm enthält keine Beziehung zwischen einem "A" und einem "B" mit der Kardinalität 1 oder keine Klassen mit diesen Namen.</feedback>
+                  </rule>`
+        return code
     },
 
     generateCountMethodsRule: function (rule){

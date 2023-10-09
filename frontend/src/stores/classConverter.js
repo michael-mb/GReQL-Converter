@@ -141,11 +141,23 @@ const actions = {
     },
     generateSimpleAssociationRule(elem){
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.simple_association_rule))
+        if(globalUtils.isStringEmpty(elem.leftCardinality) && globalUtils.isStringEmpty(elem.rightCardinality))
+            return this.generateTestAssociationRule(elem)
+        else {
+            rule.rule_specific.A_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
+            rule.rule_specific.B_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "1" : elem.rightCardinality
+        }
         rule.rule_specific.class_A = elem.left
         rule.rule_specific.class_B = elem.right
-        rule.rule_specific.A_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
-        rule.rule_specific.B_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+
         rule.feedback = `Es sollte eine Associationsbeziehung zwischen ${elem.left} und ${elem.right} bestehen.`
+        return rule
+    },
+    generateTestAssociationRule(elem){
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.test_association_rule))
+        rule.rule_specific.class_A = elem.left
+        rule.rule_specific.class_B = elem.right
+        rule.existence = "presence"
         return rule
     },
     generateGeneralizationRule(elem){

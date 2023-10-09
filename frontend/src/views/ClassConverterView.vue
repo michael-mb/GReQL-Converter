@@ -153,7 +153,7 @@ import xmlFormat from 'xml-formatter';
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.aggregation_composition_rule_test)
+const defaultCode = ref(default_test_code.simple_association_rule_test)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
 function updateDefaultCode (){
