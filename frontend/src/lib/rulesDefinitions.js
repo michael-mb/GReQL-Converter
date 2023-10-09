@@ -163,7 +163,6 @@ export default {
             rule_name: "Nomination Consistency",
             info_text: rulesExplanations.nomination_consistency,
             info_image: "",
-            points: 0
         },
     },
     METHODS_TYPE: {

@@ -23,7 +23,7 @@ export default {
                     code += this.generateSimpleAssociationRule(rule)
                     break
                 case 'nomination_consistency_rule':
-                    code += this.generateNominationConsistencyRule(rule)
+                    code += this.generateNominationConsistencyRule()
                     break
                 default:
                     // TODO: How to handle Enums ?
@@ -241,9 +241,9 @@ export default {
         return code
     },
 
-    generateNominationConsistencyRule: function (rule){
+    generateNominationConsistencyRule: function (){
         let code = "<!-- Nomination Consistency  Rule -->"
-        code +=`<rule type="absence" points="${rule.points}">
+        code +=`<rule type="absence" points="0">
                 <query>from x,y : V{Property} 
                 with 
                     isDefined(x.name) and isDefined(y.name) and

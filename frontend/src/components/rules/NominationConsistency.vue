@@ -22,16 +22,6 @@
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-form-label col-md-3">Points</label>
-          <div class="col-md-9">
-            <div class="input-group">
-              <span class="input-group-text">{{rule.points}}</span>
-              <input v-model="rule.points" type="range" min="0" max="20" class="form-control" required>
-            </div>
-          </div>
-        </div>
-
         <hr>
 
         <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
