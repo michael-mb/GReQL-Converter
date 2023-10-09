@@ -80,22 +80,6 @@ export default {
                 type: "inheritance" // implementation
             }
         },
-        // HAS GENERALIZATION CHILD
-        'has_generalization_child_rule' : {
-            rule_type: "has_generalization_child_rule",
-            rule_name: "Has Generalization",
-            existence: "presence",
-            info_text: rulesExplanations.has_generalization_child_rule,
-            info_image: "src/assets/rules/generalization_mini.png",
-            points: 0,
-            feedback: '... no feedback',
-            rule_specific: {
-                class_name: "Parent",
-                type: "inheritance",
-                number: 1
-            }
-        },
-
         // RELATIONSHIPS
         'simple_association_rule': {
             rule_type: "simple_association_rule",

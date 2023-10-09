@@ -83,7 +83,6 @@
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.simple_association)" > <i class="feather-file-plus me-2"></i> Simple Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.association_class)" > <i class="feather-file-plus me-2"></i> Association Class</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.has_generalization_child)" > <i class="feather-file-plus me-2"></i> Has Gen_ Child</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)" > <i class="feather-file-plus me-2"></i> Test Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
                   </div>
@@ -141,7 +140,6 @@ import Count from "@/components/rules/Count.vue";
 import DefineEnum from "@/components/rules/DefineEnum.vue";
 import default_test_code from "@/helpers/default_test_code";
 import Generalization from "@/components/rules/Generalization.vue";
-import HasGeneralizationChild from "@/components/rules/HasGeneralizationChild.vue";
 import Aggregation from "@/components/rules/Aggregation.vue";
 import Composition from "@/components/rules/Composition.vue";
 import SimpleAssociation from "@/components/rules/SimpleAssociation.vue";
@@ -190,9 +188,6 @@ function addRule(type){
       break;
     case rulesDefinitions.RULE_TYPE.generalization:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.generalization_rule));
-      break;
-    case rulesDefinitions.RULE_TYPE.has_generalization_child:
-      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.has_generalization_child_rule));
       break;
     case rulesDefinitions.RULE_TYPE.aggregation:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.aggregation_rule));
