@@ -18,7 +18,10 @@
             <RouterLink :class="{ 'active': $route.name === 'home' }" to="/"><i class="feather-home"></i> <span>Home</span></RouterLink>
           </li>
           <li>
-            <RouterLink :class="{ 'active': $route.name === 'class' }" to="/class"><i class="feather-file"></i> <span>Class Converter</span></RouterLink>
+            <RouterLink :class="{ 'active': $route.name === 'class' }" to="/class"><i class="feather-repeat"></i> <span>Class Converter</span></RouterLink>
+          </li>
+          <li>
+            <RouterLink :class="{ 'active': $route.name === 'documentation' }" to="/documentation"><i class="feather-file-text"></i> <span>Documentation</span></RouterLink>
           </li>
         </ul>
       </div>
