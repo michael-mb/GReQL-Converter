@@ -195,10 +195,10 @@ export default {
                            with
                               isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
                               isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
+                              isDefined(a.lower) and a.lower="1" and 
+                              (not isDefined(a.upper) or a.upper="1") and
                               x --> a and
-                              a --> V{Association} &lt;-- V{Property} &lt;-- y and
-                              isDefined(a.lower) and a.lower="1" 
-                              and (not isDefined(a.upper) or a.upper="1")
+                              a --> V{Association} &lt;-- V{Property} &lt;-- y
                            report 1 end
                     </query>
                     <feedback>Das Diagramm enthält keine Beziehung zwischen einem "A" und einem "B" mit der Kardinalität 1 oder keine Klassen mit diesen Namen.</feedback>
