@@ -95,13 +95,11 @@ const actions = {
                 rule = this.generateSimpleAssociationRule(elem)
 
             // AGGREGATION
-            else if (elem.leftArrowHead.includes("o")){
+            else if (elem.leftArrowHead.includes("o"))
                 rule = this.generateAggregationRule(elem)
-            }
             // COMPOSITION
-            else if (elem.leftArrowHead.includes("*")){
+            else if (elem.leftArrowHead.includes("*"))
                 rule = this.generateCompositionRule(elem)
-            }
             // ASSOCIATED CLASS
             else if(elem.leftType.includes("UseCase") && elem.leftArrowBody.includes(".") && elem.rightArrowBody.includes("."))
                 rule = this.generateAssociationClassRule(elem)
@@ -109,7 +107,6 @@ const actions = {
             if(rule !== undefined)
                 this.rules.push(rule);
         });
-
     },
 
     generateAssociationClassRule(elem){
@@ -182,12 +179,9 @@ const actions = {
         elem.members.forEach((member) => {
             const attribute = JSON.parse(JSON.stringify(rulesDefinitions.ENUM_ATTRIBUTE_TYPE));
             attribute.name = member.name;
-
             attribute.feedback = `Die Enum ${rule.rule_specific.enum_class_name} soll ein Attribut für die Eigenschaft ${attribute.name} bereitstellen.`;
-
             rule.rule_specific.attributes.push(attribute);
         });
-
         rule.feedback = `Es soll eine Enum mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
         return rule;
     },
@@ -201,9 +195,8 @@ const actions = {
             abstractText = "abstracte "
         }
 
-        if (elem.stereotypes.includes("interface")) {
+        if (elem.stereotypes.includes("interface"))
             rule.rule_specific.interface = true;
-        }
 
         elem.members.forEach((member) => {
             // METHODS

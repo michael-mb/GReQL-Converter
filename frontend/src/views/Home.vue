@@ -9,7 +9,7 @@
             <div class="col-sm-12">
               <h3 class="page-title">Startseite</h3>
               <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                <li class="breadcrumb-item"><router-link to="/">Dashboard</router-link></li>
                 <li class="breadcrumb-item active">Startseite</li>
               </ul>
             </div>
