@@ -10,7 +10,7 @@
             <div class="col-sm-12">
               <h3 class="page-title">Class Converter</h3>
               <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                <li class="breadcrumb-item"><router-link to="/">Dashboard</router-link></li>
                 <li class="breadcrumb-item active">Class Converter</li>
               </ul>
             </div>
@@ -156,6 +156,7 @@ const store = useClassConverterStore()
 const defaultCode = ref(default_test_code.simple_association_rule_test)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
+
 function updateDefaultCode (){
   code.value = defaultCode.value.code
 }
@@ -221,7 +222,6 @@ function focus(node) {
   node.focus();
 }
 function generateGReQLRules(){
-
   GReQLCode.value = xmlFormat(GReQLRulesgenerator.generateGReQLRules(store.getRules))
   store.setGReQLGeneratedCode(GReQLCode.value)
   scrollDown()
