@@ -15,6 +15,27 @@ export default {
             "}\n" +
             "@enduml"
     },
+    easy_test_improved: {
+        code: "@startuml\n" +
+            "\n" +
+            "skin rose\n" +
+            "title Relationships - Class Diagram\n" +
+            "\n" +
+            "class ClassA {\n" +
+            "  - Windows : Int\n" +
+            "  + Time : Date\n" +
+            "  +void Lock()\n" +
+            "}\n" +
+            "class ClassB {}\n" +
+            "class ClassC {}\n" +
+            "class ClassD {}\n" +
+            "\n" +
+            "ClassA \"1..2\" -- \"*\" ClassB\n" +
+            "ClassA o-- \"*\" ClassC\n" +
+            "ClassB <|-- ClassC\n" +
+            "ClassC -- ClassD\n" +
+            "@enduml"
+    },
     class_test:  {
         code: "@startuml\n" +
                 "skin rose\n" +
