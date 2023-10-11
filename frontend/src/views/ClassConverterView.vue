@@ -153,7 +153,7 @@ import NominationConsistency from "@/components/rules/NominationConsistency.vue"
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.simple_association_rule_test)
+const defaultCode = ref(default_test_code.easy_test_improved)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
 
