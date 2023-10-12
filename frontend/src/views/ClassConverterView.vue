@@ -208,7 +208,7 @@ function addRule(type){
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.association_class_rule));
       break;
     case rulesDefinitions.RULE_TYPE.nomination_consistency:
-      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.nomination_consistency));
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.nomination_consistency_rule));
       break;
     default:
       alert("to implement")

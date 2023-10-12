@@ -132,7 +132,7 @@ export default {
             }
         },
         // OPTIONAL
-        'nomination_consistency' : { // Done *
+        'nomination_consistency_rule' : { // Done *
             rule_type: "nomination_consistency_rule",
             rule_name: "Nomination Consistency",
             info_text: rulesExplanations.nomination_consistency,
