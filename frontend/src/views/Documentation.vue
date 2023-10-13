@@ -36,7 +36,7 @@
                   method for the GReQL converter is the following: </p>
 
                 <code-editor  font-size="14px" v-model="attributeDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
-                              width="100%"/>
+                              :read-only="true" width="100%"/>
 
                 <br>
                 <h4>Method Declaration</h4>
@@ -45,21 +45,21 @@
                   method for the GReQL converter is the following: </p>
 
                 <code-editor  font-size="14px" v-model="methodDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
-                              width="100%"/>
+                              :read-only="true" width="100%"/>
 
                 <br>
                 <h4>Enum Declaration</h4>
                 <br>
                 <p>To declare Enums on the GReQL Converter, you need to do exactly that: </p>
                 <code-editor  font-size="14px" v-model="enumDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
-                              width="100%"/>
+                              :read-only="true" width="100%"/>
 
                 <br>
                 <h4>Interface and Abstract Class Declaration</h4>
                 <br>
                 <p>To declare Interface and Abstract Class on the GReQL Converter, you need to do exactly that: </p>
                 <code-editor  font-size="14px" v-model="interAbstract" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
-                              width="100%"/>
+                              :read-only="true" width="100%"/>
 
                 <br>
                 <h4>Requires manual intervention</h4>
