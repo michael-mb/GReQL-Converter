@@ -61,7 +61,9 @@
                 <code-editor  font-size="14px" v-model="interAbstract" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
                               width="100%"/>
 
-                <br><br>
+                <br>
+                <h4>Requires manual intervention</h4>
+                <br>
                 <p>However, there are a few PlantText features that are not yet supported by the parser:</p>
                 <ul>
                   <li>- Static variables, classes and methods</li>
