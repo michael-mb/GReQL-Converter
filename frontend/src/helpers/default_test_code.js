@@ -48,27 +48,26 @@ export default {
             "}\n" +
             "\n" +
             "interface Subject <<interface>> {\n" +
-            "    + registerObserver(observer: Observer)\n" +
-            "    + removeObserver(observer: Observer)\n" +
-            "    + notifyObservers()\n" +
+            "    + void registerObserver(observer: Observer)\n" +
+            "    + void removeObserver(observer: Observer)\n" +
+            "    + void notifyObservers()\n" +
             "}\n" +
             "\n" +
             "interface Observer <<interface>> {\n" +
-            "    + update()\n" +
+            "    + void update()\n" +
             "}\n" +
             "\n" +
             "class MyTopic {\n" +
-            "    - observers: Observer[]\n" +
             "    - number: int\n" +
-            "    + registerObserver(observer: Observer)\n" +
-            "    + removeObserver(observer: Observer)\n" +
-            "    + notifyObservers()\n" +
+            "    + void registerObserver(observer: Observer)\n" +
+            "    + void removeObserver(observer: Observer)\n" +
+            "    + void notifyObservers()\n" +
             "}\n" +
             "\n" +
             "abstract class User {\n" +
             "    - username: string\n" +
             "    - alive: boolean \n" +
-            "    + update()\n" +
+            "    + void update()\n" +
             "}\n" +
             "@enduml"
     },
@@ -96,57 +95,57 @@ export default {
             "title Generalization\n" +
             "\n" +
             "class Animal {\n" +
-            "  +makeSound()\n" +
+            "  + void makeSound()\n" +
             "}\n" +
             "\n" +
             "class Mammal {\n" +
-            "  +Int giveBirth()\n" +
+            "  + int giveBirth()\n" +
             "}\n" +
             "\n" +
             "class Bird {\n" +
-            "  +Int layEggs()\n" +
+            "  + int layEggs()\n" +
             "}\n" +
             "\n" +
             "class Dog {\n" +
-            "  +makeSound()\n" +
-            "  +Int giveBirth()\n" +
+            "  + void makeSound()\n" +
+            "  + int giveBirth()\n" +
             "}\n" +
             "\n" +
             "class Cat {\n" +
-            "  +makeSound()\n" +
-            "  +Int giveBirth()\n" +
+            "  + void makeSound()\n" +
+            "  + int giveBirth()\n" +
             "}\n" +
             "\n" +
             "class Parrot {\n" +
-            "  +makeSound()\n" +
-            "  +Int layEggs()\n" +
+            "  + void makeSound()\n" +
+            "  + int layEggs()\n" +
             "}\n" +
             "\n" +
             "interface Swimmer <<interface>>{\n" +
-            "  +swim()\n" +
+            "  + void swim()\n" +
             "}\n" +
             "\n" +
             "interface Flyer <<interface>>{\n" +
-            "  +fly()\n" +
+            "  + void fly()\n" +
             "}\n" +
             "\n" +
             "class Dolphin {\n" +
-            "  +makeSound()\n" +
-            "  +Int giveBirth()\n" +
-            "  +swim()\n" +
+            "  + void makeSound()\n" +
+            "  + int giveBirth()\n" +
+            "  + void swim()\n" +
             "}\n" +
             "\n" +
             "class Bat {\n" +
-            "  +makeSound()\n" +
-            "  +Int giveBirth()\n" +
-            "  +fly()\n" +
+            "  + void makeSound()\n" +
+            "  + int giveBirth()\n" +
+            "  + void fly()\n" +
             "}\n" +
             "\n" +
             "class Duck {\n" +
-            "  +makeSound()\n" +
-            "  +Int layEggs()\n" +
-            "  +swim()\n" +
-            "  +fly()\n" +
+            "  + void makeSound()\n" +
+            "  + int layEggs()\n" +
+            "  + void swim()\n" +
+            "  + void fly()\n" +
             "}\n" +
             "\n" +
             "Animal <|-- Mammal\n" +
@@ -217,12 +216,12 @@ export default {
             "title Association - Class Diagram\n" +
             "\n" +
             "class Student {\n" +
-            " Name: String\n" +
+            " + name: String\n" +
             "}\n" +
             "\n" +
             "class Enrollment {\n" +
-            "  drop()\n" +
-            "  cancel()\n" +
+            "  void drop()\n" +
+            "  void cancel()\n" +
             "}\n" +
             "\n" +
             "Student \"0..*\" - \"1..*\" Course\n" +

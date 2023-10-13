@@ -36,7 +36,7 @@
                 </div>
 
                 <code-editor  font-size="14px" v-model="code" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
-                              width="100%" :autofocus="true"></code-editor>
+                              width="100%" :autofocus="true"/>
 
                 <a class="btn btn-primary btn-blog mb-2 mt-5" @click="parseCode">
                   <i v-if="!store.isSpinning" class="feather-play-circle"></i>
@@ -103,7 +103,7 @@
             </div>
             <div class="card-body" ref="greQL_container">
               <code-editor   font-size="14px" v-model="GReQLCode" theme="github" @textarea="focus" :line-nums="true" :languages="[['xml', 'xml']]" :header="true"
-                            width="100%" :autofocus="true"></code-editor>
+                            width="100%" :autofocus="true"/>
             </div>
           </div>
         </div>
