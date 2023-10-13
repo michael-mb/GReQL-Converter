@@ -66,7 +66,7 @@
                 <br>
                 <p>However, there are a few PlantText features that are not yet supported by the parser:</p>
                 <ul>
-                  <li>- Static variables, classes and methods</li>
+                  <li>- Static variables, classes and methods.</li>
                   <li>- Attributes that are arrays: "+ int[] number".</li>
                   <li>- Methods that return arrays: "+ int[] update()".</li>
                 </ul>
