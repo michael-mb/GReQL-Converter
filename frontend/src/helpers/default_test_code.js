@@ -180,7 +180,7 @@ export default {
             "\n" +
             "class ClassE {}\n" +
             "\n" +
-            "ClassA \"1..2\" -- \"0..*\" ClassB : Association\n" +
+            "ClassA \"1..2\" -- \"+\" ClassB : Association\n" +
             "ClassA o-- \"*\" ClassC : Aggregation\n" +
             "ClassB *-- \"0..2\" ClassC : Composition\n" +
             "ClassC -- ClassD  : Association\n" +
@@ -224,7 +224,7 @@ export default {
             "  void cancel()\n" +
             "}\n" +
             "\n" +
-            "Student \"0..*\" - \"1..*\" Course\n" +
+            "Student \"*\" -- \"+\" Course\n" +
             "(Student, Course) .. Enrollment\n" +
             "\n" +
             "@enduml"

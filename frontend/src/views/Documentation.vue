@@ -37,8 +37,8 @@
 
                 <code-editor  font-size="14px" v-model="attributeDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
-
                 <br>
+
                 <h4>Method Declaration</h4>
                 <br>
                 <p>There are several ways of declaring methods and parameters with PlantText. But the most suitable
@@ -46,22 +46,36 @@
 
                 <code-editor  font-size="14px" v-model="methodDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
-
                 <br>
+
                 <h4>Enum Declaration</h4>
                 <br>
                 <p>To declare Enums on the GReQL Converter, you need to do exactly that: </p>
                 <code-editor  font-size="14px" v-model="enumDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
-
                 <br>
+
                 <h4>Interface and Abstract Class Declaration</h4>
                 <br>
                 <p>To declare Interface and Abstract Class on the GReQL Converter, you need to do exactly that: </p>
                 <code-editor  font-size="14px" v-model="interAbstract" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
-
                 <br>
+
+                <h4>Relationships between classes</h4>
+                <br>
+                <p>For relationships between classes, it is equally important to take into account the following structure: </p>
+                <code-editor  font-size="14px" v-model="associations" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                              :read-only="true" width="100%"/>
+                <br>
+
+                <h4>Association Class</h4>
+                <br>
+                <p>To create association classes, the following structure must be respected: </p>
+                <code-editor  font-size="14px" v-model="assClass" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                              :read-only="true" width="100%"/>
+                <br>
+
                 <h4>Requires manual intervention</h4>
                 <br>
                 <p>However, there are a few PlantText features that are not yet supported by the parser:</p>
@@ -91,21 +105,25 @@ import Header from "@/components/Header.vue";
 import CodeEditor from "simple-code-editor";
 import {ref} from "vue";
 
-const attributeDef = ref("class ClassA {\n" +
+const attributeDef = ref(
+    "class ClassA {\n" +
     "  - windows : int\n" +
     "  + time : Date\n" +
     "  # name : String\n" +
     "}")
-const methodDef = ref("class ClassA {\n" +
+const methodDef = ref(
+    "class ClassA {\n" +
     "   + void lock(int age, bool state)\n" +
     "}")
-const enumDef = ref("enum TimeUnit <<enum>> {\n" +
+const enumDef = ref(
+    "enum TimeUnit <<enum>> {\n" +
     "  DAYS\n" +
     "  HOURS\n" +
     "  MINUTES\n" +
     "}")
 
-const interAbstract = ref("interface Observer <<interface>> {\n" +
+const interAbstract = ref(
+    "interface Observer <<interface>> {\n" +
     "    + void update()\n" +
     "}\n" +
     "\n" +
@@ -119,6 +137,20 @@ const interAbstract = ref("interface Observer <<interface>> {\n" +
     "    - alive: boolean \n" +
     "    + void update()\n" +
     "}")
+
+const associations = ref(
+    "// Use * instead of 0..*\n" +
+    "// Use + instead of 1..*\n" +
+    "ClassA \"1..2\" -- \"+\" ClassB // Association with multiplicity\n" +
+    "ClassC -- ClassD  // Simple Association\n" +
+    "ClassA o-- \"*\" ClassC // Aggregation\n" +
+    "ClassB *-- \"0..2\" ClassC // Composition\n" +
+    "Animal <|-- Bat // Inheritance\n" +
+    "Flyer <|.. Bat // Implementation"
+)
+
+const assClass = ref("(Student, Course) .. Enrollment")
+
 </script>
 
 <style scoped>
