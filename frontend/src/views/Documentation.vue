@@ -97,7 +97,7 @@ const attributeDef = ref("class ClassA {\n" +
     "  # name : String\n" +
     "}")
 const methodDef = ref("class ClassA {\n" +
-    "   +void lock(int age, bool state)\n" +
+    "   + void lock(int age, bool state)\n" +
     "}")
 const enumDef = ref("enum TimeUnit <<enum>> {\n" +
     "  DAYS\n" +
