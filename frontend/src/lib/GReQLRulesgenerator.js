@@ -305,11 +305,16 @@ export default {
             const n = parseInt(multiplicity, 10);
             range.min = n;
             range.max = n;
-        } else if (/^\d+\.\.\d+$/.test(s)) {
+        } else if (/^\d+\.\.\d+$/.test(multiplicity)) {
             const [minStr, maxStr] = multiplicity.split('..');
             range.min = parseInt(minStr, 10);
             range.max = parseInt(maxStr, 10);
-        } else {
+        } else if (/^\d+\.\.\*+$/.test(multiplicity)){
+            const [minStr, maxStr] = multiplicity.split('..');
+            range.min = parseInt(minStr, 10);
+            range.max = -1;
+        }
+        else {
             throw new Error('invalid multiplicity format');
         }
 
