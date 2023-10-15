@@ -43,14 +43,14 @@
             <label class="col-lg-3 col-form-label">Is Interface</label>
             <div class="col-lg-9">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" :name="'interface_' + index" id="interface_yes" :value="true" v-model="rule.rule_specific.interface">
-                <label class="form-check-label" for="interface_yes">
+                <input class="form-check-input" type="radio" :name="'interface_' + index" :id="'interface_yes_' + index" :value="true" v-model="rule.rule_specific.interface">
+                <label class="form-check-label" :for="'interface_yes_' + index">
                   Yes
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" :name="'interface_' + index" id="interface_no" :value="false" v-model="rule.rule_specific.interface">
-                <label class="form-check-label" for="interface_no">
+                <input class="form-check-input" type="radio" :name="'interface_' + index" :id="'interface_no_' + index" :value="false" v-model="rule.rule_specific.interface">
+                <label class="form-check-label" :for="'interface_no_' + index">
                   No
                 </label>
               </div>
@@ -61,14 +61,14 @@
             <label class="col-lg-3 col-form-label">Is Abstract</label>
             <div class="col-lg-9">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" :name="'abstract_' + index" id="abstract_yes" :value="true" v-model="rule.rule_specific.abstract">
-                <label class="form-check-label" for="abstract_yes">
+                <input class="form-check-input" type="radio" :name="'abstract_' + index" :id="'abstract_yes_' + index"  :value="true" v-model="rule.rule_specific.abstract">
+                <label class="form-check-label" :for="'abstract_yes_' + index">
                   Yes
                 </label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" :name="'abstract_' + index" id="abstract_no" :value="false" v-model="rule.rule_specific.abstract">
-                <label class="form-check-label" for="abstract_no">
+                <input class="form-check-input" type="radio" :name="'abstract_' + index" :id="'abstract_no_' + index" :value="false" v-model="rule.rule_specific.abstract">
+                <label class="form-check-label" :for="'abstract_no_' + index">
                   No
                 </label>
               </div>
@@ -116,20 +116,20 @@
               <label class="col-lg-3 col-form-label">Visibility</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" id="attribute_visibility_public" value="public" v-model="attribute.visibility">
-                  <label class="form-check-label" for="attribute_visibility_public">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_public_'+index + '_' + attribute_index" value="public" v-model="attribute.visibility">
+                  <label class="form-check-label" :for="'attribute_visibility_public_'+index + '_' + attribute_index">
                     Public
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" id="attribute_visibility_private" value="private" v-model="attribute.visibility">
-                  <label class="form-check-label" for="attribute_visibility_private">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_private_'+index + '_' + attribute_index" value="private" v-model="attribute.visibility">
+                  <label class="form-check-label" :for="'attribute_visibility_private_'+index + '_' + attribute_index">
                     Private
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" id="attribute_visibility_protected" value="protected" v-model="attribute.visibility">
-                  <label class="form-check-label" for="attribute_visibility_protected">
+                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_protected_'+index + '_' + attribute_index" value="protected" v-model="attribute.visibility">
+                  <label class="form-check-label" :id="'attribute_visibility_protected_'+index + '_' + attribute_index">
                     Protected
                   </label>
                 </div>
@@ -140,14 +140,14 @@
               <label class="col-lg-3 col-form-label">Static</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" id="attribute_static_true" :value="true" v-model="attribute.is_static">
-                  <label class="form-check-label" for="attribute_static_true">
+                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" :id="'attribute_static_true_'+index + '_' + attribute_index"  :value="true" v-model="attribute.is_static">
+                  <label class="form-check-label" :for="'attribute_static_true_'+index + '_' + attribute_index">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" id="attribute_static_false" :value="false" v-model="attribute.is_static">
-                  <label class="form-check-label" for="attribute_static_false">
+                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" :id="'attribute_static_false_'+index + '_' + attribute_index"  :value="false" v-model="attribute.is_static">
+                  <label class="form-check-label" :for="'attribute_static_false_'+index + '_' + attribute_index">
                     No
                   </label>
                 </div>
@@ -201,21 +201,21 @@
               <label class="col-lg-3 col-form-label">Visibility </label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" id="method_visibility_public" :value="'public'" v-model="method.visibility">
-                  <label class="form-check-label" for="method_visibility_public">
+                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_public_'+index+ '_' + method_index"  :value="'public'" v-model="method.visibility">
+                  <label class="form-check-label" :for="'method_visibility_public_'+index+ '_' + method_index">
                     Public
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" id="method_visibility_private" :value="'private'" v-model="method.visibility">
-                  <label class="form-check-label" for="method_visibility_private">
+                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_private_'+index+ '_' + method_index" :value="'private'" v-model="method.visibility">
+                  <label class="form-check-label" :for="'method_visibility_private_'+index+ '_' + method_index">
                     Private
                   </label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" id="method_visibility_protected" :value="'protected'" v-model="method.visibility">
-                  <label class="form-check-label" for="method_visibility_protected">
+                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_protected_'+index+ '_' + method_index" :value="'protected'" v-model="method.visibility">
+                  <label class="form-check-label" :for="'method_visibility_protected_'+index+ '_' + method_index">
                     Protected
                   </label>
                 </div>
@@ -226,14 +226,14 @@
               <label class="col-lg-3 col-form-label">Static</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" id="method_static_true" :value="true" v-model="method.is_static">
-                  <label class="form-check-label" for="method_static_true">
+                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" :id="'method_static_true_'+index+ '_' + method_index" :value="true" v-model="method.is_static">
+                  <label class="form-check-label" :for="'method_static_true_'+index+ '_' + method_index">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" id="method_static_false" :value="false" v-model="method.is_static">
-                  <label class="form-check-label" for="method_static_false">
+                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" :id="'method_static_false_'+index+ '_' + method_index" :value="false" v-model="method.is_static">
+                  <label class="form-check-label" :for="'method_static_false_'+index+ '_' + method_index">
                     No
                   </label>
                 </div>

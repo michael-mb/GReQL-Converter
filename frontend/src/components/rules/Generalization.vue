@@ -37,14 +37,14 @@
           <label class="col-lg-3 col-form-label">Type</label>
           <div class="col-lg-9">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" :name="'generalization_' + index" id="generalization_inheritance" value="inheritance" v-model="rule.rule_specific.type">
-              <label class="form-check-label" for="generalization_inheritance">
+              <input class="form-check-input" type="radio" :name="'generalization_' + index" :id="'generalization_inheritance_' + index" value="inheritance" v-model="rule.rule_specific.type">
+              <label class="form-check-label" :for="'generalization_inheritance_' + index" >
                 Inheritance
               </label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" :name="'generalization_' + index" id="generalization_implementation" value="implementation" v-model="rule.rule_specific.type">
-              <label class="form-check-label" for="generalization_implementation">
+              <input class="form-check-input" type="radio" :name="'generalization_' + index" :id="'generalization_implementation_' + index"  value="implementation" v-model="rule.rule_specific.type">
+              <label class="form-check-label" :for="'generalization_implementation_' + index">
                 Implementation
               </label>
             </div>
