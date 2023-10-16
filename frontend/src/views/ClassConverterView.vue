@@ -85,6 +85,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)" > <i class="feather-file-plus me-2"></i> Test Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_methods)" > <i class="feather-file-plus me-2"></i> Count Methods</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.count_attributes)" > <i class="feather-file-plus me-2"></i> Count Attributes</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.nomination_consistency)" > <i class="feather-file-plus me-2"></i> Nomination Consistency</a>
                   </div>
                   <a class="ml-2 mt-3 btn btn-primary" @click="generateGReQLRules">
@@ -185,6 +186,9 @@ function addRule(type){
       break;
     case rulesDefinitions.RULE_TYPE.count_methods:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_methods_rule));
+      break;
+    case rulesDefinitions.RULE_TYPE.count_attributes:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.count_attributes_rule));
       break;
     case rulesDefinitions.RULE_TYPE.defined_enum:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_enum_rule));

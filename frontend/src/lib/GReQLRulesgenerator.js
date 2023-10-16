@@ -19,6 +19,9 @@ export default {
                 case 'count_methods_rule':
                     code += this.generateCountMethodsRule(rule)
                     break
+                case 'count_attributes_rule':
+                    code += this.generateCountAttributeRule(rule)
+                    break
                 case 'simple_association_rule':
                     code += this.generateSimpleAssociationRule(rule)
                     break
@@ -217,6 +220,19 @@ export default {
                     </query>
                     <feedback>Das Diagramm sollte genau ${rule.rule_specific.methods} Methoden enthalten, enthält aber {count}.</feedback>
               </rule>`
+        return code
+    },
+
+    generateCountAttributeRule: function (rule){
+        let code = "<!-- Count Attributes Rule -->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+                <query>let c := count(from y : V{Property} with isDefined(y.name) report y end) in
+                           from x : set(1) 
+                           with c&lt;>${rule.rule_specific.attributes}
+                           report c as "count" end</query>
+                <feedback>Das Diagramm sollte genau ${rule.rule_specific.attributes} Attribute enthalten, enthält aber {count}.</feedback>
+                </rule>
+        `
         return code
     },
 

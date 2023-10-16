@@ -21,6 +21,7 @@ export default {
         'nomination_consistency': 'nomination_consistency_rule',
         'test_association': 'test_association_rule',
         'count_methods': 'count_methods_rule',
+        'count_attributes' : 'count_attributes_rule'
 
     },
     RULE_TYPE_JSON: {
@@ -147,6 +148,17 @@ export default {
             points: 0,
             rule_specific: {
                 methods: 0,
+            }
+        },
+        'count_attributes_rule' : { // Done *
+            rule_type: "count_attributes_rule",
+            rule_name: "Count Attributes",
+            existence: 'absence',
+            info_text: rulesExplanations.count_attributes_rule,
+            info_image: '',
+            points: 0,
+            rule_specific: {
+                attributes: 0,
             }
         },
         'test_association_rule' : { // Done *
