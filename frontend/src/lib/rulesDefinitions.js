@@ -18,10 +18,10 @@ export default {
         'association_class': 'association_class_rule',
 
         // OPTIONAL
-        'nomination_consistency': 'nomination_consistency_rule',
-        'test_association': 'test_association_rule',
-        'count_methods': 'count_methods_rule',
-        'count_attributes' : 'count_attributes_rule'
+        'nomination_consistency': 'nomination_consistency_rule', // Done *
+        'test_association': 'test_association_rule', // Done *
+        'count_methods': 'count_methods_rule', // Done *
+        'count_attributes' : 'count_attributes_rule' // Done *
 
     },
     RULE_TYPE_JSON: {
