@@ -7,7 +7,7 @@ export default {
         'defined_enum': 'defined_enum_rule',
 
         // GENERALIZATION & SPECIALIZATION
-        'generalization': 'generalization_rule',
+        'generalization': 'generalization_rule', // Done *
 
         // RELATIONSHIPS
         'simple_association': 'simple_association_rule',
@@ -57,7 +57,7 @@ export default {
             }
         },
         // GENERALIZATION & SPECIALIZATION
-        'generalization_rule' : {
+        'generalization_rule' : { // Done *
             rule_type: "generalization_rule",
             rule_name: "Generalization",
             existence: "presence",

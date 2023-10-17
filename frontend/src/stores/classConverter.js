@@ -224,7 +224,8 @@ const actions = {
             }
         });
 
-        rule.feedback = `Es soll eine ${abstractText} Klasse mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
+        const entityName = rule.rule_specific.interface === true ? "Interface" : "Klasse"
+        rule.feedback = `Es soll eine ${abstractText} ${entityName} mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
         return rule;
     },
 

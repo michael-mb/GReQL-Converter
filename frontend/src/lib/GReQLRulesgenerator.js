@@ -1,3 +1,5 @@
+import rulesDefinitions from "@/lib/rulesDefinitions";
+
 export default {
     generateGReQLRules: function (rules){
         console.log("rules:", rules)
@@ -147,7 +149,6 @@ export default {
                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
                           y --> ret and isDefined(ret.name) and ret.name="return" and 
                           ret --> retType and isDefined(retType.name) and retType.name="${retType}"
-                         
                        report 1 end
                 </query>
                 <feedback>${method.feedback}</feedback>
@@ -158,11 +159,20 @@ export default {
     },
 
     generateGeneralizationRule: function (rule) {
-        // TODO: Cannot handle implementation 😢
-        // TODO: Cannot recognize interface
-
-        let code = "<!-- Generalization rule -->"
-        code += `<rule type="${rule.existence}" points="${rule.points}">
+        let code = ""
+        if(rule.rule_specific.type === rulesDefinitions.GENERALIZATION_TYPE.implementation){
+            code += "<!-- Implementation rule -->"
+            code += `<rule type="${rule.existence}" points="${rule.points}">
+                     <query>from x : V{Class}, i : V{Interface} with
+                     isDefined(x.name) and x.name="${rule.rule_specific.class_child}" and
+                     isDefined(i.name) and i.name="${rule.rule_specific.class_parent}" and
+                     x &lt;--{ClientEdge} V{Realization} --> i 
+                     report 1 end</query>
+                     <feedback>${rule.feedback}</feedback>
+                     </rule>`
+        } else {
+            code += "<!-- Generalization rule -->"
+            code += `<rule type="${rule.existence}" points="${rule.points}">
             <query>from a,b : V{Class}
                    with
                       isDefined(a.name) and a.name="${rule.rule_specific.class_child}" and
@@ -172,6 +182,7 @@ export default {
             </query>
             <feedback>${rule.feedback}</feedback>
           </rule>`
+        }
         return code
     },
 
