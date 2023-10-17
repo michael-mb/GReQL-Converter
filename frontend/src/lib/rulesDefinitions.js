@@ -11,8 +11,8 @@ export default {
 
         // RELATIONSHIPS
         'simple_association': 'simple_association_rule', // Done *
-        'composition': 'composition_rule',
-        'aggregation': 'aggregation_rule',
+        'composition': 'composition_rule', // Done *
+        'aggregation': 'aggregation_rule', // Done *
 
         // ASSOCIATION CLASS
         'association_class': 'association_class_rule',
@@ -87,7 +87,7 @@ export default {
                 B_multiplicity: "1"
             }
         },
-        'composition_rule': {
+        'composition_rule': { // Done *
             rule_type: "composition_rule",
             rule_name: "Composition",
             existence: "presence",
@@ -98,11 +98,10 @@ export default {
             rule_specific: {
                 class_composite: "Composite",
                 class_element: "Element",
-                composite_multiplicity: "1",
                 element_multiplicity: "*",
             }
         },
-        'aggregation_rule': {
+        'aggregation_rule': { // Done *
             rule_type: "aggregation_rule",
             rule_name: "Aggregation",
             existence: "presence",
@@ -113,7 +112,6 @@ export default {
             rule_specific: {
                 class_aggregate: "Aggregate",
                 class_element: "Element",
-                aggregate_multiplicity: "1",
                 element_multiplicity: "*",
             }
         },

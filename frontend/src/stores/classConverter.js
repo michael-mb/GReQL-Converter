@@ -122,18 +122,16 @@ const actions = {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.aggregation_rule))
         rule.rule_specific.class_aggregate = elem.left
         rule.rule_specific.class_element = elem.right
-        rule.rule_specific.aggregate_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
         rule.rule_specific.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
-        rule.feedback = `Es sollte eine Aggregationsbeziehung zwischen ${elem.left} und ${elem.right} bestehen, in der ${elem.left} das Aggregat und ${elem.right} das Element ist.`
+        rule.feedback = `Es sollte eine Aggregationsbeziehung zwischen ${elem.left} [1] und ${elem.right} [${rule.rule_specific.element_multiplicity}] bestehen, in der ${elem.left} das Aggregat und ${elem.right} das Element ist.`
         return rule
     },
     generateCompositionRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.composition_rule))
         rule.rule_specific.class_composite = elem.left
         rule.rule_specific.class_element = elem.right
-        rule.rule_specific.composite_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
         rule.rule_specific.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
-        rule.feedback = `Es sollte eine Kompositionsbeziehung zwischen ${elem.left} und ${elem.right} bestehen, in der ${elem.left} das Komposite und ${elem.right} das Element ist.`
+        rule.feedback = `Es sollte eine Kompositionsbeziehung zwischen ${elem.left} [1] und ${elem.right} [${rule.rule_specific.element_multiplicity}] bestehen, in der ${elem.left} das Komposite und ${elem.right} das Element ist.`
         return rule
     },
     generateSimpleAssociationRule(elem) {
@@ -147,7 +145,7 @@ const actions = {
         rule.rule_specific.class_A = elem.left
         rule.rule_specific.class_B = elem.right
 
-        rule.feedback = `Es sollte eine Associationsbeziehung zwischen ${elem.left} und ${elem.right} bestehen.`
+        rule.feedback = `Es sollte eine Associationsbeziehung zwischen ${elem.left} [${elem.rightCardinality}] und ${elem.right} [${elem.leftCardinality}] bestehen.`
         return rule
     },
     generateTestAssociationRule(elem) {

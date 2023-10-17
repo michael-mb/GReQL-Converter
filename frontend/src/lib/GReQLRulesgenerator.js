@@ -15,6 +15,9 @@ export default {
                 case 'composition_rule':
                     code += this.generateCompositionRule(rule)
                     break
+                case 'aggregation_rule':
+                    code += this.generateAggregationRule(rule)
+                    break
                 case 'test_association_rule':
                     code += this.generateTestAssociationRule(rule)
                     break
@@ -190,21 +193,52 @@ export default {
     },
 
     generateCompositionRule: function (rule) {
-        console.log("Composition Rule:", rule)
-
+        const elem_mul = this.getMultiplicity(rule.rule_specific.element_multiplicity)
         let code = "<!-- Composition rule -->"
-        code += "<!-- TODO: How to do it ? -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
-                    <query>from a,b : V{Class}, p: V{Property}
-                           with
-                              isDefined(a.name) and a.name="${rule.rule_specific.class_composite}" and
-                              isDefined(b.name) and b.name="${rule.rule_specific.class_element}" and
-                              b --> p and
-                              isDefined(p.aggregation) and p.aggregation="composite"
-                           report 1 end
+                    <query>
+                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
+                                           with
+                                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_composite}")&lt;3 and
+                                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
+                                              isDefined(p.aggregation) and p.aggregation="composite" and
+                                              isDefined(p.visibility) and p.visibility="public" and
+                                              x --> V{Property} --> V{Association} --> p &lt;-- y and
+                                              isDefined(a.value) and a.value="${elem_mul.min}"  and
+                                              isDefined(b.value) and b.value="${elem_mul.max}"  and
+                                              x --> V{Property} --> a and
+                                              x --> V{Property} --> b
+                                              report 1 end
                     </query>
-                    <feedback>${rule.feedback}</feedback>
-                  </rule>`
+                    <feedback>
+                        ${rule.feedback}
+                    </feedback>
+                </rule>`
+        return code;
+    },
+
+    generateAggregationRule: function (rule) {
+        const elem_mul = this.getMultiplicity(rule.rule_specific.element_multiplicity)
+        let code = "<!-- Aggregation rule -->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+                    <query>
+                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
+                                           with
+                                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_aggregate}")&lt;3 and
+                                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
+                                              isDefined(p.aggregation) and p.aggregation="shared" and
+                                              isDefined(p.visibility) and p.visibility="private" and
+                                              x --> V{Property} --> V{Association} --> p &lt;-- y and
+                                              isDefined(a.value) and a.value="${elem_mul.min}"  and
+                                              isDefined(b.value) and b.value="${elem_mul.max}"  and
+                                              x --> V{Property} --> a and
+                                              x --> V{Property} --> b
+                                              report 1 end
+                    </query>
+                    <feedback>
+                        ${rule.feedback}
+                    </feedback>
+                </rule>`
         return code;
     },
 

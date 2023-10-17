@@ -41,13 +41,6 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-form-label col-md-3">Composite Multiplicity</label>
-          <div class="col-md-9">
-            <input type="text" class="form-control" v-model="rule.rule_specific.composite_multiplicity">
-          </div>
-        </div>
-
-        <div class="form-group row">
           <label class="col-form-label col-md-3">Element</label>
           <div class="col-md-9">
             <input type="text" class="form-control" v-model="rule.rule_specific.class_element">

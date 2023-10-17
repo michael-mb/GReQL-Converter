@@ -40,12 +40,6 @@
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-form-label col-md-3">Aggregate Multiplicity</label>
-          <div class="col-md-9">
-            <input type="text" class="form-control" v-model="rule.rule_specific.aggregate_multiplicity">
-          </div>
-        </div>
 
         <div class="form-group row">
           <label class="col-form-label col-md-3">Element</label>
