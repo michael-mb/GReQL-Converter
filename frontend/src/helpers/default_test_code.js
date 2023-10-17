@@ -36,9 +36,9 @@ export default {
             "ClassC -- ClassD\n" +
             "@enduml"
     },
-    class_test:  {
+    class_test: {
         code: "@startuml\n" +
-                "skin rose\n" +
+            "skin rose\n" +
             "title Observer\n" +
             "\n" +
             "enum TimeUnit <<enum>> {\n" +
@@ -246,5 +246,5 @@ export default {
             "ClassB *-- \"0..2\" ClassC : Composition\n" +
             "@enduml"
     }
-    
+
 }

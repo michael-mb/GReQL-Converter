@@ -50,27 +50,27 @@ const getters = {
 }
 
 const actions = {
-    reset(){
+    reset() {
         this.code = ""
         this.parsedCode = undefined
         this.rules = []
     },
-    setOffCanvas(rule){
+    setOffCanvas(rule) {
         this.offCanvas = {
             title: rule.rule_name,
             info: rule.info_text,
             image: rule.info_image
         }
     },
-    setGReQLGeneratedCode (code){
-      this.GReQLGeneratedCode = code
+    setGReQLGeneratedCode(code) {
+        this.GReQLGeneratedCode = code
     },
     deleteRule(rule) {
         this.rules = this.rules.filter(r => {
             return r !== rule
         })
     },
-    addRule(rule){
+    addRule(rule) {
         this.rules.push(rule)
     },
     generateRules() {
@@ -101,15 +101,15 @@ const actions = {
             else if (elem.leftArrowHead.includes("*"))
                 rule = this.generateCompositionRule(elem)
             // ASSOCIATED CLASS
-            else if(elem.leftType.includes("UseCase") && elem.leftArrowBody.includes(".") && elem.rightArrowBody.includes("."))
+            else if (elem.leftType.includes("UseCase") && elem.leftArrowBody.includes(".") && elem.rightArrowBody.includes("."))
                 rule = this.generateAssociationClassRule(elem)
 
-            if(rule !== undefined)
+            if (rule !== undefined)
                 this.rules.push(rule);
         });
     },
 
-    generateAssociationClassRule(elem){
+    generateAssociationClassRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.association_class_rule))
         const classes = globalUtils.split(elem.left)
         rule.rule_specific.class_A = classes[0]
@@ -118,7 +118,7 @@ const actions = {
         rule.feedback = `Es muss eine Assoziationsklasse ${elem.right} auf der Beziehung zwischen Klasse ${classes[0]} und Klasse ${classes[1]} haben.`
         return rule
     },
-    generateAggregationRule(elem){
+    generateAggregationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.aggregation_rule))
         rule.rule_specific.class_aggregate = elem.left
         rule.rule_specific.class_element = elem.right
@@ -127,7 +127,7 @@ const actions = {
         rule.feedback = `Es sollte eine Aggregationsbeziehung zwischen ${elem.left} und ${elem.right} bestehen, in der ${elem.left} das Aggregat und ${elem.right} das Element ist.`
         return rule
     },
-    generateCompositionRule(elem){
+    generateCompositionRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.composition_rule))
         rule.rule_specific.class_composite = elem.left
         rule.rule_specific.class_element = elem.right
@@ -136,9 +136,9 @@ const actions = {
         rule.feedback = `Es sollte eine Kompositionsbeziehung zwischen ${elem.left} und ${elem.right} bestehen, in der ${elem.left} das Komposite und ${elem.right} das Element ist.`
         return rule
     },
-    generateSimpleAssociationRule(elem){
+    generateSimpleAssociationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.simple_association_rule))
-        if(globalUtils.isStringEmpty(elem.leftCardinality) && globalUtils.isStringEmpty(elem.rightCardinality))
+        if (globalUtils.isStringEmpty(elem.leftCardinality) && globalUtils.isStringEmpty(elem.rightCardinality))
             return this.generateTestAssociationRule(elem)
         else {
             rule.rule_specific.A_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
@@ -150,23 +150,22 @@ const actions = {
         rule.feedback = `Es sollte eine Associationsbeziehung zwischen ${elem.left} und ${elem.right} bestehen.`
         return rule
     },
-    generateTestAssociationRule(elem){
+    generateTestAssociationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.test_association_rule))
         rule.rule_specific.class_A = elem.left
         rule.rule_specific.class_B = elem.right
         rule.existence = "presence"
         return rule
     },
-    generateGeneralizationRule(elem){
+    generateGeneralizationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.generalization_rule))
         rule.rule_specific.class_parent = elem.left
         rule.rule_specific.class_child = elem.right
 
-        if(elem.leftArrowBody === "-" && elem.rightArrowBody === "-"){
+        if (elem.leftArrowBody === "-" && elem.rightArrowBody === "-") {
             rule.rule_specific.type = rulesDefinitions.GENERALIZATION_TYPE.inheritance
             rule.feedback = `Das Diagramm sollte eine Klasse ${elem.right} enthalten, die von einer Oberklasse ${elem.left} erbt.`
-        }
-        else if(elem.leftArrowBody === "." && elem.rightArrowBody === "."){
+        } else if (elem.leftArrowBody === "." && elem.rightArrowBody === ".") {
             rule.rule_specific.type = rulesDefinitions.GENERALIZATION_TYPE.implementation
             rule.feedback = `Das Diagramm sollte eine Klasse/Schnittstelle ${elem.right} enthalten, die einer Schnittstelle ${elem.left} implementiert.`
         }

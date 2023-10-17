@@ -21,12 +21,12 @@ export default {
         'nomination_consistency': 'nomination_consistency_rule', // Done *
         'test_association': 'test_association_rule', // Done *
         'count_methods': 'count_methods_rule', // Done *
-        'count_attributes' : 'count_attributes_rule' // Done *
+        'count_attributes': 'count_attributes_rule' // Done *
 
     },
     RULE_TYPE_JSON: {
         // CLASS & INTERFACE
-        'defined_class_rule' : {
+        'defined_class_rule': {
             rule_type: 'defined_class_rule',
             rule_name: 'Class definition',
             info_text: rulesExplanations.defined_class_rule,
@@ -43,7 +43,7 @@ export default {
             }
         },
         // ENUM
-        'defined_enum_rule' : {
+        'defined_enum_rule': {
             rule_type: 'defined_enum_rule',
             rule_name: 'Enum definition',
             info_text: rulesExplanations.defined_class_rule,
@@ -57,7 +57,7 @@ export default {
             }
         },
         // GENERALIZATION & SPECIALIZATION
-        'generalization_rule' : { // Done *
+        'generalization_rule': { // Done *
             rule_type: "generalization_rule",
             rule_name: "Generalization",
             existence: "presence",
@@ -87,7 +87,7 @@ export default {
                 B_multiplicity: "1"
             }
         },
-        'composition_rule' : {
+        'composition_rule': {
             rule_type: "composition_rule",
             rule_name: "Composition",
             existence: "presence",
@@ -102,7 +102,7 @@ export default {
                 element_multiplicity: "*",
             }
         },
-        'aggregation_rule' : {
+        'aggregation_rule': {
             rule_type: "aggregation_rule",
             rule_name: "Aggregation",
             existence: "presence",
@@ -118,7 +118,7 @@ export default {
             }
         },
         // ASSOCIATION CLASS
-        'association_class_rule' : {
+        'association_class_rule': {
             rule_type: "association_class_rule",
             rule_name: "Association Class",
             existence: "presence",
@@ -133,13 +133,13 @@ export default {
             }
         },
         // OPTIONAL
-        'nomination_consistency_rule' : { // Done *
+        'nomination_consistency_rule': { // Done *
             rule_type: "nomination_consistency_rule",
             rule_name: "Nomination Consistency",
             info_text: rulesExplanations.nomination_consistency,
             info_image: "",
         },
-        'count_methods_rule' : { // Done *
+        'count_methods_rule': { // Done *
             rule_type: "count_methods_rule",
             rule_name: "Count Methods",
             existence: 'absence',
@@ -150,7 +150,7 @@ export default {
                 methods: 0,
             }
         },
-        'count_attributes_rule' : { // Done *
+        'count_attributes_rule': { // Done *
             rule_type: "count_attributes_rule",
             rule_name: "Count Attributes",
             existence: 'absence',
@@ -161,7 +161,7 @@ export default {
                 attributes: 0,
             }
         },
-        'test_association_rule' : { // Done *
+        'test_association_rule': { // Done *
             rule_type: "test_association_rule",
             rule_name: "Test Association",
             existence: "absence",
@@ -198,7 +198,7 @@ export default {
     },
     EXISTENCE_TYPE: {
         'presence': 'presence',
-        'absence' : 'absence'
+        'absence': 'absence'
     },
     GENERALIZATION_TYPE: {
         'inheritance': 'inheritance',
