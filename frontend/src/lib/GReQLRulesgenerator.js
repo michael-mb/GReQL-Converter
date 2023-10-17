@@ -209,25 +209,28 @@ export default {
     },
 
     generateSimpleAssociationRule: function (rule) {
-        console.log("Simple ASS Rule: ", rule)
-        /**
-         * TODO: Not working 😢
-         */
+        const A_mul = this.getMultiplicity(rule.rule_specific.A_multiplicity)
+        const B_mul = this.getMultiplicity(rule.rule_specific.B_multiplicity)
+
         let code = "<!-- Simple Association Rule -->"
-        code += "<!-- TODO: How to do it ? With cardinality ??? -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
-                    <query>from x,y : V{Class}, a: V{Property}
-                           with
-                              isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
-                              isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
-                              isDefined(a.lower) and a.lower="1" and 
-                              (not isDefined(a.upper) or a.upper="1") and
-                              x --> a and
-                              a --> V{Association} &lt;-- V{Property} &lt;-- y
-                           report 1 end
-                    </query>
-                    <feedback>Das Diagramm enthält keine Beziehung zwischen einem "A" und einem "B" mit der Kardinalität 1 oder keine Klassen mit diesen Namen.</feedback>
-                  </rule>`
+                    <query>from x,y : V{Class}, ass : V{Association}, a,b,c,d  : V{LiteralString}
+                        with
+                            isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
+                            isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
+                            isDefined(a.value) and a.value="${B_mul.min}"  and
+                            isDefined(b.value) and b.value="${B_mul.max}"  and
+                            x --> V{Property} --> a and
+                            x --> V{Property} --> b and
+                            isDefined(c.value) and c.value="${A_mul.min}"  and
+                            isDefined(d.value) and d.value="${A_mul.max}"  and
+                            y --> V{Property} --> c and
+                            y --> V{Property} --> d and
+                            x --> V{Property} --> ass &lt;-- V{Property} &lt;-- y
+                            report 1 end
+                        </query>
+                        <feedback> ${rule.feedback}</feedback>
+                    </rule>`
         return code
     },
 
@@ -337,23 +340,22 @@ export default {
         const range = {};
 
         if (multiplicity === '*') {
-            range.min = 0;
-            range.max = -1;
+            range.min = '*';
+            range.max = '*';
         } else if (multiplicity === '+') {
-            range.min = 1;
-            range.max = -1;
+            range.min = '+';
+            range.max = '+';
         } else if (/^\d+$/.test(multiplicity)) {
-            const n = parseInt(multiplicity, 10);
-            range.min = n;
-            range.max = n;
+            range.min = multiplicity;
+            range.max = multiplicity;
         } else if (/^\d+\.\.\d+$/.test(multiplicity)) {
             const [minStr, maxStr] = multiplicity.split('..');
-            range.min = parseInt(minStr, 10);
-            range.max = parseInt(maxStr, 10);
+            range.min = minStr;
+            range.max = maxStr;
         } else if (/^\d+\.\.\*+$/.test(multiplicity)) {
-            const [minStr, maxStr] = multiplicity.split('..');
-            range.min = parseInt(minStr, 10);
-            range.max = -1;
+            const str = multiplicity.split('..');
+            range.min = str[0];
+            range.max = '*';
         } else {
             throw new Error('invalid multiplicity format');
         }

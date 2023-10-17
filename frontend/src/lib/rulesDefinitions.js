@@ -10,7 +10,7 @@ export default {
         'generalization': 'generalization_rule', // Done *
 
         // RELATIONSHIPS
-        'simple_association': 'simple_association_rule',
+        'simple_association': 'simple_association_rule', // Done *
         'composition': 'composition_rule',
         'aggregation': 'aggregation_rule',
 
@@ -72,7 +72,7 @@ export default {
             }
         },
         // RELATIONSHIPS
-        'simple_association_rule': {
+        'simple_association_rule': { // Done *
             rule_type: "simple_association_rule",
             rule_name: "Simple Association",
             existence: "presence",
