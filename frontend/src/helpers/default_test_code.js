@@ -2,9 +2,10 @@ export default {
     easy_test: {
         code: "@startuml\n" +
             "class Dwelling {\n" +
-            "  - Windows : Int\n" +
+            "  + Windows : String\n" +
             "  + Time : Date\n" +
-            "  +void Lock()\n" +
+            "  + number: double\n" +
+            "  + double Lock(int age, bool status, double number)\n" +
             "}\n" +
             "@enduml"
     },
@@ -246,5 +247,4 @@ export default {
             "ClassB *-- \"0..2\" ClassC : Composition\n" +
             "@enduml"
     }
-
 }
