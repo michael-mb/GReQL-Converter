@@ -38,27 +38,35 @@ export default {
     },
 
     generateDefineClassRule: function (rule) {
-        const isAbstract = rule.rule_specific.abstract
-
-        //TODO: How to handle interfaces ?
         const isInterface = rule.rule_specific.interface
+        let code = ""
+        if(isInterface){
+            code += "<!-- Interface Definition -->"
+            code += `<rule type="${rule.existence}" points="${rule.points}">
+                        <query>from x : V{Interface} with isDefined(x.name) and  
+                               stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
+                               report 1 end
+                        </query>
+                        <feedback>${rule.feedback}</feedback>
+                    </rule>`
+        } else {
+            const isAbstract = rule.rule_specific.abstract
 
-        let abstractCode
-        if(isAbstract)
-            abstractCode = `and x.isAbstract`
-        else
-            abstractCode = `and (not x.isAbstract)`
-
-        let code = "<!-- Class Definition -->"
-        code += `<rule type="${rule.existence}" points="${rule.points}">
-        <query>from x : V{Class} with isDefined(x.name) and  
-               stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
-               ${abstractCode}
-               report 1 end
-        </query>
-        <feedback>${rule.feedback}</feedback>
-        </rule>
-         `
+            let abstractCode
+            if(isAbstract)
+                abstractCode = `and x.isAbstract`
+            else
+                abstractCode = `and (not x.isAbstract)`
+            code += "<!-- Class Definition -->"
+            code += `<rule type="${rule.existence}" points="${rule.points}">
+                    <query>from x : V{Class} with isDefined(x.name) and  
+                           stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
+                           ${abstractCode}
+                           report 1 end
+                    </query>
+                    <feedback>${rule.feedback}</feedback>
+                    </rule>`
+        }
 
         /*
         if(rule.rule_specific.attributes.length !== 0){
