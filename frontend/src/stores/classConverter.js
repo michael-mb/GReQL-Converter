@@ -179,7 +179,7 @@ const actions = {
             attribute.feedback = `Die Enum ${rule.rule_specific.enum_class_name} soll ein Attribut für die Eigenschaft ${attribute.name} bereitstellen.`;
             rule.rule_specific.attributes.push(attribute);
         });
-        rule.feedback = `Es soll eine Enum mit der Name ${rule.rule_specific.class_name} bereitgestellt werden.`;
+        rule.feedback = `Es soll eine Enum mit der Name ${rule.rule_specific.enum_class_name} bereitgestellt werden.`;
         return rule;
     },
     generateClassRule(elem) {

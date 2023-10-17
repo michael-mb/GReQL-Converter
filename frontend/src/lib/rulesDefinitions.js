@@ -4,7 +4,7 @@ export default {
     RULE_TYPE: {
         // CLASS & INTERFACE
         'defined_class': 'defined_class_rule',
-        'defined_enum': 'defined_enum_rule',
+        'defined_enum': 'defined_enum_rule', // Done *
 
         // GENERALIZATION & SPECIALIZATION
         'generalization': 'generalization_rule', // Done *
@@ -43,7 +43,7 @@ export default {
             }
         },
         // ENUM
-        'defined_enum_rule': {
+        'defined_enum_rule': { // Done *
             rule_type: 'defined_enum_rule',
             rule_name: 'Enum definition',
             info_text: rulesExplanations.defined_class_rule,

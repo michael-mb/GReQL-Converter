@@ -9,6 +9,9 @@ export default {
                 case 'defined_class_rule':
                     code += this.generateDefineClassRule(rule)
                     break
+                case 'defined_enum_rule':
+                    code += this.generateEnumRule(rule)
+                    break
                 case 'generalization_rule':
                     code += this.generateGeneralizationRule(rule)
                     break
@@ -162,6 +165,35 @@ export default {
         return code
     },
 
+    generateEnumRule: function (rule){
+        let code = ""
+        code += "<!-- Enum Definition-->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+                    <query>
+                        from x : V{Enumeration} with
+                        isDefined(x.name) and
+                        stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3
+                        report 1 end
+                    </query>
+                    <feedback>${rule.feedback}</feedback>
+                 </rule>`
+        rule.rule_specific.attributes.forEach(attr => {
+            code += "<!-- Enum Attribute Definition-->"
+            code += `<rule type="presence" points="${attr.points}">
+                         <query>
+                             from x : V{Enumeration}, y: V{EnumerationLiteral} with
+                             isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3 and
+                             isDefined(y.name) and y.name ="${attr.name}" and
+                             x --> y
+                             report 1 end
+                         </query>
+                         <feedback>${attr.feedback}</feedback>
+                     </rule>`
+        })
+
+        return code
+    },
+
     generateGeneralizationRule: function (rule) {
         let code = ""
         if (rule.rule_specific.type === rulesDefinitions.GENERALIZATION_TYPE.implementation) {
@@ -197,18 +229,17 @@ export default {
         let code = "<!-- Composition rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
-                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
-                                           with
-                                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_composite}")&lt;3 and
-                                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
-                                              isDefined(p.aggregation) and p.aggregation="composite" and
-                                              isDefined(p.visibility) and p.visibility="public" and
-                                              x --> V{Property} --> V{Association} --> p &lt;-- y and
-                                              isDefined(a.value) and a.value="${elem_mul.min}"  and
-                                              isDefined(b.value) and b.value="${elem_mul.max}"  and
-                                              x --> V{Property} --> a and
-                                              x --> V{Property} --> b
-                                              report 1 end
+                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString} with
+                        isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_composite}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
+                        isDefined(p.aggregation) and p.aggregation="composite" and
+                        isDefined(p.visibility) and p.visibility="public" and
+                        x --> V{Property} --> V{Association} --> p &lt;-- y and
+                        isDefined(a.value) and a.value="${elem_mul.min}"  and
+                        isDefined(b.value) and b.value="${elem_mul.max}"  and
+                        x --> V{Property} --> a and
+                        x --> V{Property} --> b
+                        report 1 end
                     </query>
                     <feedback>
                         ${rule.feedback}
@@ -222,18 +253,17 @@ export default {
         let code = "<!-- Aggregation rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
-                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
-                                           with
-                                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_aggregate}")&lt;3 and
-                                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
-                                              isDefined(p.aggregation) and p.aggregation="shared" and
-                                              isDefined(p.visibility) and p.visibility="private" and
-                                              x --> V{Property} --> V{Association} --> p &lt;-- y and
-                                              isDefined(a.value) and a.value="${elem_mul.min}"  and
-                                              isDefined(b.value) and b.value="${elem_mul.max}"  and
-                                              x --> V{Property} --> a and
-                                              x --> V{Property} --> b
-                                              report 1 end
+                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString} with
+                        isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_aggregate}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
+                        isDefined(p.aggregation) and p.aggregation="shared" and
+                        isDefined(p.visibility) and p.visibility="private" and
+                        x --> V{Property} --> V{Association} --> p &lt;-- y and
+                        isDefined(a.value) and a.value="${elem_mul.min}"  and
+                        isDefined(b.value) and b.value="${elem_mul.max}"  and
+                        x --> V{Property} --> a and
+                        x --> V{Property} --> b
+                        report 1 end
                     </query>
                     <feedback>
                         ${rule.feedback}
