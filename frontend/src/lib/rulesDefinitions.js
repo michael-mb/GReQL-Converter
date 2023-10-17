@@ -3,7 +3,7 @@ import rulesExplanations from "@/helpers/rulesExplanations";
 export default {
     RULE_TYPE: {
         // CLASS & INTERFACE
-        'defined_class': 'defined_class_rule',
+        'defined_class': 'defined_class_rule', // Done *
         'defined_enum': 'defined_enum_rule', // Done *
 
         // GENERALIZATION & SPECIALIZATION
