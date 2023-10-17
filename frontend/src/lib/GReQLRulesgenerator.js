@@ -152,9 +152,7 @@ export default {
                        report 1 end
                 </query>
                 <feedback>${method.feedback}</feedback>
-              </rule>
-        `
-
+              </rule>`
         return code
     },
 
@@ -206,14 +204,14 @@ export default {
     },
 
     generateSimpleAssociationRule: function (rule) {
-        console.log("Simple Rule: ", rule)
+        console.log("Simple ASS Rule: ", rule)
         /**
          * TODO: Not working 😢
          */
         let code = "<!-- Simple Association Rule -->"
         code += "<!-- TODO: How to do it ? With cardinality ??? -->"
         code += `  <rule type="${rule.existence}" points="${rule.points}">
-                    <query>from x,y : V{Class}, a,b: V{Property}
+                    <query>from x,y : V{Class}, a: V{Property}
                            with
                               isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
                               isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
@@ -250,8 +248,7 @@ export default {
                            with c&lt;>${rule.rule_specific.attributes}
                            report c as "count" end</query>
                 <feedback>Das Diagramm sollte genau ${rule.rule_specific.attributes} Attribute enthalten, enthält aber {count}.</feedback>
-                </rule>
-        `
+                </rule>`
         return code
     },
 
