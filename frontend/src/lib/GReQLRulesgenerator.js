@@ -24,6 +24,9 @@ export default {
                 case 'test_association_rule':
                     code += this.generateTestAssociationRule(rule)
                     break
+                case 'association_class_rule':
+                    code += this.generateAssociationClassRule(rule)
+                    break
                 case 'count_methods_rule':
                     code += this.generateCountMethodsRule(rule)
                     break
@@ -334,6 +337,23 @@ export default {
                            report c as "count" end
                  </query>
                 <feedback>Das Diagramm sollte genau ${rule.rule_specific.attributes} Attribute enthalten, enthält aber {count}.</feedback>
+                </rule>`
+        return code
+    },
+
+    generateAssociationClassRule: function (rule) {
+        let code = "<!-- Association Class Rule -->"
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+                    <query>from x,y,z : V{Class}
+                              with
+                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
+                              isDefined(z.name) and stringLevenshteinDistance(z.name, "${rule.rule_specific.class_C}")&lt;3 and
+                              z --> V{Property} &lt;-- x and
+                              z --> V{Property} &lt;-- y
+                              report 1 end
+                    </query>
+                    <feedback>${rule.feedback}</feedback>
                 </rule>`
         return code
     },

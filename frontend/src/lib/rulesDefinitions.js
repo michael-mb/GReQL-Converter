@@ -15,7 +15,7 @@ export default {
         'aggregation': 'aggregation_rule', // Done *
 
         // ASSOCIATION CLASS
-        'association_class': 'association_class_rule',
+        'association_class': 'association_class_rule', // Done *
 
         // OPTIONAL
         'nomination_consistency': 'nomination_consistency_rule', // Done *
@@ -26,7 +26,7 @@ export default {
     },
     RULE_TYPE_JSON: {
         // CLASS & INTERFACE
-        'defined_class_rule': {
+        'defined_class_rule': { // Done *
             rule_type: 'defined_class_rule',
             rule_name: 'Class definition',
             info_text: rulesExplanations.defined_class_rule,
@@ -116,7 +116,7 @@ export default {
             }
         },
         // ASSOCIATION CLASS
-        'association_class_rule': {
+        'association_class_rule': { // Done *
             rule_type: "association_class_rule",
             rule_name: "Association Class",
             existence: "presence",
@@ -127,7 +127,7 @@ export default {
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",
-                class_C: "Class C"
+                class_C: "Association Class"
             }
         },
         // OPTIONAL
