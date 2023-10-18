@@ -140,11 +140,11 @@ export default {
          1- Only 3 primitive type are working  Integer - Boolean - String
          */
 
-        let vType = "from x: V{Class}, y : V{Operation}, ret: V{Parameter}"
+        let vType = "from x: V{Class}, y : V{Operation}"
         let vTypeText = ""
         if (retType !== '!prim') {
             vType = "from x : V{Class}, y : V{Operation}, ret: V{Parameter}, retType: V{PrimitiveType}"
-            vTypeText = ` and ret --> retType and isDefined(retType.name) and retType.name="${retType}"`
+            vTypeText = ` and y --> ret and isDefined(ret.name) and ret.name="return"  and ret --> retType and isDefined(retType.name) and retType.name="${retType}"`
         }
 
         code += "<!-- Method Rule -->"
@@ -155,8 +155,7 @@ export default {
                               isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
                               ${visibility}
                               ${isStatic} and
-                              x --> y and
-                              y --> ret and isDefined(ret.name) and ret.name="return" 
+                              x --> y 
                               ${vTypeText}
                            report 1 end
                     </query>
@@ -248,7 +247,6 @@ export default {
                         isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_composite}")&lt;3 and
                         isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
                         isDefined(p.aggregation) and p.aggregation="composite" and
-                        isDefined(p.visibility) and p.visibility="public" and
                         x --> V{Property} --> V{Association} --> p &lt;-- y and
                         isDefined(a.value) and a.value="${elem_mul.min}"  and
                         isDefined(b.value) and b.value="${elem_mul.max}"  and
@@ -272,7 +270,6 @@ export default {
                         isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_aggregate}")&lt;3 and
                         isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
                         isDefined(p.aggregation) and p.aggregation="shared" and
-                        isDefined(p.visibility) and p.visibility="private" and
                         x --> V{Property} --> V{Association} --> p &lt;-- y and
                         isDefined(a.value) and a.value="${elem_mul.min}"  and
                         isDefined(b.value) and b.value="${elem_mul.max}"  and

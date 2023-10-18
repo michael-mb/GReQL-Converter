@@ -246,5 +246,72 @@ export default {
             "ClassA o-- \"*\" ClassC : Aggregation\n" +
             "ClassB *-- \"0..2\" ClassC : Composition\n" +
             "@enduml"
+    },
+    computer_spiel: {
+        code: "@startuml\n" +
+            "\n" +
+            "skin rose\n" +
+            "\n" +
+            "title Association - Class Diagram\n" +
+            "\n" +
+            "\n" +
+            "class Spielgebiet{}\n" +
+            "\n" +
+            "class Spielfigur {\n" +
+            "  + nickname : String\n" +
+            "  + gehen (int x, int y)\n" +
+            "  + springen (int x, int z)\n" +
+            "  + ansprechen (Spielfigur sf)\n" +
+            "}\n" +
+            "Spielgebiet *-- \"1..2\" Spielfigur\n" +
+            "Spielfigur \"1\" -- \"1\" Spieler\n" +
+            "\n" +
+            "\n" +
+            "class Spieler {}\n" +
+            "Spielgebiet \"*\" -- \"1..4\" Spieler\n" +
+            "\n" +
+            "\n" +
+            "class Position{\n" +
+            " + x: int\n" +
+            " + y: int\n" +
+            " + z: int\n" +
+            "}\n" +
+            "Spielgebiet \"1\" -- \"100000\" Position\n" +
+            "Position \"1\" -- \"1\" Gebietselement\n" +
+            "\n" +
+            "\n" +
+            "abstract class Gebietselement{}\n" +
+            "Spielgebiet o-- \"3..*\" Gebietselement\n" +
+            "\n" +
+            "class Gegenstand {\n" +
+            "  + nehmen()\n" +
+            "}\n" +
+            "\n" +
+            "Gebietselement <|-- Gegenstand\n" +
+            "\n" +
+            "class Gegner {\n" +
+            "  + bekaempfen()\n" +
+            "}\n" +
+            "Gebietselement <|-- Gegner\n" +
+            "Gegner \"1\" -- \"1\" Spielgebiet\n" +
+            "\n" +
+            "\n" +
+            "class Ziel {}\n" +
+            "Spielgebiet \"1\" -- \"1\" Ziel\n" +
+            "Gebietselement <|-- Ziel\n" +
+            "\n" +
+            "abstract class Form {\n" +
+            "  + ueberwinden()\n" +
+            "}\n" +
+            "Gebietselement <|-- Form\n" +
+            "\n" +
+            "class AtomareForm{}\n" +
+            "Form <|-- AtomareForm\n" +
+            "\n" +
+            "class KomplexeForm{}\n" +
+            "Form <|-- KomplexeForm\n" +
+            "KomplexeForm  *-- \"*\" Form\n" +
+            "\n" +
+            "@enduml"
     }
 }

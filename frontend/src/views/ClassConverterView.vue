@@ -154,7 +154,7 @@ import NominationConsistency from "@/components/rules/NominationConsistency.vue"
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.easy_test)
+const defaultCode = ref(default_test_code.computer_spiel)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
 
