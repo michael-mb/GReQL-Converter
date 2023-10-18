@@ -167,7 +167,7 @@ export default {
             code += `<rule type="presence" points="0">
                     <query>from x: V{Class}, y : V{Operation}, param: V{Parameter}
                            with
-                              isDefined(x.name) and x.name="${rule.rule_specific.class_name}" and
+                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 and
                               isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
                               x --> y and
                               y --> param and isDefined(param.name) and param.name="${arg}" 
@@ -197,7 +197,7 @@ export default {
                          <query>
                              from x : V{Enumeration}, y: V{EnumerationLiteral} with
                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3 and
-                             isDefined(y.name) and y.name ="${attr.name}" and
+                             isDefined(y.name) and stringLevenshteinDistance(y.name, "${attr.name}")&lt;3 and
                              x --> y
                              report 1 end
                          </query>
@@ -215,8 +215,8 @@ export default {
             code += `<rule type="${rule.existence}" points="${rule.points}">
                          <query>from x : V{Class}, i : V{Interface}
                                 with
-                                   isDefined(x.name) and x.name="${rule.rule_specific.class_child}" and
-                                   isDefined(i.name) and i.name="${rule.rule_specific.class_parent}" and
+                                   isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_child}")&lt;3 and
+                                   isDefined(i.name) and stringLevenshteinDistance(i.name, "${rule.rule_specific.class_parent}")&lt;3 and
                                    x &lt;--{ClientEdge} V{Realization} --> i 
                                 report 1 end
                          </query>
@@ -227,8 +227,9 @@ export default {
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from a,b : V{Class}
                                with
-                                  isDefined(a.name) and a.name="${rule.rule_specific.class_child}" and
-                                  isDefined(b.name) and b.name="${rule.rule_specific.class_parent}" and
+                               
+                                  isDefined(a.name) and stringLevenshteinDistance(a.name, "${rule.rule_specific.class_child}")&lt;3 and
+                                  isDefined(b.name) and stringLevenshteinDistance(b.name, "${rule.rule_specific.class_parent}")&lt;3 and
                                   a --> V{Generalization} --> b
                                report 1 end
                         </query>
@@ -292,8 +293,8 @@ export default {
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>from x,y : V{Class}, ass : V{Association}, a,b,c,d  : V{LiteralString}
                         with
-                            isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
-                            isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
+                            isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                            isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
                             isDefined(a.value) and a.value="${B_mul.min}"  and
                             isDefined(b.value) and b.value="${B_mul.max}"  and
                             x --> V{Property} --> a and
@@ -366,8 +367,8 @@ export default {
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>from x,y : V{Class}
                            with
-                              isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
-                              isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
+                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
                               x --> V{Property} --> V{Association} &lt;-- V{Property} &lt;-- y
                            report 1 end
                     </query>
