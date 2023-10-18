@@ -1,23 +1,6 @@
 export default {
     easy_test: {
         code: "@startuml\n" +
-            "class Dwelling {\n" +
-            "  + Windows : String\n" +
-            "  + Time : Date\n" +
-            "  + number: double\n" +
-            "  + double Lock(int age, bool status, double number)\n" +
-            "}\n" +
-            "@enduml"
-    },
-    easy_method_test: {
-        code: "@startuml\n" +
-            "class Dwelling {\n" +
-            " +void Lock()\n" +
-            "}\n" +
-            "@enduml"
-    },
-    easy_test_improved: {
-        code: "@startuml\n" +
             "\n" +
             "skin rose\n" +
             "title Relationships - Class Diagram\n" +
@@ -25,7 +8,7 @@ export default {
             "class ClassA {\n" +
             "  - Windows : Int\n" +
             "  + Time : Date\n" +
-            "  +void Lock()\n" +
+            "  + double Lock(int age, bool status, double number)\n" +
             "}\n" +
             "class ClassB {}\n" +
             "class ClassC {}\n" +
@@ -49,8 +32,8 @@ export default {
             "}\n" +
             "\n" +
             "interface Subject <<interface>> {\n" +
-            "    + void registerObserver(observer: Observer)\n" +
-            "    + void removeObserver(observer: Observer)\n" +
+            "    + void registerObserver(Observer observer)\n" +
+            "    + void removeObserver(Observer observer)\n" +
             "    + void notifyObservers()\n" +
             "}\n" +
             "\n" +
@@ -60,8 +43,8 @@ export default {
             "\n" +
             "class MyTopic {\n" +
             "    - number: int\n" +
-            "    + void registerObserver(observer: Observer)\n" +
-            "    + void removeObserver(observer: Observer)\n" +
+            "    + void registerObserver(Observer observer)\n" +
+            "    + void removeObserver(Observer observer)\n" +
             "    + void notifyObservers()\n" +
             "}\n" +
             "\n" +
@@ -73,22 +56,6 @@ export default {
             "@enduml"
     },
     generalization_test: {
-        code: "@startuml\n" +
-            "skin rose\n" +
-            "title Generalization\n" +
-            "\n" +
-            "class Animal {}\n" +
-            "class Mammal {}\n" +
-            "interface Flyer <<interface>>{}\n" +
-            "class Bat {}\n" +
-            "\n" +
-            "Animal <|-- Mammal\n" +
-            "Animal <|-- Bat\n" +
-            "Flyer <|.. Bat\n" +
-            "\n" +
-            "@enduml"
-    },
-    complete_generalization_test: {
         code: "@startuml\n" +
             "\n" +
             "skin rose\n" +
@@ -188,27 +155,6 @@ export default {
             "ClassC \"1\" -- \"1\" ClassE : Association\n" +
             "@enduml"
     },
-    simple_association_rule_test: {
-        code: "@startuml\n" +
-            "\n" +
-            "skin rose\n" +
-            "\n" +
-            "title Relationships - Class Diagram\n" +
-            "\n" +
-            "class ClassA {}\n" +
-            "\n" +
-            "class ClassB {}\n" +
-            "\n" +
-            "class ClassC {}\n" +
-            "\n" +
-            "class ClassD {}\n" +
-            "\n" +
-            "ClassA -- ClassC\n" +
-            "ClassB \"0..3\" -- \"0..2\" ClassC  \n" +
-            "ClassC \"2\" -- \"+\" ClassD \n" +
-            "\n" +
-            "@enduml"
-    },
     association_class_rule_test: {
         code: "@startuml\n" +
             "\n" +
@@ -228,23 +174,6 @@ export default {
             "Student \"*\" -- \"+\" Course\n" +
             "(Student, Course) .. Enrollment\n" +
             "\n" +
-            "@enduml"
-    },
-    aggregation_composition_rule_test: {
-        code: "@startuml\n" +
-            "\n" +
-            "skin rose\n" +
-            "\n" +
-            "title Relationships - Class Diagram\n" +
-            "\n" +
-            "class ClassA {}\n" +
-            "\n" +
-            "class ClassB {}\n" +
-            "\n" +
-            "class ClassC {}\n" +
-            "\n" +
-            "ClassA o-- \"*\" ClassC : Aggregation\n" +
-            "ClassB *-- \"0..2\" ClassC : Composition\n" +
             "@enduml"
     },
     computer_spiel: {
