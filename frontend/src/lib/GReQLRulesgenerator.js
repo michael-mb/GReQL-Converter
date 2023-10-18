@@ -41,7 +41,7 @@ export default {
                     break
                 default:
                     code += `<!-- ${rule.rule_type} + " - Not supported 😢" -->`
-                    console.log(rule.rule_type + " - Not supported 😢");
+                    console.log(rule.rule_type + " - Not supported 😢")
             }
         })
         return "<checkerrules>" + code + "</checkerrules>"
