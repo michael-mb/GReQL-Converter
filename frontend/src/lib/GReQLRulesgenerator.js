@@ -40,6 +40,7 @@ export default {
                     code += this.generateNominationConsistencyRule()
                     break
                 default:
+                    code += `<!-- ${rule.rule_type} + " - Not supported 😢" -->`
                     console.log(rule.rule_type + " - Not supported 😢");
             }
         })
