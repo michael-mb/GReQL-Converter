@@ -313,5 +313,91 @@ export default {
             "KomplexeForm  *-- \"*\" Form\n" +
             "\n" +
             "@enduml"
+    },
+    bau_gmbh: {
+        code: "@startuml\n" +
+            "\n" +
+            "skin rose\n" +
+            "\n" +
+            "title Fallstudie Mendelssohn & Sohn Maschinenbau GmbH\n" +
+            "\n" +
+            "enum Rolle <<enum>> {\n" +
+            " LEITER\n" +
+            " MITARBEITER\n" +
+            " \n" +
+            "}\n" +
+            "\n" +
+            "\n" +
+            "class Kundenauftragsposition {\n" +
+            "  + id: int\n" +
+            "  + auftragspositionnummer: int\n" +
+            "  + anzahl: int\n" +
+            "}\n" +
+            "\n" +
+            "class Artikel {\n" +
+            "  + id: int\n" +
+            "  + beschreibung: String\n" +
+            "  + lieferand: String\n" +
+            "}\n" +
+            "Artikel \"0..1\" -- \"*\" Kundenauftragsposition\n" +
+            "\n" +
+            "class Erzeugnis {\n" +
+            "  + preis: int\n" +
+            "  + hersteller: String\n" +
+            "}\n" +
+            "Artikel <|-- Erzeugnis\n" +
+            "\n" +
+            "class Bauteil {\n" +
+            "  + hoehe : int\n" +
+            "  + breite: int\n" +
+            "  + tiefe : int\n" +
+            "}\n" +
+            "Artikel <|-- Bauteil\n" +
+            "\n" +
+            "class Rofstoff {\n" +
+            "  + gewicht: int\n" +
+            "  + zustand: string\n" +
+            "}\n" +
+            "Artikel <|-- Rofstoff\n" +
+            "\n" +
+            "\n" +
+            "class Produktionsauftrag{\n" +
+            "  + id: int\n" +
+            "  + stueckliste: List<Artikel>\n" +
+            "}\n" +
+            "Produktionsauftrag \"0..1\" -- \"1\" Kundenauftragsposition\n" +
+            "\n" +
+            "\n" +
+            "class Person{\n" +
+            "  + id: int\n" +
+            "  + rolle: Rolle\n" +
+            "  + name: String\n" +
+            "  + vorname: String\n" +
+            "}\n" +
+            "Person \"1\" -- \"*\" Produktionsauftrag\n" +
+            "\n" +
+            "class TechnischeSpezifikation{\n" +
+            "  + id: int\n" +
+            "  + schaltungstyp: String\n" +
+            "  + eingangwiderstand: String\n" +
+            "  + phasenverschiebung: String\n" +
+            "}\n" +
+            "\n" +
+            "class Kundenauftrag {\n" +
+            "  + id: int\n" +
+            "  + status: String\n" +
+            "  + abwicklungsdatum: String\n" +
+            "}\n" +
+            "Kundenauftrag *-- \"*\" Kundenauftragsposition\n" +
+            "Kundenauftrag *-- \"*\" TechnischeSpezifikation\n" +
+            "\n" +
+            "class Kunden {\n" +
+            "  + kundennummer: int\n" +
+            "  + name: String \n" +
+            "  + anschrift: String\n" +
+            "}\n" +
+            "Kunden \"1\" -- \"*\" Kundenauftrag\n" +
+            "\n" +
+            "@enduml"
     }
 }
