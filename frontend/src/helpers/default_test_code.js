@@ -181,7 +181,7 @@ export default {
             "\n" +
             "skin rose\n" +
             "\n" +
-            "title Association - Class Diagram\n" +
+            "title Computerspiel - Class Diagram\n" +
             "\n" +
             "class Spielgebiet{}\n" +
             "\n" +
@@ -237,7 +237,7 @@ export default {
             "\n" +
             "@enduml"
     },
-    bau_gmbh: {
+    bau_project: {
         code: "@startuml\n" +
             "\n" +
             "skin rose\n" +
@@ -247,9 +247,7 @@ export default {
             "enum Rolle <<enum>> {\n" +
             " LEITER\n" +
             " MITARBEITER\n" +
-            " \n" +
             "}\n" +
-            "\n" +
             "\n" +
             "class Kundenauftragsposition {\n" +
             "  + id: int\n" +
@@ -283,13 +281,11 @@ export default {
             "}\n" +
             "Artikel <|-- Rofstoff\n" +
             "\n" +
-            "\n" +
             "class Produktionsauftrag{\n" +
             "  + id: int\n" +
             "  + stueckliste: List<Artikel>\n" +
             "}\n" +
             "Produktionsauftrag \"0..1\" -- \"1\" Kundenauftragsposition\n" +
-            "\n" +
             "\n" +
             "class Person{\n" +
             "  + id: int\n" +
