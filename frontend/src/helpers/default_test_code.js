@@ -183,7 +183,6 @@ export default {
             "\n" +
             "title Association - Class Diagram\n" +
             "\n" +
-            "\n" +
             "class Spielgebiet{}\n" +
             "\n" +
             "class Spielfigur {\n" +
@@ -195,10 +194,8 @@ export default {
             "Spielgebiet *-- \"1..2\" Spielfigur\n" +
             "Spielfigur \"1\" -- \"1\" Spieler\n" +
             "\n" +
-            "\n" +
             "class Spieler {}\n" +
             "Spielgebiet \"*\" -- \"1..4\" Spieler\n" +
-            "\n" +
             "\n" +
             "class Position{\n" +
             " + x: int\n" +
@@ -208,14 +205,12 @@ export default {
             "Spielgebiet \"1\" -- \"100000\" Position\n" +
             "Position \"1\" -- \"1\" Gebietselement\n" +
             "\n" +
-            "\n" +
             "abstract class Gebietselement{}\n" +
             "Spielgebiet o-- \"3..*\" Gebietselement\n" +
             "\n" +
             "class Gegenstand {\n" +
             "  + nehmen()\n" +
             "}\n" +
-            "\n" +
             "Gebietselement <|-- Gegenstand\n" +
             "\n" +
             "class Gegner {\n" +
@@ -223,7 +218,6 @@ export default {
             "}\n" +
             "Gebietselement <|-- Gegner\n" +
             "Gegner \"1\" -- \"1\" Spielgebiet\n" +
-            "\n" +
             "\n" +
             "class Ziel {}\n" +
             "Spielgebiet \"1\" -- \"1\" Ziel\n" +
