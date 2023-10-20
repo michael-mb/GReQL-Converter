@@ -7,12 +7,15 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  server: {
-    node: true,
-  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    proxy:{
+        target: 'https://greql-converter-backend.vercel.app',
+        changeOrigin: true
+      }
   },
 })

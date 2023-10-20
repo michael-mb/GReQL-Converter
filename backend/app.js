@@ -10,6 +10,10 @@ const port = 3000;
 app.use(cors({origin:true,credentials: true}));
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+  res.send('Ready for request!');
+});
+
 app.post('/convert', (req, res) => {
   const code = req.body.code;
   try {
