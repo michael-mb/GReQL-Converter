@@ -3,10 +3,11 @@ const bodyParser = require('body-parser');
 const { parse } = require('plantuml-parser');
 const cors = require('cors');
 
+
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(cors({origin:true,credentials: true}));
 app.use(bodyParser.json());
 
 app.post('/convert', (req, res) => {
