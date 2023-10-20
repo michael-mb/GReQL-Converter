@@ -30,7 +30,7 @@ export default {
             rule_type: 'defined_class_rule',
             rule_name: 'Class definition',
             info_text: rulesExplanations.defined_class_rule,
-            info_image: 'src/assets/rules/defined_class_rule.png',
+            info_image: 'assets/rules/defined_class_rule.png',
             feedback: '... no feedback yet',
             points: 0,
             existence: 'presence',
@@ -47,7 +47,7 @@ export default {
             rule_type: 'defined_enum_rule',
             rule_name: 'Enum definition',
             info_text: rulesExplanations.defined_class_rule,
-            info_image: 'src/assets/rules/defined_class_rule.png',
+            info_image: 'assets/rules/defined_class_rule.png',
             feedback: '... no feedback yet',
             points: 0,
             existence: 'presence',
@@ -62,7 +62,7 @@ export default {
             rule_name: "Generalization",
             existence: "presence",
             info_text: rulesExplanations.generalization_rule,
-            info_image: "src/assets/rules/generalization_rule.png",
+            info_image: "assets/rules/generalization_rule.png",
             points: 0,
             feedback: '... no feedback',
             rule_specific: {
@@ -77,7 +77,7 @@ export default {
             rule_name: "Simple Association",
             existence: "presence",
             info_text: rulesExplanations.simple_association_rule,
-            info_image: "src/assets/rules/relations.png",
+            info_image: "assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
             rule_specific: {
@@ -92,7 +92,7 @@ export default {
             rule_name: "Composition",
             existence: "presence",
             info_text: rulesExplanations.aggregation_composition_rule,
-            info_image: "src/assets/rules/relations.png",
+            info_image: "assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
             rule_specific: {
@@ -106,7 +106,7 @@ export default {
             rule_name: "Aggregation",
             existence: "presence",
             info_text: rulesExplanations.aggregation_composition_rule,
-            info_image: "src/assets/rules/relations.png",
+            info_image: "assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
             rule_specific: {
@@ -121,7 +121,7 @@ export default {
             rule_name: "Association Class",
             existence: "presence",
             info_text: rulesExplanations.association_class_rule,
-            info_image: "src/assets/rules/ass_class.png",
+            info_image: "assets/rules/ass_class.png",
             points: 0,
             feedback: "... Es muss eine Assoziationsklasse C auf der Beziehung zwischen Klasse A und Klasse B haben.",
             rule_specific: {
@@ -164,7 +164,7 @@ export default {
             rule_name: "Test Association",
             existence: "absence",
             info_text: rulesExplanations.test_association_rule,
-            info_image: "src/assets/rules/relations.png",
+            info_image: "assets/rules/relations.png",
             points: 0,
             rule_specific: {
                 class_A: "Class A",

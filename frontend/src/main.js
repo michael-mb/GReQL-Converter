@@ -1,3 +1,11 @@
+// Template JS
+import '../public/assets/js/jquery-3.6.0.min'
+import '../public/assets/js/bootstrap.bundle.min.js'
+import '../public/assets/js/feather.min.js'
+import '../public/assets/plugins/slimscroll/jquery.slimscroll.min.js'
+import '../public/assets/js/script.js'
+
+
 import {createApp, defineAsyncComponent} from 'vue'
 import { createPinia } from 'pinia'
 import router from './router'
