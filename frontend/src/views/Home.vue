@@ -18,7 +18,7 @@
 
         <div class="row">
 
-          <HomeBox link="/class" image="src/assets/img/custom/class.png" title="UML Class Diagram"
+          <HomeBox link="/class" image="/assets/img/custom/class.png" title="UML Class Diagram"
                    description="Use the GReQL converter on a class diagram."/>
           <!--HomeBox link="#" image="src/assets/img/custom/sequenz.png" title="UML-Sequenzdiagramm"
                    description="Verwenden Sie den GReQL-Konverter auf einem Sequenzdiagramm."/-->
