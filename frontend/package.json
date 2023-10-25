@@ -21,5 +21,8 @@
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
     "vite": "^4.3.9"
+  },
+  "resolutions": {
+    "highlight.js": "11.8.0"
   }
 }
