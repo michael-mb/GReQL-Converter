@@ -50,13 +50,19 @@ export default {
     generateDefineClassRule: function (rule) {
         const isInterface = rule.rule_specific.interface
         let code = ""
+        let checkName
+        if(rule.rule_specific.exact_match)
+            checkName = `x.name="${rule.rule_specific.class_name}"`
+        else
+            checkName = `stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3`
+
         if (isInterface) {
             code += "<!-- Interface Definition -->"
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from x : V{Interface} 
                                with 
-                               isDefined(x.name) and  
-                               stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
+                               isDefined(x.name) and 
+                               ${checkName} 
                               report 1 end
                         </query>
                         <feedback>${rule.feedback}</feedback>
@@ -66,15 +72,16 @@ export default {
 
             let abstractCode
             if (isAbstract)
-                abstractCode = `and x.isAbstract`
+                abstractCode = `and isDefined(x.isAbstract) and x.isAbstract`
             else
-                abstractCode = `and (not x.isAbstract)`
+                abstractCode = `and isDefined(x.isAbstract) and (not x.isAbstract)`
+
             code += "<!-- Class Definition -->"
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from x : V{Class} 
                                with
                                isDefined(x.name) and  
-                               stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
+                               ${checkName}
                                ${abstractCode}
                                report 1 end
                         </query>
@@ -108,6 +115,12 @@ export default {
         const isStatic = this.isStatic(attribute)
         const primitiveType = this.getType(attribute.type)
 
+        let checkName
+        if(attribute.exact_match)
+            checkName = `y.name="${attribute.name}"`
+        else
+            checkName = `stringLevenshteinDistance(y.name, "${attribute.name}")&lt;3`
+
         let vType = "from x: V{Class}, y : V{Property}"
         let vTypeText = ""
         if (primitiveType !== '!prim') {
@@ -119,7 +132,8 @@ export default {
                     <query>${vType}
                            with
                            isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 and 
-                           x --> y and isDefined(y.name) and stringLevenshteinDistance(y.name, "${attribute.name}")&lt;3 and
+                           x --> y and isDefined(y.name) and
+                           ${checkName} and
                            ${visibility}
                            ${isStatic}
                            ${vTypeText}
@@ -136,6 +150,11 @@ export default {
         const visibility = this.getVisibility(method)
         const isStatic = this.isStatic(method)
         const retType = this.getType(method.return_type)
+        let checkName
+        if(method.exact_match)
+            checkName = `y.name="${method.name}"`
+        else
+            checkName = `stringLevenshteinDistance(y.name, "${method.name}")&lt;3`
 
         /***
          1- Only 3 primitive type are working  Integer - Boolean - String
@@ -153,7 +172,8 @@ export default {
                     <query>${vType}
                            with
                            isDefined(x.name) and x.name="${rule.rule_specific.class_name}" and
-                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
+                           isDefined(y.name) and
+                           ${checkName} and
                            ${visibility}
                            ${isStatic} and
                            x --> y 
@@ -182,13 +202,19 @@ export default {
 
     generateEnumRule: function (rule){
         let code = ""
+        let checkName
+        if(rule.rule_specific.exact_match)
+            checkName = `x.name="${rule.rule_specific.enum_class_name}"`
+        else
+            checkName = `stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3`
+
         code += "<!-- Enum Definition-->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
                         from x : V{Enumeration}
                         with
                         isDefined(x.name) and
-                        stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3
+                        ${checkName}
                         report 1 end
                     </query>
                     <feedback>${rule.feedback}</feedback>
@@ -214,24 +240,41 @@ export default {
     generateGeneralizationRule: function (rule) {
         let code = ""
         if (rule.rule_specific.type === rulesDefinitions.GENERALIZATION_TYPE.implementation) {
+            let checkName
+            if(rule.rule_specific.exact_match){
+                checkName = `isDefined(x.name) and x.name="${rule.rule_specific.class_child}" and
+                                isDefined(i.name) and i.name="${rule.rule_specific.class_parent}" and`
+            }
+            else{
+                checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_child}")&lt;3 and
+                                isDefined(i.name) and stringLevenshteinDistance(i.name, "${rule.rule_specific.class_parent}")&lt;3 and`
+            }
+
             code += "<!-- Implementation rule -->"
             code += `<rule type="${rule.existence}" points="${rule.points}">
                          <query>from x : V{Class}, i : V{Interface}
                                 with
-                                isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_child}")&lt;3 and
-                                isDefined(i.name) and stringLevenshteinDistance(i.name, "${rule.rule_specific.class_parent}")&lt;3 and
+                                ${checkName}
                                 x &lt;--{ClientEdge} V{Realization} --> i 
                                 report 1 end
                          </query>
                          <feedback>${rule.feedback}</feedback>
                      </rule>`
         } else {
+            let checkName
+            if(rule.rule_specific.exact_match){
+                checkName = `isDefined(a.name) and a.name="${rule.rule_specific.class_child}" and
+                               isDefined(b.name) and b.name="${rule.rule_specific.class_parent}" and`
+            }
+            else{
+                checkName = `isDefined(a.name) and stringLevenshteinDistance(a.name, "${rule.rule_specific.class_child}")&lt;3 and
+                               isDefined(b.name) and stringLevenshteinDistance(b.name, "${rule.rule_specific.class_parent}")&lt;3 and`
+            }
             code += "<!-- Generalization rule -->"
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from a,b : V{Class}
                                with
-                               isDefined(a.name) and stringLevenshteinDistance(a.name, "${rule.rule_specific.class_child}")&lt;3 and
-                               isDefined(b.name) and stringLevenshteinDistance(b.name, "${rule.rule_specific.class_parent}")&lt;3 and
+                               ${checkName}
                                a --> V{Generalization} --> b
                                report 1 end
                         </query>
@@ -243,13 +286,21 @@ export default {
 
     generateCompositionRule: function (rule) {
         const elem_mul = this.getMultiplicity(rule.rule_specific.element_multiplicity)
+        let checkName
+        if(rule.rule_specific.exact_match){
+            checkName = `isDefined(x.name) and x.name="${rule.rule_specific.class_composite}" and
+                        isDefined(y.name) and y.name="${rule.rule_specific.class_element}" and`
+        }
+        else{
+            checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_composite}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and`
+        }
         let code = "<!-- Composition rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
                         from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
                         with
-                        isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_composite}")&lt;3 and
-                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
+                        ${checkName}
                         isDefined(p.aggregation) and p.aggregation="composite" and
                         x --> V{Property} --> V{Association} --> p &lt;-- y and
                         isDefined(a.value) and a.value="${elem_mul.min}"  and
@@ -267,13 +318,21 @@ export default {
 
     generateAggregationRule: function (rule) {
         const elem_mul = this.getMultiplicity(rule.rule_specific.element_multiplicity)
+        let checkName
+        if(rule.rule_specific.exact_match){
+            checkName = `isDefined(x.name) and x.name="${rule.rule_specific.class_aggregate}" and
+                        isDefined(y.name) and y.name="${rule.rule_specific.class_element}" and`
+        }
+        else{
+            checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_aggregate}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and`
+        }
         let code = "<!-- Aggregation rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
                         from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
                         with
-                        isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_aggregate}")&lt;3 and
-                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
+                        ${checkName}
                         isDefined(p.aggregation) and p.aggregation="shared" and
                         x --> V{Property} --> V{Association} --> p &lt;-- y and
                         isDefined(a.value) and a.value="${elem_mul.min}"  and
@@ -293,12 +352,21 @@ export default {
         const A_mul = this.getMultiplicity(rule.rule_specific.A_multiplicity)
         const B_mul = this.getMultiplicity(rule.rule_specific.B_multiplicity)
 
+        let checkName
+        if(rule.rule_specific.exact_match){
+            checkName = `isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
+                        isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and`
+        }
+        else{
+            checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and`
+        }
+
         let code = "<!-- Simple Association Rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>from x,y : V{Class}, ass : V{Association}, a,b,c,d  : V{LiteralString}
                         with
-                        isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
-                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
+                        ${checkName}
                         isDefined(a.value) and a.value="${B_mul.min}"  and
                         isDefined(b.value) and b.value="${B_mul.max}"  and
                         x --> V{Property} --> a and
@@ -346,13 +414,22 @@ export default {
     },
 
     generateAssociationClassRule: function (rule) {
+        let checkName
+        if(rule.rule_specific.exact_match){
+            checkName = `isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
+                              isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and
+                              isDefined(z.name) and z.name="${rule.rule_specific.class_C}" and`
+        }
+        else{
+            checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
+                              isDefined(z.name) and stringLevenshteinDistance(z.name, "${rule.rule_specific.class_C}")&lt;3 and`
+        }
         let code = "<!-- Association Class Rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>from x,y,z : V{Class}
                               with
-                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
-                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
-                              isDefined(z.name) and stringLevenshteinDistance(z.name, "${rule.rule_specific.class_C}")&lt;3 and
+                              ${checkName}
                               z --> V{Property} &lt;-- x and
                               z --> V{Property} &lt;-- y
                               report 1 end
@@ -369,12 +446,20 @@ export default {
         else
             feedback = `Im Diagramm  gibt es keine directe Association zwischen die Klasse "${rule.rule_specific.class_B}" und die Klasse "${rule.rule_specific.class_A}". Das kann durch eine bessere Modellierung vermieden werden.`
 
+        let checkName
+        if(rule.rule_specific.exact_match){
+            checkName = `isDefined(x.name) and x.name="${rule.rule_specific.class_A}" and
+                           isDefined(y.name) and y.name="${rule.rule_specific.class_B}" and`
+        }
+        else{
+            checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and`
+        }
         let code = "<!-- Test Association Rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>from x,y : V{Class}
                            with
-                           isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
-                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
+                           ${checkName}
                            x --> V{Property} --> V{Association} &lt;-- V{Property} &lt;-- y
                            report 1 end
                     </query>

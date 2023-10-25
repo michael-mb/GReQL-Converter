@@ -30,6 +30,24 @@
           </div>
 
           <div class="form-group row">
+            <label class="col-lg-3 col-form-label">Name - Exact match</label>
+            <div class="col-lg-9">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" :name="'match_' + index" :id="'match_yes_' + index" :value="true" v-model="rule.rule_specific.exact_match">
+                <label class="form-check-label" :for="'match_yes_' + index">
+                  Yes
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" :name="'match_' + index" :id="'match_no_' + index" :value="false" v-model="rule.rule_specific.exact_match">
+                <label class="form-check-label" :for="'match_no_' + index">
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label class="col-form-label col-md-3">Range</label>
             <div class="col-md-9">
               <select class="form-select" v-model="rule.existence">
@@ -102,6 +120,24 @@
               <label class="col-lg-3 col-form-label">Name</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" v-model="attribute.name">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Name - Exact match</label>
+              <div class="col-lg-9">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'match_attr_' + index+ '_' + attribute_index" :id="'match_attr_yes_' + index+ '_' + attribute_index" :value="true" v-model="attribute.exact_match">
+                  <label class="form-check-label" :for="'match_attr_yes_' + index+ '_' + attribute_index">
+                    Yes
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'match_attr_' + index+ '_' + attribute_index" :id="'match_attr_no_' + index+ '_' + attribute_index" :value="false" v-model="attribute.exact_match">
+                  <label class="form-check-label" :for="'match_attr_no_' + index+ '_' + attribute_index">
+                    No
+                  </label>
+                </div>
               </div>
             </div>
 
@@ -190,6 +226,23 @@
               </div>
             </div>
 
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Name - Exact match</label>
+              <div class="col-lg-9">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'match_meth_' + index+ '_' + method_index " :id="'match_meth_yes_' + index+ '_' + method_index" :value="true" v-model="method.exact_match">
+                  <label class="form-check-label" :for="'match_meth_yes_' + index+ '_' + method_index">
+                    Yes
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" :name="'match_meth_' + index+ '_' + method_index" :id="'match_meth_no_' + index+ '_' + method_index" :value="false" v-model="method.exact_match">
+                  <label class="form-check-label" :for="'match_meth_no_' + index+ '_' + method_index">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Return Type</label>
               <div class="col-lg-9">

@@ -36,6 +36,7 @@ export default {
             existence: 'presence',
             rule_specific: {
                 class_name: "Car",
+                exact_match: false,
                 abstract: false,
                 interface: false,
                 methods: [],
@@ -53,6 +54,7 @@ export default {
             existence: 'presence',
             rule_specific: {
                 enum_class_name: "Car",
+                exact_match: false,
                 attributes: [],
             }
         },
@@ -68,6 +70,7 @@ export default {
             rule_specific: {
                 class_child: "Child",
                 class_parent: "Parent",
+                exact_match: false,
                 type: "inheritance" // implementation
             }
         },
@@ -83,6 +86,7 @@ export default {
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",
+                exact_match: false,
                 A_multiplicity: "1",
                 B_multiplicity: "1"
             }
@@ -98,6 +102,7 @@ export default {
             rule_specific: {
                 class_composite: "Composite",
                 class_element: "Element",
+                exact_match: false,
                 element_multiplicity: "*",
             }
         },
@@ -112,6 +117,7 @@ export default {
             rule_specific: {
                 class_aggregate: "Aggregate",
                 class_element: "Element",
+                exact_match: false,
                 element_multiplicity: "*",
             }
         },
@@ -127,7 +133,8 @@ export default {
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",
-                class_C: "Association Class"
+                class_C: "Association Class",
+                exact_match: false,
             }
         },
         // OPTIONAL
@@ -169,11 +176,13 @@ export default {
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",
+                exact_match: false,
             }
         },
     },
     METHODS_TYPE: {
         name: "public_method_name",
+        exact_match: false,
         return_type: "void",
         visibility: "public",
         arguments: "",
@@ -183,6 +192,7 @@ export default {
     },
     ATTRIBUTE_TYPE: {
         name: "attribute_name",
+        exact_match: false,
         type: "string",
         visibility: "public",
         points: 0,
@@ -191,6 +201,7 @@ export default {
     },
     ENUM_ATTRIBUTE_TYPE: {
         name: "ENUM_ATTR",
+        exact_match: false,
         points: 0,
         feedback: '... no feedback',
     },

@@ -48,6 +48,24 @@
         </div>
 
         <div class="form-group row">
+          <label class="col-lg-3 col-form-label">Name - Exact match</label>
+          <div class="col-lg-9">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" :name="'match_' + index" :id="'match_yes_' + index" :value="true" v-model="rule.rule_specific.exact_match">
+              <label class="form-check-label" :for="'match_yes_' + index">
+                Yes
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" :name="'match_' + index" :id="'match_no_' + index" :value="false" v-model="rule.rule_specific.exact_match">
+              <label class="form-check-label" :for="'match_no_' + index">
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
           <label class="col-form-label col-md-3">Points</label>
           <div class="col-md-9">
             <div class="input-group">
