@@ -35,7 +35,7 @@
                 <p>There are several ways of declaring attributes with PlantText. But the most suitable
                   method for the GReQL converter is the following: </p>
 
-                <code-editor  font-size="14px" v-model="attributeDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                <code-editor  font-size="14px" v-model="attributeDef" theme="github"  :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
                 <br>
 
@@ -44,35 +44,35 @@
                 <p>There are several ways of declaring methods and parameters with PlantText. But the most suitable
                   method for the GReQL converter is the following: </p>
 
-                <code-editor  font-size="14px" v-model="methodDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                <code-editor  font-size="14px" v-model="methodDef" theme="github"  :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
                 <br>
 
                 <h4>Enum Declaration</h4>
                 <br>
                 <p>To declare Enums on the GReQL Converter, you need to do exactly that: </p>
-                <code-editor  font-size="14px" v-model="enumDef" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                <code-editor  font-size="14px" v-model="enumDef" theme="github"  :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
                 <br>
 
                 <h4>Interface and Abstract Class Declaration</h4>
                 <br>
                 <p>To declare Interface and Abstract Class on the GReQL Converter, you need to do exactly that: </p>
-                <code-editor  font-size="14px" v-model="interAbstract" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                <code-editor  font-size="14px" v-model="interAbstract" theme="github"  :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
                 <br>
 
                 <h4>Relationships between classes</h4>
                 <br>
                 <p>For relationships between classes, it is equally important to take into account the following structure: </p>
-                <code-editor  font-size="14px" v-model="associations" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                <code-editor  font-size="14px" v-model="associations" theme="github"  :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
                 <br>
 
                 <h4>Association Class</h4>
                 <br>
                 <p>To create association classes, the following structure must be respected: </p>
-                <code-editor  font-size="14px" v-model="assClass" theme="github" :line-nums="true" :languages="[['js', 'JS']]" :header="false"
+                <code-editor  font-size="14px" v-model="assClass" theme="github"  :languages="[['js', 'JS']]" :header="false"
                               :read-only="true" width="100%"/>
                 <br>
 
