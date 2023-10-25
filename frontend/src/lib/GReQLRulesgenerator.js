@@ -55,8 +55,8 @@ export default {
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from x : V{Interface} 
                                with 
-                                  isDefined(x.name) and  
-                                  stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
+                               isDefined(x.name) and  
+                               stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
                               report 1 end
                         </query>
                         <feedback>${rule.feedback}</feedback>
@@ -73,9 +73,9 @@ export default {
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from x : V{Class} 
                                with
-                                  isDefined(x.name) and  
-                                  stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
-                                  ${abstractCode}
+                               isDefined(x.name) and  
+                               stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 
+                               ${abstractCode}
                                report 1 end
                         </query>
                         <feedback>${rule.feedback}</feedback>
@@ -297,48 +297,50 @@ export default {
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>from x,y : V{Class}, ass : V{Association}, a,b,c,d  : V{LiteralString}
                         with
-                            isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
-                            isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
-                            isDefined(a.value) and a.value="${B_mul.min}"  and
-                            isDefined(b.value) and b.value="${B_mul.max}"  and
-                            x --> V{Property} --> a and
-                            x --> V{Property} --> b and
-                            isDefined(c.value) and c.value="${A_mul.min}"  and
-                            isDefined(d.value) and d.value="${A_mul.max}"  and
-                            y --> V{Property} --> c and
-                            y --> V{Property} --> d and
-                            x --> V{Property} --> ass &lt;-- V{Property} &lt;-- y
-                            report 1 end
-                        </query>
-                        <feedback> ${rule.feedback}</feedback>
-                    </rule>`
+                        isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
+                        isDefined(a.value) and a.value="${B_mul.min}"  and
+                        isDefined(b.value) and b.value="${B_mul.max}"  and
+                        x --> V{Property} --> a and
+                        x --> V{Property} --> b and
+                        isDefined(c.value) and c.value="${A_mul.min}"  and
+                        isDefined(d.value) and d.value="${A_mul.max}"  and
+                        y --> V{Property} --> c and
+                        y --> V{Property} --> d and
+                        x --> V{Property} --> ass &lt;-- V{Property} &lt;-- y
+                        report 1 end
+                    </query>
+                    <feedback> ${rule.feedback}</feedback>
+                 </rule>`
         return code
     },
 
     generateCountMethodsRule: function (rule) {
         let code = "<!-- Count Methods Rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
-                    <query>let c := count(from y : V{Operation} with isDefined(y.name) report y end) in
-                              from x : set(1)
-                              with
-                              c&lt;>${rule.rule_specific.methods}
-                              report c as "count" end
+                    <query>let c := count(from y : V{Operation}
+                        with isDefined(y.name) report y end) in
+                        from x : set(1)
+                        with
+                        c&lt;>${rule.rule_specific.methods}
+                        report c as "count" end
                     </query>
                     <feedback>Das Diagramm sollte genau ${rule.rule_specific.methods} Methoden enthalten, enthält aber {count}.</feedback>
-              </rule>`
+                 </rule>`
         return code
     },
 
     generateCountAttributeRule: function (rule) {
         let code = "<!-- Count Attributes Rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
-                 <query>let c := count(from y : V{Property} with isDefined(y.name) report y end) in
-                           from x : set(1) 
-                           with
-                           c&lt;>${rule.rule_specific.attributes}
-                           report c as "count" end
+                 <query>let c := count(from y : V{Property} 
+                    with isDefined(y.name) report y end) in
+                    from x : set(1) 
+                    with
+                    c&lt;>${rule.rule_specific.attributes}
+                    report c as "count" end
                  </query>
-                <feedback>Das Diagramm sollte genau ${rule.rule_specific.attributes} Attribute enthalten, enthält aber {count}.</feedback>
+                 <feedback>Das Diagramm sollte genau ${rule.rule_specific.attributes} Attribute enthalten, enthält aber {count}.</feedback>
                 </rule>`
         return code
     },
