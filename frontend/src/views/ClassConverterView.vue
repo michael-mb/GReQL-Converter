@@ -156,6 +156,7 @@
 </template>
 
 <script setup>
+import hljs from 'highlight.js';
 import CodeEditor from 'simple-code-editor';
 import Header from "@/components/Header.vue";
 import {ref} from "vue";
