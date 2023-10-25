@@ -16,7 +16,6 @@
     "xml-formatter": "^3.5.0"
   },
   "devDependencies": {
-    "highlight.js": "11.1.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
