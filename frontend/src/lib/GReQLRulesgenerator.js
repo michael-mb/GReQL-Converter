@@ -118,11 +118,11 @@ export default {
         code += `<rule type="presence" points="${attribute.points}">
                     <query>${vType}
                            with
-                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 and 
-                              x --> y and isDefined(y.name) and stringLevenshteinDistance(y.name, "${attribute.name}")&lt;3 and
-                              ${visibility}
-                              ${isStatic}
-                              ${vTypeText}
+                           isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 and 
+                           x --> y and isDefined(y.name) and stringLevenshteinDistance(y.name, "${attribute.name}")&lt;3 and
+                           ${visibility}
+                           ${isStatic}
+                           ${vTypeText}
                            report 1 end
                     </query>
                     <feedback>${attribute.feedback}</feedback>
@@ -152,12 +152,12 @@ export default {
         code += `<rule type="presence" points="${method.points}">
                     <query>${vType}
                            with
-                              isDefined(x.name) and x.name="${rule.rule_specific.class_name}" and
-                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
-                              ${visibility}
-                              ${isStatic} and
-                              x --> y 
-                              ${vTypeText}
+                           isDefined(x.name) and x.name="${rule.rule_specific.class_name}" and
+                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
+                           ${visibility}
+                           ${isStatic} and
+                           x --> y 
+                           ${vTypeText}
                            report 1 end
                     </query>
                     <feedback>${method.feedback}</feedback>
@@ -168,10 +168,10 @@ export default {
             code += `<rule type="presence" points="0">
                     <query>from x: V{Class}, y : V{Operation}, param: V{Parameter}
                            with
-                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 and
-                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
-                              x --> y and
-                              y --> param and isDefined(param.name) and param.name="${arg}" 
+                           isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 and
+                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${method.name}")&lt;3 and
+                           x --> y and
+                           y --> param and isDefined(param.name) and param.name="${arg}" 
                            report 1 end
                     </query>
                     <feedback>Die Methode ${method.name} muss ein Attribut ${arg} haben.</feedback>
@@ -185,7 +185,8 @@ export default {
         code += "<!-- Enum Definition-->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
-                        from x : V{Enumeration} with
+                        from x : V{Enumeration}
+                        with
                         isDefined(x.name) and
                         stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3
                         report 1 end
@@ -196,7 +197,8 @@ export default {
             code += "<!-- Enum Attribute Definition-->"
             code += `<rule type="presence" points="${attr.points}">
                          <query>
-                             from x : V{Enumeration}, y: V{EnumerationLiteral} with
+                             from x : V{Enumeration}, y: V{EnumerationLiteral}
+                             with
                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3 and
                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${attr.name}")&lt;3 and
                              x --> y
@@ -216,9 +218,9 @@ export default {
             code += `<rule type="${rule.existence}" points="${rule.points}">
                          <query>from x : V{Class}, i : V{Interface}
                                 with
-                                   isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_child}")&lt;3 and
-                                   isDefined(i.name) and stringLevenshteinDistance(i.name, "${rule.rule_specific.class_parent}")&lt;3 and
-                                   x &lt;--{ClientEdge} V{Realization} --> i 
+                                isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_child}")&lt;3 and
+                                isDefined(i.name) and stringLevenshteinDistance(i.name, "${rule.rule_specific.class_parent}")&lt;3 and
+                                x &lt;--{ClientEdge} V{Realization} --> i 
                                 report 1 end
                          </query>
                          <feedback>${rule.feedback}</feedback>
@@ -228,10 +230,9 @@ export default {
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from a,b : V{Class}
                                with
-                               
-                                  isDefined(a.name) and stringLevenshteinDistance(a.name, "${rule.rule_specific.class_child}")&lt;3 and
-                                  isDefined(b.name) and stringLevenshteinDistance(b.name, "${rule.rule_specific.class_parent}")&lt;3 and
-                                  a --> V{Generalization} --> b
+                               isDefined(a.name) and stringLevenshteinDistance(a.name, "${rule.rule_specific.class_child}")&lt;3 and
+                               isDefined(b.name) and stringLevenshteinDistance(b.name, "${rule.rule_specific.class_parent}")&lt;3 and
+                               a --> V{Generalization} --> b
                                report 1 end
                         </query>
                         <feedback>${rule.feedback}</feedback>
@@ -245,7 +246,8 @@ export default {
         let code = "<!-- Composition rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
-                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString} with
+                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
+                        with
                         isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_composite}")&lt;3 and
                         isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
                         isDefined(p.aggregation) and p.aggregation="composite" and
@@ -268,7 +270,8 @@ export default {
         let code = "<!-- Aggregation rule -->"
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>
-                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString} with
+                        from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
+                        with
                         isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_aggregate}")&lt;3 and
                         isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_element}")&lt;3 and
                         isDefined(p.aggregation) and p.aggregation="shared" and
@@ -318,7 +321,7 @@ export default {
                     <query>let c := count(from y : V{Operation} with isDefined(y.name) report y end) in
                               from x : set(1)
                               with
-                                 c&lt;>${rule.rule_specific.methods}
+                              c&lt;>${rule.rule_specific.methods}
                               report c as "count" end
                     </query>
                     <feedback>Das Diagramm sollte genau ${rule.rule_specific.methods} Methoden enthalten, enthält aber {count}.</feedback>
@@ -332,7 +335,7 @@ export default {
                  <query>let c := count(from y : V{Property} with isDefined(y.name) report y end) in
                            from x : set(1) 
                            with
-                                c&lt;>${rule.rule_specific.attributes}
+                           c&lt;>${rule.rule_specific.attributes}
                            report c as "count" end
                  </query>
                 <feedback>Das Diagramm sollte genau ${rule.rule_specific.attributes} Attribute enthalten, enthält aber {count}.</feedback>
@@ -368,9 +371,9 @@ export default {
         code += `<rule type="${rule.existence}" points="${rule.points}">
                     <query>from x,y : V{Class}
                            with
-                              isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
-                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
-                              x --> V{Property} --> V{Association} &lt;-- V{Property} &lt;-- y
+                           isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_A}")&lt;3 and
+                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${rule.rule_specific.class_B}")&lt;3 and
+                           x --> V{Property} --> V{Association} &lt;-- V{Property} &lt;-- y
                            report 1 end
                     </query>
                     <feedback prefix="Hinweis">${feedback}</feedback>
@@ -383,10 +386,10 @@ export default {
         code += `<rule type="absence" points="0">
                  <query>from x,y : V{Property} 
                     with 
-                       isDefined(x.name) and isDefined(y.name) and
-                       x.name=capitalizeFirst(x.name) and
-                       not (y.name=capitalizeFirst(y.name)) 
-                       report x.name, y.name end
+                    isDefined(x.name) and isDefined(y.name) and
+                    x.name=capitalizeFirst(x.name) and
+                    not (y.name=capitalizeFirst(y.name)) 
+                    report x.name, y.name end
                 </query>
                 <feedback>Hinweis (ohne Punktabzug): Ein Diagramm sollte eine konsistente Schreibweise enthalten, in der entweder alle Attribute mit einem Grossbuchstaben oder alle Attribute mit einem Kleinbuchstaben beginnen.</feedback>
                 </rule>`
