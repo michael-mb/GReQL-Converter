@@ -171,7 +171,7 @@ export default {
         code += `<rule type="presence" points="${method.points}">
                     <query>${vType}
                            with
-                           isDefined(x.name) and x.name="${rule.rule_specific.class_name}" and
+                           isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.class_name}")&lt;3 and
                            isDefined(y.name) and
                            ${checkName} and
                            ${visibility}
