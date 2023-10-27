@@ -164,7 +164,7 @@ const annotation = ref("/*\n" +
     "  !class - activates exact_matching on class name.\n" +
     "  !attr(0,1,3) - activates exact_matching on the first, second and fourth attributes (windows, x and time).\n" +
     "  !attr(*) - if you want to activate exact_matching on all attributes.\n" +
-    "  !method(1,2) - activates exact_matching on the second and third methods (lock, unlock).\n" +
+    "  !method(1,2) - activates exact_matching on the second and third methods (unlock, block).\n" +
     "  !method(*) - if you want to activate exact_matching on all methods.\n" +
     "  \n" +
     "  p - Determine how many points the Class Definition rule should have. \n" +
@@ -178,6 +178,7 @@ const annotation = ref("/*\n" +
     "  + time : Date\n" +
     "  + double lock(int age, bool status)\n" +
     "  + double unlock()\n" +
+    "  + void block()\n" +
     "}\n" +
     "\n" +
     "class B {}\n" +
