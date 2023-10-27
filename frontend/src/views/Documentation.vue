@@ -76,6 +76,14 @@
                               :read-only="true" width="100%"/>
                 <br>
 
+                <h4>Annotation Rules</h4>
+                <br>
+                <p>The GReQL Converter extend the plantText annotation system to facilitate rule generation.
+                  Annotations are written between "&lt; ..... >" . These annotations can be used on all plantText rules
+                  and instructions. The example below shows some of the possible uses of this annotation system:</p>
+                <code-editor v-model="annotation" font-size="14px" theme="github"  :languages="[['js', 'JS']]" :header="false"
+                             :read-only="true" width="100%"/>
+                <br>
                 <h4>Requires manual intervention</h4>
                 <br>
                 <p>However, there are a few PlantText features that are not yet supported by the parser:</p>
@@ -152,6 +160,53 @@ const associations = ref(
 
 const assClass = ref("(Student, Course) .. Enrollment")
 
+const annotation = ref("/*\n" +
+    "  !class - activates exact_matching on class name.\n" +
+    "  !attr(0,3) - activates exact_matching on the first and fourth attributes (windows and time).\n" +
+    "  !attr(*) - if you want to activate exact_matching it on all attributes.\n" +
+    "  !method(1,2) - activates exact_matching on the second and third methods (lock, unlock).\n" +
+    "  !method(*) - if you want to activate exact_matching it on all methods.\n" +
+    "  \n" +
+    "  p - Determine how many points the Class Definition rule should have. \n" +
+    "  ad-p - Determine  how many points the attribute rules should have.\n" +
+    "  md-p - Determine  how many points the methods rules should have.\n" +
+    "*/\n" +
+    "class A <!class, !attr(0,3), !method(1,2), p=10, ad-p=3, md-p=5> {\n" +
+    "  - windows : Int\n" +
+    "  - x : Int\n" +
+    "  - y : Int\n" +
+    "  + time : Date\n" +
+    "  + double lock(int age, bool status)\n" +
+    "  + double unlock()\n" +
+    "}\n" +
+    "\n" +
+    "class B {}\n" +
+    "\n" +
+    "/*\n" +
+    "  !class - activates exact matching on class names in the association rule.\n" +
+    "  p - Determine how many points the rule should have. \n" +
+    "  \n" +
+    "  Works for aggregation, composition and all other relational rules.\n" +
+    "*/\n" +
+    "A -- B : <!class, p=5>\n" +
+    "\n" +
+    "/*\n" +
+    "  !class - activates exact_matching on Enum name.\n" +
+    "  !attr(*) - activates exact_matching on all attributes.\n" +
+    "  p - Determine how many points the Enum Definition rule should have. \n" +
+    "  ad-p - Determine  how many points the attribute rules should have.\n" +
+    "*/\n" +
+    "enum TimeUnit <!class, !attr(*), p=5, ad-p=2> <<enum>> {\n" +
+    "  DAYS\n" +
+    "  HOURS\n" +
+    "  MINUTES\n" +
+    "}\n" +
+    "\n" +
+    "/*\n" +
+    "  !class - activates exact matching on class names in the rule.\n" +
+    "  p - Determine how many points the rule should have.\n" +
+    "*/\n" +
+    "A <|-- B : <!class, p=10>")
 </script>
 
 <style scoped>

@@ -220,13 +220,18 @@ export default {
                     <feedback>${rule.feedback}</feedback>
                  </rule>`
         rule.rule_specific.attributes.forEach(attr => {
+            let checkAttrName
+            if(attr.exact_match)
+                checkAttrName = `y.name="${attr.name}"`
+            else
+                checkAttrName = `stringLevenshteinDistance(y.name, "${attr.name}")&lt;3`
             code += "<!-- Enum Attribute Definition-->"
             code += `<rule type="presence" points="${attr.points}">
                          <query>
                              from x : V{Enumeration}, y: V{EnumerationLiteral}
                              with
-                             isDefined(x.name) and stringLevenshteinDistance(x.name, "${rule.rule_specific.enum_class_name}")&lt;3 and
-                             isDefined(y.name) and stringLevenshteinDistance(y.name, "${attr.name}")&lt;3 and
+                             isDefined(x.name) and ${checkName} and
+                             isDefined(y.name) and ${checkAttrName} and
                              x --> y
                              report 1 end
                          </query>

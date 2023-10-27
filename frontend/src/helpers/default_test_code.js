@@ -1,4 +1,34 @@
 export default {
+    annotation_test:{
+        code: "@startuml\n" +
+            "/*\n" +
+            " If you don't understand the\n" +
+            " annotation system, we recommend that you\n" +
+            " first read the documentation 😊.\n" +
+            "*/\n" +
+            "class A <!class, !attr(0,3), !method(1,2), p=10, ad-p=3, md-p=5> {\n" +
+            "  - Windows : Int\n" +
+            "  - x : Int\n" +
+            "  - y : Int\n" +
+            "  + Time : Date\n" +
+            "  + double lock(int age, bool status)\n" +
+            "  + double unlock()\n" +
+            "}\n" +
+            "\n" +
+            "class B {}\n" +
+            "\n" +
+            "A -- B : <!class, p=5>\n" +
+            "\n" +
+            "enum TimeUnit <!class, !attr(*), p=5, ad-p=2> <<enum>> {\n" +
+            "  DAYS\n" +
+            "  HOURS\n" +
+            "  MINUTES\n" +
+            "}\n" +
+            "\n" +
+            "A <|-- B : <!class, p=10>\n" +
+            "\n" +
+            "@enduml"
+    },
     easy_test: {
         code: "@startuml\n" +
             "\n" +

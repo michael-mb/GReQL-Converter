@@ -73,9 +73,48 @@ const actions = {
     addRule(rule) {
         this.rules.push(rule)
     },
+
+    annotationConverter(input){
+        const result = {};
+
+        result.classMatch = /!class/.test(input);
+
+        const attrMatch = /!attr\((.*?)\)/.exec(input);
+        if (attrMatch) {
+            const attrValue = attrMatch[1].trim();
+            result.attr = attrValue === '*' ? '*' : attrValue.split(',').map(Number);
+        } else
+            result.attr = [];
+
+        const methodMatch = /!method\((.*?)\)/.exec(input);
+        if (methodMatch) {
+            const methodValue = methodMatch[1].trim();
+            result.method = methodValue === '*' ? '*' : methodValue.split(',').map(Number);
+        } else
+            result.method = [];
+
+        const pMatch = /p=(\d+)/.exec(input);
+        if (pMatch)
+            result.p = parseInt(pMatch[1]);
+        else
+            result.p = 0
+
+        const adpMatch = /ad-p=(\d+)/.exec(input);
+        if (adpMatch)
+            result.adp = parseInt(adpMatch[1]);
+        else
+            result.adp = 0
+
+        const mdpMatch = /md-p=(\d+)/.exec(input);
+        if (mdpMatch)
+            result.mdp = parseInt(mdpMatch[1]);
+        else
+            result.mdp = 0
+
+        return result;
+    },
     generateRules() {
         const elements = this.parsedCode[0].elements;
-
         elements.forEach((elem) => {
             // CLASS , ENUM, INTERFACE
             let rule;
@@ -112,6 +151,10 @@ const actions = {
     generateAssociationClassRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.association_class_rule))
         const classes = globalUtils.split(elem.left)
+        const annotation_rules = this.annotationConverter(elem.label)
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
+
         rule.rule_specific.class_A = classes[0]
         rule.rule_specific.class_B = classes[1]
         rule.rule_specific.class_C = elem.right
@@ -120,6 +163,10 @@ const actions = {
     },
     generateAggregationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.aggregation_rule))
+        const annotation_rules = this.annotationConverter(elem.label)
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
+
         rule.rule_specific.class_aggregate = elem.left
         rule.rule_specific.class_element = elem.right
         rule.rule_specific.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
@@ -128,6 +175,10 @@ const actions = {
     },
     generateCompositionRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.composition_rule))
+        const annotation_rules = this.annotationConverter(elem.label)
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
+
         rule.rule_specific.class_composite = elem.left
         rule.rule_specific.class_element = elem.right
         rule.rule_specific.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
@@ -136,6 +187,10 @@ const actions = {
     },
     generateSimpleAssociationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.simple_association_rule))
+        const annotation_rules = this.annotationConverter(elem.label)
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
+
         if (globalUtils.isStringEmpty(elem.leftCardinality) && globalUtils.isStringEmpty(elem.rightCardinality))
             return this.generateTestAssociationRule(elem)
         else {
@@ -150,13 +205,22 @@ const actions = {
     },
     generateTestAssociationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.test_association_rule))
+        const annotation_rules = this.annotationConverter(elem.label)
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
+
         rule.rule_specific.class_A = elem.left
         rule.rule_specific.class_B = elem.right
+
         rule.existence = "presence"
         return rule
     },
     generateGeneralizationRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.generalization_rule))
+        const annotation_rules = this.annotationConverter(elem.label)
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
+
         rule.rule_specific.class_parent = elem.left
         rule.rule_specific.class_child = elem.right
 
@@ -171,13 +235,24 @@ const actions = {
     },
     generateEnumRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_enum_rule));
-        rule.rule_specific.enum_class_name = elem.name;
+        const annotation_rules = this.annotationConverter(elem.generics[0])
 
+        rule.rule_specific.enum_class_name = elem.name;
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
+        let index = 0
         elem.members.forEach((member) => {
             const attribute = JSON.parse(JSON.stringify(rulesDefinitions.ENUM_ATTRIBUTE_TYPE));
             attribute.name = member.name;
+            attribute.points = annotation_rules.adp
+            if(annotation_rules.attr === '*')
+                attribute.exact_match = true
+            else if (annotation_rules.attr.includes(index))
+                attribute.exact_match = true
+
             attribute.feedback = `Die Enum ${rule.rule_specific.enum_class_name} soll ein Attribut für die Eigenschaft ${attribute.name} bereitstellen.`;
             rule.rule_specific.attributes.push(attribute);
+            index++
         });
         rule.feedback = `Es soll eine Enum mit der Name ${rule.rule_specific.enum_class_name} bereitgestellt werden.`;
         return rule;
@@ -185,6 +260,10 @@ const actions = {
     generateClassRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.defined_class_rule));
         rule.rule_specific.class_name = elem.name;
+        const annotation_rules = this.annotationConverter(elem.generics[0])
+
+        rule.points = annotation_rules.p
+        rule.rule_specific.exact_match = annotation_rules.classMatch
 
         let abstractText = ""
         if (elem.isAbstract) {
@@ -195,6 +274,9 @@ const actions = {
         if (elem.stereotypes.includes("interface"))
             rule.rule_specific.interface = true;
 
+
+        let attr_index = 0
+        let method_index = 0
         elem.members.forEach((member) => {
             // METHODS
             if (member.returnType) {
@@ -207,6 +289,12 @@ const actions = {
                 method.feedback = `Die Klasse ${rule.rule_specific.class_name} soll eine Methode namens ${method.name} bereitstellen.`;
 
                 rule.rule_specific.methods.push(method);
+                if(annotation_rules.method === '*')
+                    method.exact_match = true
+                else if (annotation_rules.method.includes(method_index))
+                    method.exact_match = true
+                method.points = annotation_rules.mdp
+                method_index++
             }
             // ATTRIBUTES
             else if (member.type) {
@@ -218,6 +306,12 @@ const actions = {
                 attribute.feedback = `Die Klasse ${rule.rule_specific.class_name} soll ein ${attribute.visibility} Attribut für die Eigenschaft ${attribute.name} und type ${attribute.type} bereitstellen.`;
 
                 rule.rule_specific.attributes.push(attribute);
+                if(annotation_rules.attr === '*')
+                    attribute.exact_match = true
+                else if (annotation_rules.attr.includes(attr_index))
+                    attribute.exact_match = true
+                attribute.points = annotation_rules.adp
+                attr_index++
             }
         });
 

@@ -89,6 +89,25 @@
             </div>
 
             <div class="form-group row">
+              <label class="col-lg-3 col-form-label">Name - Exact match</label>
+              <div class="col-lg-9">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'match_attr' + index + '_' + attribute_index" :id="'match_attr_yes_' + index+ '_' + attribute_index" :value="true" v-model="attribute.exact_match">
+                  <label class="form-check-label" :for="'match_attr_yes_' + index+ '_' + attribute_index">
+                    Yes
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'match_attr_' + index + '_' + attribute_index" :id="'match_attr_no_' + index+ '_' + attribute_index" :value="false" v-model="attribute.exact_match">
+                  <label class="form-check-label" :for="'match_attr_no_' + index+ '_' + attribute_index">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
               <label class="col-form-label col-md-3">Points</label>
               <div class="col-md-9">
                 <div class="input-group">
@@ -117,9 +136,6 @@
           <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
 
           <div>
-            <button @click="save($event, rule)" class="btn btn-primary">
-              <i class="fa fa-save"></i> Save</button>
-
             <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
               <i class="fa fa-trash"></i> Delete</button>
           </div>
@@ -155,14 +171,6 @@ function addAttribute(){
 function save(e, rule){
   e.preventDefault()
   rule.rule_specific.attributes = attributes
-
-  Swal.fire({
-    title: 'Success!',
-    text: 'This rule was successfully updated!',
-    icon: 'success',
-    toast: true,
-    position: 'top-right',
-  })
 }
 
 function deleteRule(e, rule){
