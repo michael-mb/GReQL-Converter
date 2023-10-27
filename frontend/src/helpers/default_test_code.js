@@ -6,7 +6,7 @@ export default {
             " annotation system, we recommend that you\n" +
             " first read the documentation 😊.\n" +
             "*/\n" +
-            "class A <!class, !attr(0,3), !method(1,2), p=10, ad-p=3, md-p=5> {\n" +
+            "class A <!class, !attr(0,3), !method(1), p=10, ad-p=3, md-p=5> {\n" +
             "  - Windows : Int\n" +
             "  - x : Int\n" +
             "  - y : Int\n" +
