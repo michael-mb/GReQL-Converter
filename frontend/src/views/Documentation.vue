@@ -162,16 +162,16 @@ const assClass = ref("(Student, Course) .. Enrollment")
 
 const annotation = ref("/*\n" +
     "  !class - activates exact_matching on class name.\n" +
-    "  !attr(0,3) - activates exact_matching on the first and fourth attributes (windows and time).\n" +
-    "  !attr(*) - if you want to activate exact_matching it on all attributes.\n" +
+    "  !attr(0,1,3) - activates exact_matching on the first, second and fourth attributes (windows, x and time).\n" +
+    "  !attr(*) - if you want to activate exact_matching on all attributes.\n" +
     "  !method(1,2) - activates exact_matching on the second and third methods (lock, unlock).\n" +
-    "  !method(*) - if you want to activate exact_matching it on all methods.\n" +
+    "  !method(*) - if you want to activate exact_matching on all methods.\n" +
     "  \n" +
     "  p - Determine how many points the Class Definition rule should have. \n" +
-    "  ad-p - Determine  how many points the attribute rules should have.\n" +
-    "  md-p - Determine  how many points the methods rules should have.\n" +
+    "  ad-p - Determine how many points the attribute rules should have.\n" +
+    "  md-p - Determine how many points the methods rules should have.\n" +
     "*/\n" +
-    "class A <!class, !attr(0,3), !method(1,2), p=10, ad-p=3, md-p=5> {\n" +
+    "class A <!class, !attr(0,1,3), !method(1,2), p=10, ad-p=3, md-p=5> {\n" +
     "  - windows : Int\n" +
     "  - x : Int\n" +
     "  - y : Int\n" +
@@ -183,7 +183,7 @@ const annotation = ref("/*\n" +
     "class B {}\n" +
     "\n" +
     "/*\n" +
-    "  !class - activates exact matching on class names in the association rule.\n" +
+    "  !class - activates exact matching on the name of the class in the association rule.\n" +
     "  p - Determine how many points the rule should have. \n" +
     "  \n" +
     "  Works for aggregation, composition and all other relational rules.\n" +
@@ -203,7 +203,7 @@ const annotation = ref("/*\n" +
     "}\n" +
     "\n" +
     "/*\n" +
-    "  !class - activates exact matching on class names in the rule.\n" +
+    "  !class - activates exact matching on the name of the class in the rule.\n" +
     "  p - Determine how many points the rule should have.\n" +
     "*/\n" +
     "A <|-- B : <!class, p=10>")
