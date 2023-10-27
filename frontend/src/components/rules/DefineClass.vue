@@ -119,7 +119,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" v-model="attribute.name">
+                <input type="text" class="form-control" @change="save($event, rule)" v-model="attribute.name">
               </div>
             </div>
 
@@ -127,13 +127,13 @@
               <label class="col-lg-3 col-form-label">Name - Exact match</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'match_attr_' + index+ '_' + attribute_index" :id="'match_attr_yes_' + index+ '_' + attribute_index" :value="true" v-model="attribute.exact_match">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'match_attr_' + index+ '_' + attribute_index" :id="'match_attr_yes_' + index+ '_' + attribute_index" :value="true" v-model="attribute.exact_match">
                   <label class="form-check-label" :for="'match_attr_yes_' + index+ '_' + attribute_index">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'match_attr_' + index+ '_' + attribute_index" :id="'match_attr_no_' + index+ '_' + attribute_index" :value="false" v-model="attribute.exact_match">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'match_attr_' + index+ '_' + attribute_index" :id="'match_attr_no_' + index+ '_' + attribute_index" :value="false" v-model="attribute.exact_match">
                   <label class="form-check-label" :for="'match_attr_no_' + index+ '_' + attribute_index">
                     No
                   </label>
@@ -144,7 +144,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Type</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" v-model="attribute.type">
+                <input type="text" class="form-control" @change="save($event, rule)" v-model="attribute.type">
               </div>
             </div>
 
@@ -152,19 +152,19 @@
               <label class="col-lg-3 col-form-label">Visibility</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_public_'+index + '_' + attribute_index" value="public" v-model="attribute.visibility">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_public_'+index + '_' + attribute_index" value="public" v-model="attribute.visibility">
                   <label class="form-check-label" :for="'attribute_visibility_public_'+index + '_' + attribute_index">
                     Public
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_private_'+index + '_' + attribute_index" value="private" v-model="attribute.visibility">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_private_'+index + '_' + attribute_index" value="private" v-model="attribute.visibility">
                   <label class="form-check-label" :for="'attribute_visibility_private_'+index + '_' + attribute_index">
                     Private
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_protected_'+index + '_' + attribute_index" value="protected" v-model="attribute.visibility">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'attribute_visibility_'+index + '_' + attribute_index" :id="'attribute_visibility_protected_'+index + '_' + attribute_index" value="protected" v-model="attribute.visibility">
                   <label class="form-check-label" :id="'attribute_visibility_protected_'+index + '_' + attribute_index">
                     Protected
                   </label>
@@ -176,13 +176,13 @@
               <label class="col-lg-3 col-form-label">Static</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" :id="'attribute_static_true_'+index + '_' + attribute_index"  :value="true" v-model="attribute.is_static">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" :id="'attribute_static_true_'+index + '_' + attribute_index"  :value="true" v-model="attribute.is_static">
                   <label class="form-check-label" :for="'attribute_static_true_'+index + '_' + attribute_index">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" :id="'attribute_static_false_'+index + '_' + attribute_index"  :value="false" v-model="attribute.is_static">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'attribute_static_'+index + '_' + attribute_index" :id="'attribute_static_false_'+index + '_' + attribute_index"  :value="false" v-model="attribute.is_static">
                   <label class="form-check-label" :for="'attribute_static_false_'+index + '_' + attribute_index">
                     No
                   </label>
@@ -195,7 +195,7 @@
               <div class="col-md-9">
                 <div class="input-group">
                   <span class="input-group-text">{{attribute.points}}</span>
-                  <input v-model="attribute.points" type="range" min="0" max="20" class="form-control" required>
+                  <input v-model="attribute.points" @change="save($event, rule)" type="range" min="0" max="20" class="form-control" required>
                 </div>
               </div>
             </div>
@@ -203,13 +203,13 @@
             <div class="form-group row">
               <label class="col-form-label col-md-12">Attribute Feedback</label>
               <div class="col-md-12">
-              <textarea rows="5" cols="5" class="form-control" v-model="attribute.feedback">
+              <textarea rows="5" cols="5" class="form-control" @change="save($event, rule)" v-model="attribute.feedback">
               </textarea>
               </div>
             </div>
 
           </div>
-          <div class="add_item" title="add attribute" @click="addAttribute(rule)">
+          <div class="add_item" title="add attribute" @click="addAttribute($event, rule)">
             <i class="fa fa-plus-circle"></i>
           </div>
 
@@ -222,7 +222,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" v-model="method.name">
+                <input type="text" class="form-control" @change="save($event, rule)" v-model="method.name">
               </div>
             </div>
 
@@ -230,13 +230,13 @@
               <label class="col-lg-3 col-form-label">Name - Exact match</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'match_meth_' + index+ '_' + method_index " :id="'match_meth_yes_' + index+ '_' + method_index" :value="true" v-model="method.exact_match">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'match_meth_' + index+ '_' + method_index " :id="'match_meth_yes_' + index+ '_' + method_index" :value="true" v-model="method.exact_match">
                   <label class="form-check-label" :for="'match_meth_yes_' + index+ '_' + method_index">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'match_meth_' + index+ '_' + method_index" :id="'match_meth_no_' + index+ '_' + method_index" :value="false" v-model="method.exact_match">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'match_meth_' + index+ '_' + method_index" :id="'match_meth_no_' + index+ '_' + method_index" :value="false" v-model="method.exact_match">
                   <label class="form-check-label" :for="'match_meth_no_' + index+ '_' + method_index">
                     No
                   </label>
@@ -246,7 +246,7 @@
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Return Type</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" v-model="method.return_type">
+                <input type="text" class="form-control"  @change="save($event, rule)" v-model="method.return_type">
               </div>
             </div>
 
@@ -254,20 +254,20 @@
               <label class="col-lg-3 col-form-label">Visibility </label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_public_'+index+ '_' + method_index"  :value="'public'" v-model="method.visibility">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_public_'+index+ '_' + method_index"  :value="'public'" v-model="method.visibility">
                   <label class="form-check-label" :for="'method_visibility_public_'+index+ '_' + method_index">
                     Public
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_private_'+index+ '_' + method_index" :value="'private'" v-model="method.visibility">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_private_'+index+ '_' + method_index" :value="'private'" v-model="method.visibility">
                   <label class="form-check-label" :for="'method_visibility_private_'+index+ '_' + method_index">
                     Private
                   </label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_protected_'+index+ '_' + method_index" :value="'protected'" v-model="method.visibility">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'method_visibility_'+index+ '_' + method_index" :id="'method_visibility_protected_'+index+ '_' + method_index" :value="'protected'" v-model="method.visibility">
                   <label class="form-check-label" :for="'method_visibility_protected_'+index+ '_' + method_index">
                     Protected
                   </label>
@@ -279,13 +279,13 @@
               <label class="col-lg-3 col-form-label">Static</label>
               <div class="col-lg-9">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" :id="'method_static_true_'+index+ '_' + method_index" :value="true" v-model="method.is_static">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'method_static_'+index+ '_' + method_index" :id="'method_static_true_'+index+ '_' + method_index" :value="true" v-model="method.is_static">
                   <label class="form-check-label" :for="'method_static_true_'+index+ '_' + method_index">
                     Yes
                   </label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" :name="'method_static_'+index+ '_' + method_index" :id="'method_static_false_'+index+ '_' + method_index" :value="false" v-model="method.is_static">
+                  <input class="form-check-input" @change="save($event, rule)" type="radio" :name="'method_static_'+index+ '_' + method_index" :id="'method_static_false_'+index+ '_' + method_index" :value="false" v-model="method.is_static">
                   <label class="form-check-label" :for="'method_static_false_'+index+ '_' + method_index">
                     No
                   </label>
@@ -301,7 +301,7 @@
                 </div>
                 <div>
                   <input v-if="onAddArgMode === method" type="text" class="form-control arg_input" v-model="editedArg"
-                         @keydown.enter="addArgument(method)">
+                         @keydown.enter="addArgument(method, $event, rule)">
                 </div>
                 <div class="add_arg" title="add argument" @click="onAddArgMode = method">
                   <i class="fa fa-plus"></i>
@@ -314,7 +314,7 @@
               <div class="col-md-9">
                 <div class="input-group">
                   <span class="input-group-text">{{method.points}}</span>
-                  <input v-model="method.points" type="range" min="0" max="20" class="form-control" required>
+                  <input  @change="save($event, rule)" v-model="method.points" type="range" min="0" max="20" class="form-control" required>
                 </div>
               </div>
             </div>
@@ -322,7 +322,7 @@
             <div class="form-group row">
               <label class="col-form-label col-md-12">Method Feedback</label>
               <div class="col-md-12">
-              <textarea rows="5" cols="5" class="form-control" v-model="method.feedback">
+              <textarea  @change="save($event, rule)" rows="5" cols="5" class="form-control" v-model="method.feedback">
               </textarea>
               </div>
             </div>
@@ -336,9 +336,6 @@
           <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
 
           <div>
-            <button @click="save($event, rule)" class="btn btn-primary">
-              <i class="fa fa-save"></i> Save</button>
-
             <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
               <i class="fa fa-trash"></i> Delete</button>
           </div>
@@ -376,28 +373,23 @@ function addMethod(){
   methods.value.push(JSON.parse(JSON.stringify(rulesDefinitions.METHODS_TYPE)))
 }
 
-function addArgument(method){
+function addArgument(method, event, rule){
   method.arguments = method.arguments + ", " + editedArg.value
   editedArg.value = ""
   onAddArgMode.value = {}
+
+  this.save(event, rule)
 }
 
-function addAttribute(){
+function addAttribute(event, rule){
   attributes.value.push(JSON.parse(JSON.stringify(rulesDefinitions.ATTRIBUTE_TYPE)))
+  this.save(event, rule)
 }
 
 function save(e, rule){
   e.preventDefault()
   rule.rule_specific.methods = methods
   rule.rule_specific.attributes = attributes
-
-  Swal.fire({
-    title: 'Success!',
-    text: 'This rule was successfully updated!',
-    icon: 'success',
-    toast: true,
-    position: 'top-right',
-  })
 }
 
 function deleteRule(e, rule){
