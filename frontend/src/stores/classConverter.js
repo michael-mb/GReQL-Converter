@@ -77,6 +77,10 @@ const actions = {
     annotationConverter(input){
         const result = {};
 
+        result["p"] = 0
+        result["mdp"] = 0
+        result["adp"] = 0
+
         result.classMatch = /!class/.test(input);
 
         const attrMatch = /!attr\((.*?)\)/.exec(input);
@@ -93,28 +97,24 @@ const actions = {
         } else
             result.method = [];
 
-        const pMatch = /p=(\d+)/.exec(input);
-        if (pMatch)
-            result.p = parseInt(pMatch[1]);
-        else
-            result.p = 0
+        const regex = /(\d+) (point|points) for (\w+)/g;
 
-        const adpMatch = /ad-p=(\d+)/.exec(input);
-        if (adpMatch)
-            result.adp = parseInt(adpMatch[1]);
-        else
-            result.adp = 0
-
-        const mdpMatch = /md-p=(\d+)/.exec(input);
-        if (mdpMatch)
-            result.mdp = parseInt(mdpMatch[1]);
-        else
-            result.mdp = 0
-
+        let match;
+        while ((match = regex.exec(input)) !== null) {
+            const points = parseInt(match[1]);
+            const name = match[3];
+            if (name === "rule")
+                result.p = points;
+            else if (name === "method" || name === "methods")
+                result.mdp = points;
+            else if (name === "attribute" || name === "attributes")
+                result.adp = points;
+        }
         return result;
     },
     generateRules() {
         const elements = this.parsedCode[0].elements;
+        console.log(elements)
         elements.forEach((elem) => {
             // CLASS , ENUM, INTERFACE
             let rule;

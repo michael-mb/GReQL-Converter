@@ -167,11 +167,11 @@ const annotation = ref("/*\n" +
     "  !method(1,2) - activates exact_matching on the second and third methods (unlock, block).\n" +
     "  !method(*) - if you want to activate exact_matching on all methods.\n" +
     "  \n" +
-    "  p - Determine how many points the Class Definition rule should have. \n" +
-    "  ad-p - Determine how many points the attribute rules should have.\n" +
-    "  md-p - Determine how many points the methods rules should have.\n" +
+    "  x points for rule - Determine how many points(x) the Class Definition rule should have. \n" +
+    "  y points for attributes - Determine how many points(y) the attribute rules should have.\n" +
+    "  z points for methods - Determine how many points(z) the methods rules should have.\n" +
     "*/\n" +
-    "class A <!class, !attr(0,1,3), !method(1,2), p=10, ad-p=3, md-p=5> {\n" +
+    "class A <!class, !attr(0,1,3), !method(1,2), 10 points for rule, 5 points for methods, 3 points for attributes> {\n" +
     "  - windows : Int\n" +
     "  - x : Int\n" +
     "  - y : Int\n" +
@@ -185,19 +185,19 @@ const annotation = ref("/*\n" +
     "\n" +
     "/*\n" +
     "  !class - activates exact matching on the name of the class in the association rule.\n" +
-    "  p - Determine how many points the rule should have. \n" +
+    "  x points for rule - Determine how many points(x) the rule should have. \n" +
     "  \n" +
     "  Works for aggregation, composition and all other relational rules.\n" +
     "*/\n" +
-    "A -- B : <!class, p=5>\n" +
+    "A -- B : <!class, 1 point for rule>\n" +
     "\n" +
     "/*\n" +
     "  !class - activates exact_matching on Enum name.\n" +
     "  !attr(*) - activates exact_matching on all attributes.\n" +
-    "  p - Determine how many points the Enum Definition rule should have. \n" +
-    "  ad-p - Determine  how many points the attribute rules should have.\n" +
+    "  x points for rule - Determine how many points(x) the Enum Definition rule should have. \n" +
+    "  y points for attributes - Determine how many points(y) the attribute rules should have.\n" +
     "*/\n" +
-    "enum TimeUnit <!class, !attr(*), p=5, ad-p=2> <<enum>> {\n" +
+    "enum TimeUnit <!class, !attr(*), 10 points for rule, 3 points for attributes> <<enum>> {\n" +
     "  DAYS\n" +
     "  HOURS\n" +
     "  MINUTES\n" +
@@ -205,9 +205,9 @@ const annotation = ref("/*\n" +
     "\n" +
     "/*\n" +
     "  !class - activates exact matching on the name of the class in the rule.\n" +
-    "  p - Determine how many points the rule should have.\n" +
+    "  x points for rule - Determine how many points(x) the rule should have.\n" +
     "*/\n" +
-    "A <|-- B : <!class, p=10>")
+    "A <|-- B : <!class, 10 points for rule>")
 </script>
 
 <style scoped>
