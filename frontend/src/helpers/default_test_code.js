@@ -6,7 +6,10 @@ export default {
             " annotation system, we recommend that you\n" +
             " first read the documentation 😊.\n" +
             "*/\n" +
-            "class A <!class, !attr(0,3), !method(1), p=10, ad-p=3, md-p=5> {\n" +
+            "class A <!class, !attr(0,3), !method(1),\n" +
+            "  10 points for rule,\n" +
+            "  2 points for methods,\n" +
+            "  5 points for attributes> {\n" +
             "  - Windows : Int\n" +
             "  - x : Int\n" +
             "  - y : Int\n" +
@@ -15,17 +18,19 @@ export default {
             "  + double unlock()\n" +
             "}\n" +
             "\n" +
-            "class B {}\n" +
+            "class B <2 points for rule>{}\n" +
             "\n" +
-            "A -- B : <!class, p=5>\n" +
+            "A -- B : <!class, 5 points for rule>\n" +
             "\n" +
-            "enum TimeUnit <!class, !attr(*), p=5, ad-p=2> <<enum>> {\n" +
+            "enum TimeUnit <!class, !attr(*),\n" +
+            " 4 points for rule,\n" +
+            " 1 point for attributes> <<enum>> {\n" +
             "  DAYS\n" +
             "  HOURS\n" +
             "  MINUTES\n" +
             "}\n" +
             "\n" +
-            "A <|-- B : <!class, p=10>\n" +
+            "A <|-- B : <!class, 5 points for rule>\n" +
             "\n" +
             "@enduml"
     },

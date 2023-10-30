@@ -20,7 +20,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-5 col-sm-12 d-flex">
+          <div class="col-md-12 col-sm-12 d-flex">
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title"><i class="feather-terminal"></i> Code Editor</h4>
@@ -49,7 +49,7 @@
             </div>
           </div>
 
-          <div class="col-md-7 col-sm-12 d-flex">
+          <!--div class="col-md-7 col-sm-12 d-flex">
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title"><i class="feather-list"></i> Derived Rules</h4>
@@ -118,7 +118,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div-->
         </div>
 
         <div class="col-md-12 col-sm-12 d-flex" v-if="!globalUtils.isStringEmpty(GReQLCode)">
