@@ -218,57 +218,57 @@ export default {
             "\n" +
             "title Computerspiel - Class Diagram\n" +
             "\n" +
-            "class Spielgebiet{}\n" +
+            "class Spielgebiet <!class, 10 points for rule>{}\n" +
             "\n" +
-            "class Spielfigur {\n" +
+            "class Spielfigur <!class, 10 points for rule, 1 point for methods, 1 point for attribute> {\n" +
             "  + nickname : String\n" +
             "  + gehen (int x, int y)\n" +
             "  + springen (int x, int z)\n" +
             "  + ansprechen (Spielfigur sf)\n" +
             "}\n" +
-            "Spielgebiet *-- \"1..2\" Spielfigur\n" +
-            "Spielfigur \"1\" -- \"1\" Spieler\n" +
+            "Spielgebiet *-- \"1..2\" Spielfigur:<!class,  10 points for rule>\n" +
+            "Spielfigur \"1\" -- \"1\" Spieler: < !class, 10 points for rule>\n" +
             "\n" +
-            "class Spieler {}\n" +
-            "Spielgebiet \"*\" -- \"1..4\" Spieler\n" +
+            "class Spieler < !class, 10 points for rule>{}\n" +
+            "Spielgebiet \"*\" -- \"1..4\" Spieler : < !class, 10 points for rule>\n" +
             "\n" +
-            "class Position{\n" +
+            "class Position < !class, 10 points for rule, 1 point for attribute>{\n" +
             " + x: int\n" +
             " + y: int\n" +
             " + z: int\n" +
             "}\n" +
-            "Spielgebiet \"1\" -- \"100000\" Position\n" +
-            "Position \"1\" -- \"1\" Gebietselement\n" +
+            "Spielgebiet \"1\" -- \"100000\" Position : <!class,  10 points for rule>\n" +
+            "Position \"1\" -- \"1\" Gebietselement : < !class, 10 points for rule>\n" +
             "\n" +
-            "abstract class Gebietselement{}\n" +
-            "Spielgebiet o-- \"3..*\" Gebietselement\n" +
+            "abstract class Gebietselement < !class, 10 points for rule>{}\n" +
+            "Spielgebiet o-- \"3..*\" Gebietselement: < !class, 10 points for rule>\n" +
             "\n" +
-            "class Gegenstand {\n" +
+            "class Gegenstand <!class,  10 points for rule, 1 point for method>{\n" +
             "  + nehmen()\n" +
             "}\n" +
-            "Gebietselement <|-- Gegenstand\n" +
+            "Gebietselement <|-- Gegenstand : <!class,  10 points for rule>\n" +
             "\n" +
-            "class Gegner {\n" +
+            "class Gegner<!class,  10 points for rule, 1 point for method> {\n" +
             "  + bekaempfen()\n" +
             "}\n" +
-            "Gebietselement <|-- Gegner\n" +
-            "Gegner \"1\" -- \"1\" Spielgebiet\n" +
+            "Gebietselement <|-- Gegner: < !class, 10 points for rule>\n" +
+            "Gegner \"1\" -- \"1\" Spielgebiet: < !class, 10 points for rule>\n" +
             "\n" +
-            "class Ziel {}\n" +
-            "Spielgebiet \"1\" -- \"1\" Ziel\n" +
-            "Gebietselement <|-- Ziel\n" +
+            "class Ziel < 10 points for rule> {}\n" +
+            "Spielgebiet \"1\" -- \"1\" Ziel: < !class, 10 points for rule>\n" +
+            "Gebietselement <|-- Ziel: < !class, 10 points for rule>\n" +
             "\n" +
-            "abstract class Form {\n" +
+            "abstract class Form < 10 points for rule, 1 point for method>{\n" +
             "  + ueberwinden()\n" +
             "}\n" +
-            "Gebietselement <|-- Form\n" +
+            "Gebietselement <|-- Form: < !class, 10 points for rule>\n" +
             "\n" +
-            "class AtomareForm{}\n" +
-            "Form <|-- AtomareForm\n" +
+            "class AtomareForm < 10 points for rule>{}\n" +
+            "Form <|-- AtomareForm: < !class, 10 points for rule>\n" +
             "\n" +
-            "class KomplexeForm{}\n" +
-            "Form <|-- KomplexeForm\n" +
-            "KomplexeForm  *-- \"*\" Form\n" +
+            "class KomplexeForm < !class, 10 points for rule>{}\n" +
+            "Form <|-- KomplexeForm : < 10 points for rule>\n" +
+            "KomplexeForm  *-- \"*\" Form : <!class,  10 points for rule>\n" +
             "\n" +
             "@enduml"
     },
@@ -279,78 +279,82 @@ export default {
             "\n" +
             "title Fallstudie Mendelssohn & Sohn Maschinenbau GmbH\n" +
             "\n" +
-            "enum Rolle <<enum>> {\n" +
+            "enum Rolle <!class, 5 points for attributes,\n" +
+            "10 points for rule> <<enum>> {\n" +
             " LEITER\n" +
             " MITARBEITER\n" +
             "}\n" +
             "\n" +
-            "class Kundenauftragsposition {\n" +
+            "class Kundenauftragsposition <5 points for attributes,\n" +
+            " 10 points for rule> {\n" +
             "  + id: int\n" +
             "  + auftragspositionnummer: int\n" +
             "  + anzahl: int\n" +
             "}\n" +
             "\n" +
-            "class Artikel {\n" +
+            "class Artikel <!class,\n" +
+            "  5 points for attributes, 10 points for rule>{\n" +
             "  + id: int\n" +
             "  + beschreibung: String\n" +
             "  + lieferand: String\n" +
             "}\n" +
-            "Artikel \"0..1\" -- \"*\" Kundenauftragsposition\n" +
+            "Artikel \"0..1\" -- \"*\" Kundenauftragsposition : <!class, 10 points for rule>\n" +
             "\n" +
-            "class Erzeugnis {\n" +
+            "class Erzeugnis < 10 points for rule, 5 points for attributes> {\n" +
             "  + preis: int\n" +
             "  + hersteller: String\n" +
             "}\n" +
-            "Artikel <|-- Erzeugnis\n" +
             "\n" +
-            "class Bauteil {\n" +
+            "Artikel <|-- Erzeugnis : < 10 points for rule>\n" +
+            "\n" +
+            "class Bauteil <10 points for rule, 1 points for attributes>{\n" +
             "  + hoehe : int\n" +
             "  + breite: int\n" +
             "  + tiefe : int\n" +
             "}\n" +
-            "Artikel <|-- Bauteil\n" +
+            "Artikel <|-- Bauteil : < 10 points for rule>\n" +
             "\n" +
-            "class Rofstoff {\n" +
+            "class Rofstoff < 10 points for rule, 5 points for attributes>{\n" +
             "  + gewicht: int\n" +
             "  + zustand: string\n" +
             "}\n" +
-            "Artikel <|-- Rofstoff\n" +
+            "Artikel <|-- Rofstoff: < 10 points for rule>\n" +
             "\n" +
-            "class Produktionsauftrag{\n" +
+            "class Produktionsauftrag < 10 points for rule, 5 points for attributes>{\n" +
             "  + id: int\n" +
             "  + stueckliste: List<Artikel>\n" +
             "}\n" +
-            "Produktionsauftrag \"0..1\" -- \"1\" Kundenauftragsposition\n" +
+            "Produktionsauftrag \"0..1\" -- \"1\" Kundenauftragsposition : < 10 points for rule>\n" +
             "\n" +
-            "class Person{\n" +
+            "class Person < 10 points for rule, 5 points for attributes>{\n" +
             "  + id: int\n" +
             "  + rolle: Rolle\n" +
             "  + name: String\n" +
             "  + vorname: String\n" +
             "}\n" +
-            "Person \"1\" -- \"*\" Produktionsauftrag\n" +
+            "Person \"1\" -- \"*\" Produktionsauftrag : < 10 points for rule>\n" +
             "\n" +
-            "class TechnischeSpezifikation{\n" +
+            "class TechnischeSpezifikation <!class, !attr(*), 10 points for rule, 5 points for attributes>{\n" +
             "  + id: int\n" +
             "  + schaltungstyp: String\n" +
             "  + eingangwiderstand: String\n" +
             "  + phasenverschiebung: String\n" +
             "}\n" +
             "\n" +
-            "class Kundenauftrag {\n" +
+            "class Kundenauftrag <10 points for rule, 5 points for attributes>{\n" +
             "  + id: int\n" +
             "  + status: String\n" +
             "  + abwicklungsdatum: String\n" +
             "}\n" +
-            "Kundenauftrag *-- \"*\" Kundenauftragsposition\n" +
-            "Kundenauftrag *-- \"*\" TechnischeSpezifikation\n" +
+            "Kundenauftrag *-- \"*\" Kundenauftragsposition : < 10 points for rule>\n" +
+            "Kundenauftrag *-- \"*\" TechnischeSpezifikation : < 10 points for rule>\n" +
             "\n" +
-            "class Kunden {\n" +
+            "class Kunden <10 points for rule, 5 points for attributes>{\n" +
             "  + kundennummer: int\n" +
             "  + name: String \n" +
             "  + anschrift: String\n" +
             "}\n" +
-            "Kunden \"1\" -- \"*\" Kundenauftrag\n" +
+            "Kunden \"1\" -- \"*\" Kundenauftrag : < 10 points for rule>\n" +
             "\n" +
             "@enduml"
     }
