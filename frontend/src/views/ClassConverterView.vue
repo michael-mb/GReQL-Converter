@@ -299,4 +299,12 @@ function scrollDown() {
 .ml-2 {
   margin-left: 15px;
 }
+
+.scrollable-div {
+  height: calc(100vh + 20px); /* 100vh + 20px */
+  overflow-y: auto;
+  //border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+}
 </style>

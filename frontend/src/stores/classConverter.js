@@ -70,6 +70,18 @@ const actions = {
             return r !== rule
         })
     },
+    disableRule(rule){
+        this.rules.forEach(r => {
+            if(r === rule)
+                r.active = false;
+        })
+    },
+    activateRule(rule){
+        this.rules.forEach(r => {
+            if(r === rule)
+                r.active = true;
+        })
+    },
     addRule(rule) {
         this.rules.push(rule)
     },

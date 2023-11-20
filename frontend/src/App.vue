@@ -106,6 +106,9 @@ input[type=range]::-webkit-slider-thumb {
   margin-left: 5px;
 }
 
+.disabled {
+  background: #cdcdcd !important;
+}
 /** RULES STYLE DEFINITION END **/
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="card mb-1">
-    <div class="card-header">
+    <div class="card-header" :class="!rule.active ? 'disabled' : ''">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toggle">
           <span class="type"> G </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_child}}
@@ -14,7 +14,7 @@
     </div>
 
     <div class="collapse" :class="isOpen === true ? 'show' : ''">
-      <div class="card-body">
+      <div class="card-body" :class="!rule.active ? 'disabled' : ''">
         <h5 class="accordion-faq m-0 position-relative"> General Information</h5><br>
         <div class="form-group row">
           <label class="col-form-label col-md-3">Rule Type</label>
@@ -103,9 +103,10 @@
         <hr>
 
         <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
-        <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
-          <i class="fa fa-trash"></i> Delete
-        </button>
+        <button v-if="rule.active" @click="disableRule($event, rule)" class="ml-1 btn btn-secondary">
+          <i class="fa fa-toggle-off"></i> Disable</button>
+        <button v-else @click="activateRule($event, rule)" class="ml-1 btn btn-success">
+          <i class="fa fa-toggle-on"></i> Activate</button>
       </div>
     </div>
   </div>
@@ -129,16 +130,14 @@ function toggle(){
   isOpen.value = !isOpen.value
 }
 
-function deleteRule(e, rule){
+function disableRule(e, rule){
   e.preventDefault()
-  store.deleteRule(rule)
-  Swal.fire({
-    title: 'Success!',
-    text: 'This rule was successfully deleted!',
-    icon: 'success',
-    toast: true,
-    position: 'top-right',
-  })
+  store.disableRule(rule)
+}
+
+function activateRule(e, rule){
+  e.preventDefault()
+  store.activateRule(rule)
 }
 
 function setDocumentation(rule){

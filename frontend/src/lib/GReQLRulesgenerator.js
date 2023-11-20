@@ -5,6 +5,8 @@ export default {
         console.log("rules:", rules)
         let code = ""
         rules.forEach(rule => {
+            if(!rule.active)
+                return
             switch (rule.rule_type) {
                 case 'defined_class_rule':
                     code += this.generateDefineClassRule(rule)
@@ -91,12 +93,16 @@ export default {
 
         if(rule.rule_specific.attributes.length !== 0){
             rule.rule_specific.attributes.forEach(attribute => {
+                if(!attribute.active)
+                    return
                 code += this.generateAttributeRule(rule, attribute)
             })
         }
 
         if(rule.rule_specific.methods.length !== 0){
             rule.rule_specific.methods.forEach(method => {
+                if(!method.active)
+                    return
                 code += this.generateMethodRule(rule, method)
             })
         }
@@ -220,6 +226,8 @@ export default {
                     <feedback>${rule.feedback}</feedback>
                  </rule>`
         rule.rule_specific.attributes.forEach(attr => {
+            if(!attr.active)
+                return
             let checkAttrName
             if(attr.exact_match)
                 checkAttrName = `y.name="${attr.name}"`
@@ -522,7 +530,7 @@ export default {
     getMultiplicity: function (multiplicity) {
         const range = {};
 
-        if (multiplicity === '*') {
+        if (multiplicity === '*' || multiplicity === "0..*") {
             range.min = '*';
             range.max = '*';
         } else if (multiplicity === '+') {
