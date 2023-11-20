@@ -148,7 +148,7 @@
             <span class="off-icon" v-if="store.getOffCanvas.info"><i class="feather-alert-octagon"></i></span>
             <span class="off-text" v-if="store.getOffCanvas.info">{{ store.getOffCanvas.info }}</span>
             <code-editor font-size="14px" v-if="store.getOffCanvas.code" v-model="store.getOffCanvas.code" theme="github" :line-nums="true"
-                         :languages="[['js', 'JS']]" :header="true"
+                         :languages="[['xml', 'XML']]" :header="true"
                          width="100%"/>
           </div>
         </div>
