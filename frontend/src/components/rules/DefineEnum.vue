@@ -146,7 +146,9 @@
           </div>
 
           <hr>
-
+          <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
+          <button class="ml-1 btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setTemporaryCode(rule)">
+            <i class="fa fa-eye"></i> Rule viewer</button>
       </div>
     </div>
   </div>
@@ -198,7 +200,17 @@ function updateSubElemStatus(e, rule,  elem, value){
 }
 
 function setDocumentation(rule){
-  store.setOffCanvas(rule)
+  store.setOffCanvas(rule, undefined)
+}
+
+function setTemporaryCode(rule){
+  store.setOffCanvas(
+      {
+        rule_name: rule.rule_name,
+        info_image: "",
+        info_text: ""
+      }, rule
+  )
 }
 </script>
 

@@ -1,52 +1,53 @@
 import rulesDefinitions from "@/lib/rulesDefinitions";
 
 export default {
+    ruleTypeToGenerator : {
+        'defined_class_rule': 'generateDefineClassRule',
+        'defined_enum_rule': 'generateEnumRule',
+        'generalization_rule': 'generateGeneralizationRule',
+        'composition_rule': 'generateCompositionRule',
+        'aggregation_rule': 'generateAggregationRule',
+        'test_association_rule': 'generateTestAssociationRule',
+        'association_class_rule': 'generateAssociationClassRule',
+        'count_methods_rule': 'generateCountMethodsRule',
+        'count_attributes_rule': 'generateCountAttributeRule',
+        'simple_association_rule': 'generateSimpleAssociationRule',
+        'nomination_consistency_rule': 'generateNominationConsistencyRule'
+    },
+
+    generateGReQLRule: function(rule){
+        if(rule === undefined)
+            return ""
+
+        const generator = this.ruleTypeToGenerator[rule.rule_type];
+        let code = "";
+
+        if (generator && typeof this[generator] === 'function') {
+            code += this[generator](rule);
+        } else {
+            code += `<!-- ${rule.rule_type} - Not supported 😢 -->`;
+            console.log(rule.rule_type + " - Not supported 😢");
+        }
+
+        return "<checkerrules>" + code + "</checkerrules>";
+    },
     generateGReQLRules: function (rules) {
-        console.log("rules:", rules)
-        let code = ""
-        rules.forEach(rule => {
-            if(!rule.active)
-                return
-            switch (rule.rule_type) {
-                case 'defined_class_rule':
-                    code += this.generateDefineClassRule(rule)
-                    break
-                case 'defined_enum_rule':
-                    code += this.generateEnumRule(rule)
-                    break
-                case 'generalization_rule':
-                    code += this.generateGeneralizationRule(rule)
-                    break
-                case 'composition_rule':
-                    code += this.generateCompositionRule(rule)
-                    break
-                case 'aggregation_rule':
-                    code += this.generateAggregationRule(rule)
-                    break
-                case 'test_association_rule':
-                    code += this.generateTestAssociationRule(rule)
-                    break
-                case 'association_class_rule':
-                    code += this.generateAssociationClassRule(rule)
-                    break
-                case 'count_methods_rule':
-                    code += this.generateCountMethodsRule(rule)
-                    break
-                case 'count_attributes_rule':
-                    code += this.generateCountAttributeRule(rule)
-                    break
-                case 'simple_association_rule':
-                    code += this.generateSimpleAssociationRule(rule)
-                    break
-                case 'nomination_consistency_rule':
-                    code += this.generateNominationConsistencyRule()
-                    break
-                default:
-                    code += `<!-- ${rule.rule_type} + " - Not supported 😢" -->`
-                    console.log(rule.rule_type + " - Not supported 😢")
+        console.log("rules:", rules);
+        let code = "";
+
+        rules.forEach((rule) => {
+            if (!rule.active) return;
+
+            const generator = this.ruleTypeToGenerator[rule.rule_type];
+            if (generator && typeof this[generator] === 'function') {
+                code += this[generator](rule);
+            } else {
+                code += `<!-- ${rule.rule_type} - Not supported 😢 -->`;
+                console.log(rule.rule_type + " - Not supported 😢");
             }
-        })
-        return "<checkerrules>" + code + "</checkerrules>"
+        });
+
+        return "<checkerrules>" + code + "</checkerrules>";
     },
 
     generateDefineClassRule: function (rule) {
