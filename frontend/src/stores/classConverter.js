@@ -64,7 +64,10 @@ const actions = {
             info: rule.info_text,
             image: rule.info_image,
         }
-        this.offCanvas.code = xmlFormat(GReQLRulesgenerator.generateGReQLRule(code))
+        if(code !== undefined)
+            this.offCanvas.code = xmlFormat(GReQLRulesgenerator.generateGReQLRule(code))
+        else
+            this.offCanvas.code = code
     },
     setGReQLGeneratedCode(code) {
         this.GReQLGeneratedCode = code
