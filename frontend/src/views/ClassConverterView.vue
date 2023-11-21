@@ -145,8 +145,11 @@
                  alt="Post Image">
           </div>
           <div class="offcanvas-body">
-            <span class="off-icon"><i class="feather-alert-octagon"></i></span>
-            <span class="off-text">{{ store.getOffCanvas.info }}</span>
+            <span class="off-icon" v-if="store.getOffCanvas.info"><i class="feather-alert-octagon"></i></span>
+            <span class="off-text" v-if="store.getOffCanvas.info">{{ store.getOffCanvas.info }}</span>
+            <code-editor font-size="14px" v-if="store.getOffCanvas.code" v-model="store.getOffCanvas.code" theme="github" :line-nums="true"
+                         :languages="[['xml', 'XML']]" :header="true"
+                         width="100%"/>
           </div>
         </div>
       </div>
@@ -159,7 +162,7 @@
 import hljs from 'highlight.js';
 import CodeEditor from "simple-code-editor";
 import Header from "@/components/Header.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import useClassConverterStore from "@/stores/classConverter"
 import Swal from "sweetalert2";
 import DefineClass from "@/components/rules/DefineClass.vue";
@@ -188,6 +191,7 @@ const GReQLCode = ref("")
 function updateDefaultCode() {
   code.value = defaultCode.value.code
 }
+
 
 function parseCode() {
   const param = {
@@ -289,7 +293,7 @@ function scrollDown() {
 }
 
 .offcanvas-start {
-  width: 700px;
+  width: 900px;
 }
 
 .default_label {
@@ -298,5 +302,13 @@ function scrollDown() {
 
 .ml-2 {
   margin-left: 15px;
+}
+
+.scrollable-div {
+  height: calc(100vh + 20px); /* 100vh + 20px */
+  overflow-y: auto;
+  //border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 </style>

@@ -2,6 +2,8 @@ import {defineStore} from 'pinia';
 import {BASE_API_URL} from "@/config/config";
 import rulesDefinitions from "@/lib/rulesDefinitions";
 import globalUtils from "@/helpers/globalUtils";
+import GReQLRulesgenerator from "@/lib/GReQLRulesgenerator";
+import xmlFormat from "xml-formatter";
 
 const API_CONFIG = {
     BASE_URL: BASE_API_URL,
@@ -34,7 +36,8 @@ const state = () => ({
     offCanvas: {
         title: "... Test title",
         info: "... information",
-        image: ""
+        image: "",
+        code: undefined
     },
     GReQLGeneratedCode: ""
 })
@@ -55,12 +58,13 @@ const actions = {
         this.parsedCode = undefined
         this.rules = []
     },
-    setOffCanvas(rule) {
+    setOffCanvas(rule, code) {
         this.offCanvas = {
             title: rule.rule_name,
             info: rule.info_text,
-            image: rule.info_image
+            image: rule.info_image,
         }
+        this.offCanvas.code = xmlFormat(GReQLRulesgenerator.generateGReQLRule(code))
     },
     setGReQLGeneratedCode(code) {
         this.GReQLGeneratedCode = code
@@ -68,6 +72,18 @@ const actions = {
     deleteRule(rule) {
         this.rules = this.rules.filter(r => {
             return r !== rule
+        })
+    },
+    disableRule(rule){
+        this.rules.forEach(r => {
+            if(r === rule)
+                r.active = false;
+        })
+    },
+    activateRule(rule){
+        this.rules.forEach(r => {
+            if(r === rule)
+                r.active = true;
         })
     },
     addRule(rule) {

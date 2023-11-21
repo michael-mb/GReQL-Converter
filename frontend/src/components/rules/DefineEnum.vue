@@ -1,6 +1,6 @@
 <template>
   <div class="card mb-1">
-    <div class="card-header">
+    <div class="card-header" :class="!rule.active ? 'disabled' : ''">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toggle">
           <span class="type"> ED </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.enum_class_name}}  # {{index + 1}}
@@ -13,7 +13,7 @@
     </div>
 
     <div class="collapse" :class="isOpen === true ? 'show' : ''">
-      <div class="card-body">
+      <div class="card-body" :class="!rule.active ? 'disabled' : ''">
         <h5 class="accordion-faq m-0 position-relative"> General Information</h5><br>
           <div class="form-group row">
             <label class="col-form-label col-md-3">Rule Type</label>
@@ -76,10 +76,17 @@
             </div>
           </div>
 
+        <div class="form-group">
+          <button v-if="rule.active" @click="disableRule($event, rule)" class="ml-1 btn btn-secondary">
+            <i class="fa fa-toggle-off"></i> Disable</button>
+          <button v-else @click="activateRule($event, rule)" class="ml-1 btn btn-success">
+            <i class="fa fa-toggle-on"></i> Activate</button>
+        </div>
+
           <hr>
           <h5 class="accordion-faq m-0 position-relative">Attributes</h5><br>
 
-          <div v-for="(attribute, attribute_index) in attributes">
+          <div v-for="(attribute, attribute_index) in attributes" :class="!attribute.active ? 'disabled' : ''">
             <h6>{{attribute.name}} # {{attribute_index}}</h6>
             <div class="form-group row">
               <label class="col-lg-3 col-form-label">Name</label>
@@ -125,6 +132,13 @@
               </div>
             </div>
 
+            <div class="form-group">
+              <button v-if="attribute.active" @click="updateSubElemStatus($event, rule,  attribute, false)" class="ml-1 btn btn-secondary">
+                <i class="fa fa-toggle-off"></i> Disable Attribute</button>
+              <button v-else @click="updateSubElemStatus($event, rule,  attribute, true)" class="ml-1 btn btn-success">
+                <i class="fa fa-toggle-on"></i> Activate Attribute</button>
+            </div>
+
           </div>
 
           <div class="add_item" title="add attribute" @click="addAttribute(rule)">
@@ -132,13 +146,9 @@
           </div>
 
           <hr>
-
           <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
-
-          <div>
-            <button @click="deleteRule($event, rule)" class="ml-1 btn btn-danger">
-              <i class="fa fa-trash"></i> Delete</button>
-          </div>
+          <button class="ml-1 btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setTemporaryCode(rule)">
+            <i class="fa fa-eye"></i> Rule viewer</button>
       </div>
     </div>
   </div>
@@ -173,22 +183,41 @@ function save(e, rule){
   rule.rule_specific.attributes = attributes
 }
 
-function deleteRule(e, rule){
+function disableRule(e, rule){
   e.preventDefault()
-  store.deleteRule(rule)
-  Swal.fire({
-    title: 'Success!',
-    text: 'This rule was successfully deleted!',
-    icon: 'success',
-    toast: true,
-    position: 'top-right',
-  })
+  store.disableRule(rule)
+}
+
+function activateRule(e, rule){
+  e.preventDefault()
+  store.activateRule(rule)
+}
+
+function updateSubElemStatus(e, rule,  elem, value){
+  e.preventDefault()
+  elem.active = value
+  save(e, rule)
 }
 
 function setDocumentation(rule){
-  store.setOffCanvas(rule)
+  store.setOffCanvas(rule, undefined)
+}
+
+function setTemporaryCode(rule){
+  store.setOffCanvas(
+      {
+        rule_name: rule.rule_name,
+        info_image: "",
+        info_text: ""
+      }, rule
+  )
 }
 </script>
 
 <style scoped>
+.disabled{
+  padding: 15px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
 </style>

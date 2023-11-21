@@ -34,6 +34,7 @@ export default {
             feedback: '... no feedback yet',
             points: 0,
             existence: 'presence',
+            active: true,
             rule_specific: {
                 class_name: "Car",
                 exact_match: false,
@@ -52,6 +53,7 @@ export default {
             feedback: '... no feedback yet',
             points: 0,
             existence: 'presence',
+            active: true,
             rule_specific: {
                 enum_class_name: "Car",
                 exact_match: false,
@@ -67,6 +69,7 @@ export default {
             info_image: "assets/rules/generalization_rule.png",
             points: 0,
             feedback: '... no feedback',
+            active: true,
             rule_specific: {
                 class_child: "Child",
                 class_parent: "Parent",
@@ -83,6 +86,7 @@ export default {
             info_image: "assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
+            active: true,
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",
@@ -99,6 +103,7 @@ export default {
             info_image: "assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
+            active: true,
             rule_specific: {
                 class_composite: "Composite",
                 class_element: "Element",
@@ -114,6 +119,7 @@ export default {
             info_image: "assets/rules/relations.png",
             points: 0,
             feedback: "... no feedback",
+            active: true,
             rule_specific: {
                 class_aggregate: "Aggregate",
                 class_element: "Element",
@@ -130,6 +136,7 @@ export default {
             info_image: "assets/rules/ass_class.png",
             points: 0,
             feedback: "... Es muss eine Assoziationsklasse C auf der Beziehung zwischen Klasse A und Klasse B haben.",
+            active: true,
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",
@@ -143,6 +150,7 @@ export default {
             rule_name: "Nomination Consistency",
             info_text: rulesExplanations.nomination_consistency,
             info_image: "",
+            active: true,
         },
         'count_methods_rule': {   
             rule_type: "count_methods_rule",
@@ -151,6 +159,7 @@ export default {
             info_text: rulesExplanations.count_methods_rule,
             info_image: '',
             points: 0,
+            active: true,
             rule_specific: {
                 methods: 0,
             }
@@ -162,6 +171,7 @@ export default {
             info_text: rulesExplanations.count_attributes_rule,
             info_image: '',
             points: 0,
+            active: true,
             rule_specific: {
                 attributes: 0,
             }
@@ -173,6 +183,7 @@ export default {
             info_text: rulesExplanations.test_association_rule,
             info_image: "assets/rules/relations.png",
             points: 0,
+            active: true,
             rule_specific: {
                 class_A: "Class A",
                 class_B: "Class B",
@@ -187,6 +198,7 @@ export default {
         visibility: "public",
         arguments: "",
         points: 0,
+        active: true,
         feedback: '... no feedback',
         is_static: false
     },
@@ -196,6 +208,7 @@ export default {
         type: "string",
         visibility: "public",
         points: 0,
+        active: true,
         feedback: '... no feedback',
         is_static: false
     },
@@ -203,6 +216,7 @@ export default {
         name: "ENUM_ATTR",
         exact_match: false,
         points: 0,
+        active: true,
         feedback: '... no feedback',
     },
     EXISTENCE_TYPE: {
