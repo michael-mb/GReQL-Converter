@@ -6,6 +6,10 @@
           <span class="type"> ED </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.enum_class_name}}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
+        <a class="info-wrapper" style="margin-right: 35px" data-bs-toggle="offcanvas" href="#offcanvas"
+           @click="setTemporaryCode(rule)" role="button" aria-controls="offcanvas">
+          <i class="fa fa-eye"></i>
+        </a>
         <a class="info-wrapper" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setDocumentation(rule)">
           <i class="feather-alert-circle"></i>
         </a>
@@ -145,10 +149,6 @@
             <i class="fa fa-plus-circle"></i>
           </div>
 
-          <hr>
-          <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
-          <button class="ml-1 btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setTemporaryCode(rule)">
-            <i class="fa fa-eye"></i> Rule viewer</button>
       </div>
     </div>
   </div>
