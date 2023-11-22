@@ -17,6 +17,9 @@ export default {
         // ASSOCIATION CLASS
         'association_class': 'association_class_rule',   
 
+        // OTHERS
+        'combined': 'combined_rule',
+
         // OPTIONAL
         'nomination_consistency': 'nomination_consistency_rule',   
         'test_association': 'test_association_rule',   
@@ -144,6 +147,18 @@ export default {
                 exact_match: false,
             }
         },
+        // OTHERS
+        'combined_rule': {
+            rule_type: "combined_rule",
+            rule_name: "Combined Rule Definition",
+            existence: 'presence',
+            info_text: rulesExplanations.combined_rule,
+            info_image: '',
+            points: 0,
+            active: true,
+            feedback: "... i need a feedback please 😊.",
+            rules:[]
+        },
         // OPTIONAL
         'nomination_consistency_rule': {   
             rule_type: "nomination_consistency_rule",
@@ -226,5 +241,41 @@ export default {
     GENERALIZATION_TYPE: {
         'inheritance': 'inheritance',
         'implementation': 'implementation'
+    },
+    COMBINED_RULE_DEFINITION: {
+        DEFINE_CLASS : "Class Definition sub-rule",
+        METHOD: "Method sub-rule",
+        ATTRIBUTE: "Attribute sub-rule"
+    },
+    COMBINED_RULE_ELEM: {
+        DEFINE_CLASS: {
+            rule_type: "Class Definition sub-rule",
+            name: "Class name",
+            exact_match: false,
+            abstract: false,
+            interface: false,
+            active: true,
+        },
+        METHOD: {
+            rule_type: "Method sub-rule",
+            name: "Method name",
+            exact_match: false,
+            return_type: "void",
+            visibility: "public",
+            arguments: "",
+            active: true,
+            is_static: false,
+            class: "class name"
+        },
+        ATTRIBUTE: {
+            rule_type: "Attribute sub-rule",
+            name: "Attribute name",
+            exact_match: false,
+            type: "string",
+            visibility: "public",
+            active: true,
+            is_static: false,
+            class: ""
+        },
     }
 }

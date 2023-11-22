@@ -12,7 +12,8 @@ export default {
         'count_methods_rule': 'generateCountMethodsRule',
         'count_attributes_rule': 'generateCountAttributeRule',
         'simple_association_rule': 'generateSimpleAssociationRule',
-        'nomination_consistency_rule': 'generateNominationConsistencyRule'
+        'nomination_consistency_rule': 'generateNominationConsistencyRule',
+        'combined_rule': 'generateCombineRule'
     },
 
     generateGReQLRule: function(rule){
@@ -32,7 +33,6 @@ export default {
         return "<checkerrules>" + code + "</checkerrules>";
     },
     generateGReQLRules: function (rules) {
-        console.log("rules:", rules);
         let code = "";
 
         rules.forEach((rule) => {
@@ -494,6 +494,12 @@ export default {
                 </query>
                 <feedback>Hinweis (ohne Punktabzug): Ein Diagramm sollte eine konsistente Schreibweise enthalten, in der entweder alle Attribute mit einem Grossbuchstaben oder alle Attribute mit einem Kleinbuchstaben beginnen.</feedback>
                 </rule>`
+        return code
+    },
+
+    generateCombineRule: function (){
+        let code = "<!-- Combined  Rule -->"
+        code += "<!-- not yet implemented -->"
         return code
     },
 

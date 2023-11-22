@@ -1,4 +1,9 @@
 export default {
+    empty_test: {
+        code: "@startuml\n" +
+            "class A {}\n" +
+            "@enduml"
+    },
     annotation_test:{
         code: "@startuml\n" +
             "/*\n" +

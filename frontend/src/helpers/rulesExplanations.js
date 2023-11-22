@@ -21,5 +21,6 @@ export default {
     association_class_rule: "Diese Regel untersucht die Existenz einer Assoziationsklasse auf einer Beziehung" +
         " zwischen zwei Klassen.",
     nomination_consistency: "Ein Diagramm sollte eine konsistente Schreibweise enthalten, in der entweder alle Attribute" +
-        " mit einem Großbuchstaben oder alle Attribute mit einem Kleinbuchstaben beginnen."
+        " mit einem Großbuchstaben oder alle Attribute mit einem Kleinbuchstaben beginnen.",
+    combined_rule: "Diese Regel bietet die Möglichkeit, die möglichen korrekten Alternativen in einem Klassendiagramm zu verwalten. "
 }

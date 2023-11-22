@@ -133,7 +133,6 @@ const actions = {
     },
     generateRules() {
         const elements = this.parsedCode[0].elements;
-        console.log(elements)
         elements.forEach((elem) => {
             // CLASS , ENUM, INTERFACE
             let rule;

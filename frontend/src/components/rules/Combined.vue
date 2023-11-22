@@ -3,8 +3,7 @@
     <div class="card-header" :class="!rule.active ? 'disabled' : ''">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toggle">
-          <span class="type"> G </span> <span class="type_name">{{rule.rule_name}} : {{rule.rule_specific.class_child}}
-          => {{rule.rule_specific.class_parent }}  # {{index + 1}}
+          <span class="type"> CR </span> <span class="type_name">{{rule.rule_name}} : # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
         <a class="info-wrapper" style="margin-right: 35px" data-bs-toggle="offcanvas" href="#offcanvas"
@@ -38,55 +37,6 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-lg-3 col-form-label">Type</label>
-          <div class="col-lg-9">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" :name="'generalization_' + index" :id="'generalization_inheritance_' + index" value="inheritance" v-model="rule.rule_specific.type">
-              <label class="form-check-label" :for="'generalization_inheritance_' + index" >
-                Inheritance
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" :name="'generalization_' + index" :id="'generalization_implementation_' + index"  value="implementation" v-model="rule.rule_specific.type">
-              <label class="form-check-label" :for="'generalization_implementation_' + index">
-                Implementation
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-form-label col-md-3">Child</label>
-          <div class="col-md-9">
-            <input type="text" class="form-control" v-model="rule.rule_specific.class_child">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-form-label col-md-3">Parent</label>
-          <div class="col-md-9">
-            <input type="text" class="form-control" v-model="rule.rule_specific.class_parent">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-lg-3 col-form-label">Name - Exact match</label>
-          <div class="col-lg-9">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" :name="'match_' + index" :id="'match_yes_' + index" :value="true" v-model="rule.rule_specific.exact_match">
-              <label class="form-check-label" :for="'match_yes_' + index">
-                Yes
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" :name="'match_' + index" :id="'match_no_' + index" :value="false" v-model="rule.rule_specific.exact_match">
-              <label class="form-check-label" :for="'match_no_' + index">
-                No
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group row">
           <label class="col-form-label col-md-3">Points</label>
           <div class="col-md-9">
             <div class="input-group">
@@ -106,12 +56,34 @@
 
         <hr>
 
+        <template v-for="(subRule, subIndex) in rule.rules">
+          <SubDefineClass v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.DEFINE_CLASS" :index="`${index}_${subIndex}`" :rule="subRule"/>
+          <SubAttribute v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.ATTRIBUTE" :index="`${index}_${subIndex}`" :rule="subRule"/>
+          <SubMethod v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.METHOD" :index="`${index}_${subIndex}`" :rule="subRule"/>
+
+          {{subRule}}
+          <br><br>
+        </template>
+
+        <hr>
         <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
         <button v-if="rule.active" @click="disableRule($event, rule)" class="ml-1 btn btn-secondary">
           <i class="fa fa-toggle-off"></i> Disable</button>
         <button v-else @click="activateRule($event, rule)" class="ml-1 btn btn-success">
           <i class="fa fa-toggle-on"></i> Activate</button>
 
+          <a class="ml-1 action-icon dropdown-toggl btn btn-primary" data-bs-toggle="dropdown"
+             aria-expanded="false">
+            <i class="feather-plus-circle"></i> Add Combined Rule
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.DEFINE_CLASS)"> <i
+                class="feather-file-plus me-2"></i> Class definition</a>
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.ATTRIBUTE)"> <i
+                class="feather-file-plus me-2"></i> Attribute</a>
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.METHOD)"> <i
+                class="feather-file-plus me-2"></i> Method</a>
+          </div>
       </div>
     </div>
   </div>
@@ -119,14 +91,21 @@
 
 <script setup>
 import {ref} from "vue";
+import rulesDefinitions from "@/lib/rulesDefinitions";
 import useClassConverterStore from "@/stores/classConverter";
+import SubDefineClass from "@/components/subRules/SubDefineClass.vue";
+import SubAttribute from "@/components/subRules/SubAttribute.vue";
+import SubMethod from "@/components/subRules/SubMethod.vue";
 
 const store = useClassConverterStore()
 
 const props = defineProps({
-  rule: Object,
+  ruleProps: Object,
   index: Number
 })
+
+const rule = ref(props.ruleProps)
+
 const isOpen = ref(false)
 
 function toggle(){
@@ -155,6 +134,10 @@ function setTemporaryCode(rule){
         info_text: ""
       }, rule
   )
+}
+
+function addSubRule(subRule){
+  rule.value.rules.push(JSON.parse(JSON.stringify(subRule)))
 }
 </script>
 
