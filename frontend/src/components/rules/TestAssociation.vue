@@ -7,6 +7,10 @@
           - {{rule.rule_specific.class_B }}  # {{index + 1}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
+        <a class="info-wrapper" style="margin-right: 35px" data-bs-toggle="offcanvas" href="#offcanvas"
+           @click="setTemporaryCode(rule)" role="button" aria-controls="offcanvas">
+          <i class="fa fa-eye"></i>
+        </a>
         <a class="info-wrapper" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setDocumentation(rule)">
           <i class="feather-alert-circle"></i>
         </a>
@@ -82,8 +86,6 @@
           <i class="fa fa-toggle-off"></i> Disable</button>
         <button v-else @click="activateRule($event, rule)" class="ml-1 btn btn-success">
           <i class="fa fa-toggle-on"></i> Activate</button>
-        <button class="ml-1 btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas" @click="setTemporaryCode(rule)">
-          <i class="fa fa-eye"></i> Rule viewer</button>
       </div>
     </div>
   </div>
