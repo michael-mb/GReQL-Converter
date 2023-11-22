@@ -497,9 +497,116 @@ export default {
         return code
     },
 
-    generateCombineRule: function (){
+    generateCombineRule: function (rule){
         let code = "<!-- Combined  Rule -->"
-        code += "<!-- not yet implemented -->"
+        let queries = ""
+        rule.rules.forEach(subRule => {
+            if(!subRule.active)
+                return
+            if(subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.DEFINE_CLASS){
+                queries += "<!-- Class Definition SubRule -->"
+
+                const isInterface = subRule.interface
+                let checkName
+                if(subRule.exact_match)
+                    checkName = `x.name="${subRule.name}"`
+                else
+                    checkName = `stringLevenshteinDistance(x.name, "${subRule.name}")&lt;3`
+
+                if (isInterface) {
+                    queries += `<query>from x : V{Interface} 
+                    with 
+                    isDefined(x.name) and 
+                    ${checkName} 
+                    report 1 end
+                    </query>`
+                } else {
+                    const isAbstract = subRule.abstract
+
+                    let abstractCode
+                    if (isAbstract)
+                        abstractCode = `and isDefined(x.isAbstract) and x.isAbstract`
+                    else
+                        abstractCode = `and isDefined(x.isAbstract) and (not x.isAbstract)`
+
+                    queries += `<query>from x : V{Class} 
+                    with
+                    isDefined(x.name) and  
+                    ${checkName}
+                    ${abstractCode}
+                    report 1 end
+                    </query>`
+                }
+            }
+            else if(subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.METHOD){
+                queries += "<!-- Method SubRule -->"
+                const visibility = this.getVisibility(subRule)
+                const isStatic = this.isStatic(subRule)
+                const retType = this.getType(subRule.return_type)
+                let checkName
+                if(subRule.exact_match)
+                    checkName = `y.name="${subRule.name}"`
+                else
+                    checkName = `stringLevenshteinDistance(y.name, "${subRule.name}")&lt;3`
+
+                let vType = "from x: V{Class}, y : V{Operation}"
+                let vTypeText = ""
+                if (retType !== '!prim') {
+                    vType = "from x : V{Class}, y : V{Operation}, ret: V{Parameter}, retType: V{PrimitiveType}"
+                    vTypeText = ` and y --> ret and isDefined(ret.name) and ret.name="return"  and ret --> retType and isDefined(retType.name) and retType.name="${retType}"`
+                }
+
+                queries += `<query>${vType}
+                with
+                isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class}")&lt;3 and
+                isDefined(y.name) and
+                ${checkName} and
+                ${visibility}
+                ${isStatic} and
+                x --> y 
+                ${vTypeText}
+                report 1 end
+                </query>`
+            }
+            else if(subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.ATTRIBUTE){
+                queries += "<!-- Attribute SubRule -->"
+
+                const visibility = this.getVisibility(subRule)
+                const isStatic = this.isStatic(subRule)
+                const primitiveType = this.getType(subRule.type)
+
+                let checkName
+                if(subRule.exact_match)
+                    checkName = `y.name="${subRule.name}"`
+                else
+                    checkName = `stringLevenshteinDistance(y.name, "${subRule.name}")&lt;3`
+
+                let vType = "from x: V{Class}, y : V{Property}"
+                let vTypeText = ""
+                if (primitiveType !== '!prim') {
+                    vType = "from x : V{Class}, y : V{Property}, z : V{PrimitiveType}"
+                    vTypeText = `and y --> z and isDefined(z.name) and z.name="${primitiveType}"`
+                }
+
+                queries += `<query>${vType}
+                with
+                isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class}")&lt;3 and 
+                x --> y and isDefined(y.name) and
+                ${checkName} and
+                ${visibility}
+                ${isStatic}
+                ${vTypeText}
+                report 1 end
+                </query>`
+            }
+            else
+                queries += "<!-- i don't know this one 😢-->"
+        })
+
+        code += `<rule type="${rule.existence}" points="${rule.points}">
+                   ${queries}                  
+                   <feedback>${rule.feedback}</feedback>
+                </rule>`
         return code
     },
 

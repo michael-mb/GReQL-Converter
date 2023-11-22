@@ -259,23 +259,24 @@ export default {
         METHOD: {
             rule_type: "Method sub-rule",
             name: "Method name",
+            class: "class name",
             exact_match: false,
             return_type: "void",
             visibility: "public",
             arguments: "",
             active: true,
             is_static: false,
-            class: "class name"
         },
         ATTRIBUTE: {
             rule_type: "Attribute sub-rule",
             name: "Attribute name",
+            class: "class name",
             exact_match: false,
             type: "string",
             visibility: "public",
             active: true,
             is_static: false,
-            class: ""
+
         },
     }
 }
