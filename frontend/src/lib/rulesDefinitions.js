@@ -245,7 +245,13 @@ export default {
     COMBINED_RULE_DEFINITION: {
         DEFINE_CLASS : "Class Definition sub-rule",
         METHOD: "Method sub-rule",
-        ATTRIBUTE: "Attribute sub-rule"
+        ATTRIBUTE: "Attribute sub-rule",
+        GENERALIZATION: "Generalization sub-rule",
+        COMPOSITION: "Composition sub-rule",
+        AGGREGATION: "Aggregation sub-rule",
+        SIMPLE_ASSOCIATION: "Simple_association sub-rule",
+        ASSOCIATION_CLASS: "Association_class sub-rule",
+        TEST_ASSOCIATION: "Test_association sub-rule"
     },
     COMBINED_RULE_ELEM: {
         DEFINE_CLASS: {
@@ -276,7 +282,54 @@ export default {
             visibility: "public",
             active: true,
             is_static: false,
-
         },
+        GENERALIZATION: {
+            rule_type: "Generalization sub-rule",
+            active: true,
+            class_child: "Child",
+            class_parent: "Parent",
+            exact_match: false,
+            type: "inheritance" // implementation
+        },
+        AGGREGATION: {
+            rule_type: "Aggregation sub-rule",
+            active: true,
+            class_aggregate: "Aggregate",
+            class_element: "Element",
+            exact_match: false,
+            element_multiplicity: "*",
+        },
+        COMPOSITION: {
+            rule_type: "Composition sub-rule",
+            active: true,
+            class_composite: "Composite",
+            class_element: "Element",
+            exact_match: false,
+            element_multiplicity: "*",
+        },
+        SIMPLE_ASSOCIATION:{
+            rule_type: "Simple_association sub-rule",
+            active: true,
+            class_A: "Class A",
+            class_B: "Class B",
+            exact_match: false,
+            A_multiplicity: "1",
+            B_multiplicity: "1"
+        },
+        ASSOCIATION_CLASS:{
+            rule_type: "Association_class sub-rule",
+            active: true,
+            class_A: "Class A",
+            class_B: "Class B",
+            class_C: "Association Class",
+            exact_match: false,
+        },
+        TEST_ASSOCIATION: {
+            rule_type: "Test_association sub-rule",
+            active: true,
+            class_A: "Class A",
+            class_B: "Class B",
+            exact_match: false,
+        }
     }
 }

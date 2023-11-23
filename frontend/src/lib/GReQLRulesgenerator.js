@@ -63,10 +63,10 @@ export default {
             code += "<!-- Interface Definition -->"
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from x : V{Interface} 
-                               with 
-                               isDefined(x.name) and 
-                               ${checkName} 
-                              report 1 end
+                         with 
+                         isDefined(x.name) and 
+                         ${checkName} 
+                         report 1 end
                         </query>
                         <feedback>${rule.feedback}</feedback>
                      </rule>`
@@ -82,11 +82,11 @@ export default {
             code += "<!-- Class Definition -->"
             code += `<rule type="${rule.existence}" points="${rule.points}">
                         <query>from x : V{Class} 
-                               with
-                               isDefined(x.name) and  
-                               ${checkName}
-                               ${abstractCode}
-                               report 1 end
+                         with
+                         isDefined(x.name) and  
+                         ${checkName}
+                         ${abstractCode}
+                         report 1 end
                         </query>
                         <feedback>${rule.feedback}</feedback>
                     </rule>`
@@ -599,8 +599,166 @@ export default {
                 report 1 end
                 </query>`
             }
+            else if (subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.GENERALIZATION){
+                queries += "<!-- Generalization SubRule -->"
+
+                if (subRule.type === rulesDefinitions.GENERALIZATION_TYPE.implementation) {
+                    let checkName
+                    if(subRule.exact_match){
+                        checkName = `isDefined(x.name) and x.name="${subRule.class_child}" and
+                        isDefined(i.name) and i.name="${subRule.class_parent}" and`
+                    }
+                    else{
+                        checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class_child}")&lt;3 and
+                                isDefined(i.name) and stringLevenshteinDistance(i.name, "${subRule.class_parent}")&lt;3 and`
+                    }
+
+                    queries += `<query>from x : V{Class}, i : V{Interface}
+                    with
+                    ${checkName}
+                    x &lt;--{ClientEdge} V{Realization} --> i 
+                    report 1 end
+                    </query>`
+                } else {
+                    let checkName
+                    if(subRule.exact_match){
+                        checkName = `isDefined(a.name) and a.name="${subRule.class_child}" and
+                        isDefined(b.name) and b.name="${subRule.class_parent}" and`
+                    }
+                    else{
+                        checkName = `isDefined(a.name) and stringLevenshteinDistance(a.name, "${subRule.class_child}")&lt;3 and
+                        isDefined(b.name) and stringLevenshteinDistance(b.name, "${subRule.class_parent}")&lt;3 and`
+                    }
+
+                    queries += `<query>from a,b : V{Class}
+                    with
+                    ${checkName}
+                    a --> V{Generalization} --> b
+                    report 1 end
+                    </query>`
+                }
+            }
+            else if (subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.AGGREGATION){
+                queries += "<!-- Aggregation SubRule -->"
+
+                const elem_mul = this.getMultiplicity(subRule.element_multiplicity)
+                let checkName
+                if(subRule.exact_match){
+                    checkName = `isDefined(x.name) and x.name="${subRule.class_aggregate}" and
+                        isDefined(y.name) and y.name="${subRule.class_element}" and`
+                }
+                else{
+                    checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class_aggregate}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${subRule.class_element}")&lt;3 and`
+                }
+                queries += `<query>
+                from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
+                with
+                ${checkName}
+                isDefined(p.aggregation) and p.aggregation="shared" and
+                x --> V{Property} --> V{Association} --> p &lt;-- y and
+                isDefined(a.value) and a.value="${elem_mul.min}"  and
+                isDefined(b.value) and b.value="${elem_mul.max}"  and
+                x --> V{Property} --> a and
+                x --> V{Property} --> b
+                report 1 end
+                </query>`
+
+            }
+            else if (subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.COMPOSITION){
+                queries += "<!-- Composition SubRule -->"
+                const elem_mul = this.getMultiplicity(subRule.element_multiplicity)
+                let checkName
+                if(subRule.exact_match){
+                    checkName = `isDefined(x.name) and x.name="${subRule.class_composite}" and
+                        isDefined(y.name) and y.name="${subRule.class_element}" and`
+                }
+                else{
+                    checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class_composite}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${subRule.class_element}")&lt;3 and`
+                }
+                queries += `<query>
+                from x, y : V{Class}, p: V{Property}, a,b: V{LiteralString}
+                with
+                ${checkName}
+                isDefined(p.aggregation) and p.aggregation="composite" and
+                x --> V{Property} --> V{Association} --> p &lt;-- y and
+                isDefined(a.value) and a.value="${elem_mul.min}"  and
+                isDefined(b.value) and b.value="${elem_mul.max}"  and
+                x --> V{Property} --> a and
+                x --> V{Property} --> b
+                report 1 end
+                </query>`
+            }
+            else if(subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.SIMPLE_ASSOCIATION){
+                queries += "<!-- Simple Association SubRule -->"
+                const A_mul = this.getMultiplicity(subRule.A_multiplicity)
+                const B_mul = this.getMultiplicity(subRule.B_multiplicity)
+
+                let checkName
+                if(subRule.exact_match){
+                    checkName = `isDefined(x.name) and x.name="${subRule.class_A}" and
+                        isDefined(y.name) and y.name="${subRule.class_B}" and`
+                }
+                else{
+                    checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class_A}")&lt;3 and
+                        isDefined(y.name) and stringLevenshteinDistance(y.name, "${subRule.class_B}")&lt;3 and`
+                }
+
+                queries += `<query>from x,y : V{Class}, ass : V{Association}, a,b,c,d  : V{LiteralString}
+                with
+                ${checkName}
+                isDefined(a.value) and a.value="${B_mul.min}"  and
+                isDefined(b.value) and b.value="${B_mul.max}"  and
+                x --> V{Property} --> a and
+                x --> V{Property} --> b and
+                isDefined(c.value) and c.value="${A_mul.min}"  and
+                isDefined(d.value) and d.value="${A_mul.max}"  and
+                y --> V{Property} --> c and
+                y --> V{Property} --> d and
+                x --> V{Property} --> ass &lt;-- V{Property} &lt;-- y
+                report 1 end
+                </query>`
+            }else if(subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.ASSOCIATION_CLASS){
+                queries += "<!-- Association Class SubRule -->"
+                let checkName
+                if(rule.rule_specific.exact_match){
+                    checkName = `isDefined(x.name) and x.name="${subRule.class_A}" and
+                              isDefined(y.name) and y.name="${subRule.class_B}" and
+                              isDefined(z.name) and z.name="${subRule.class_C}" and`
+                }
+                else{
+                    checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class_A}")&lt;3 and
+                              isDefined(y.name) and stringLevenshteinDistance(y.name, "${subRule.class_B}")&lt;3 and
+                              isDefined(z.name) and stringLevenshteinDistance(z.name, "${subRule.class_C}")&lt;3 and`
+                }
+                queries += `<query>from x,y,z : V{Class}
+                with
+                ${checkName}
+                z --> V{Property} &lt;-- x and
+                z --> V{Property} &lt;-- y
+                report 1 end</query>`
+            }
+            else if(subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.TEST_ASSOCIATION){
+                queries += "<!-- Test Association SubRule -->"
+                let checkName
+                if(subRule.exact_match){
+                    checkName = `isDefined(x.name) and x.name="${subRule.class_A}" and
+                           isDefined(y.name) and y.name="${subRule.class_B}" and`
+                }
+                else{
+                    checkName = `isDefined(x.name) and stringLevenshteinDistance(x.name, "${subRule.class_A}")&lt;3 and
+                           isDefined(y.name) and stringLevenshteinDistance(y.name, "${subRule.class_B}")&lt;3 and`
+                }
+                queries += `<query>from x,y : V{Class}
+                with
+                ${checkName}
+                x --> V{Property} --> V{Association} &lt;-- V{Property} &lt;-- y
+                report 1 end
+                </query>`
+            }
             else
-                queries += "<!-- i don't know this one 😢-->"
+                queries += `<!-- i don't know this one 😢 - ${subRule.rule_type} -->`
         })
 
         code += `<rule type="${rule.existence}" points="${rule.points}">

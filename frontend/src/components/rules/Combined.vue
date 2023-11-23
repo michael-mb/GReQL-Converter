@@ -60,11 +60,14 @@
           <SubDefineClass v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.DEFINE_CLASS" :index="`${index}_${subIndex}`" :rule="subRule"/>
           <SubAttribute v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.ATTRIBUTE" :index="`${index}_${subIndex}`" :rule="subRule"/>
           <SubMethod v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.METHOD" :index="`${index}_${subIndex}`" :rule="subRule"/>
-
-          {{subRule}}
+          <SubGeneralization v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.GENERALIZATION" :index="`${index}_${subIndex}`" :rule="subRule"/>
+          <SubAggregation v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.AGGREGATION" :index="`${index}_${subIndex}`" :rule="subRule"/>
+          <SubComposition v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.COMPOSITION" :index="`${index}_${subIndex}`" :rule="subRule"/>
+          <SubSimpleAssociation v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.SIMPLE_ASSOCIATION" :index="`${index}_${subIndex}`" :rule="subRule"/>
+          <SubAssociationClass v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.ASSOCIATION_CLASS" :index="`${index}_${subIndex}`" :rule="subRule"/>
+          <SubTestAssociation v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.TEST_ASSOCIATION" :index="`${index}_${subIndex}`" :rule="subRule"/>
           <br><br>
         </template>
-
         <hr>
         <h5 class="accordion-faq m-0 position-relative"> Actions </h5><br>
         <button v-if="rule.active" @click="disableRule($event, rule)" class="ml-1 btn btn-secondary">
@@ -83,6 +86,16 @@
                 class="feather-file-plus me-2"></i> Attribute</a>
             <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.METHOD)"> <i
                 class="feather-file-plus me-2"></i> Method</a>
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.GENERALIZATION)"> <i
+                class="feather-file-plus me-2"></i> Generalization</a>
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.AGGREGATION)"> <i
+                class="feather-file-plus me-2"></i> Aggregation</a>
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.COMPOSITION)"> <i
+                class="feather-file-plus me-2"></i> Composition</a>
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.SIMPLE_ASSOCIATION)"> <i
+                class="feather-file-plus me-2"></i> Simple Association</a>
+            <a class="dropdown-item" @click="addSubRule(rulesDefinitions.COMBINED_RULE_ELEM.TEST_ASSOCIATION)"> <i
+                class="feather-file-plus me-2"></i> Test Association</a>
           </div>
       </div>
     </div>
@@ -96,6 +109,12 @@ import useClassConverterStore from "@/stores/classConverter";
 import SubDefineClass from "@/components/subRules/SubDefineClass.vue";
 import SubAttribute from "@/components/subRules/SubAttribute.vue";
 import SubMethod from "@/components/subRules/SubMethod.vue";
+import SubGeneralization from "@/components/subRules/SubGeneralization.vue";
+import SubAggregation from "@/components/subRules/SubAggregation.vue";
+import SubComposition from "@/components/subRules/SubComposition.vue";
+import SubSimpleAssociation from "@/components/subRules/SubSimpleAssociation.vue";
+import SubAssociationClass from "@/components/subRules/SubAssociationClass.vue";
+import SubTestAssociation from "@/components/subRules/SubTestAssociation.vue";
 
 const store = useClassConverterStore()
 
