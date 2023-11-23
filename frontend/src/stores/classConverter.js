@@ -398,7 +398,22 @@ const actions = {
         let points = 0
         elemList.elements.forEach(elem => {
             points = elem.annotation.p > points ? elem.annotation.p : points
+            let subRule
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.generalization){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.GENERALIZATION))
+                if (elem.leftArrowBody === "-" && elem.rightArrowBody === "-")
+                    subRule.type = rulesDefinitions.GENERALIZATION_TYPE.inheritance
+                else
+                    subRule.type = rulesDefinitions.GENERALIZATION_TYPE.implementation
 
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_parent = elem.left
+                subRule.class_child = elem.right
+            }
+
+
+            if(subRule !== undefined)
+                rule.rules.push(subRule)
 
         })
 
