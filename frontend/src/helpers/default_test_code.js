@@ -1,5 +1,5 @@
 export default {
-    empty_test: {
+    combinaison_test: {
         code: "@startuml\n" +
             "\n" +
             "// Complex Combinaison\n" +

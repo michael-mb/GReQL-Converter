@@ -188,14 +188,13 @@ import NominationConsistency from "@/components/rules/NominationConsistency.vue"
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.empty_test)
+const defaultCode = ref(default_test_code.combinaison_test)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
 
 function updateDefaultCode() {
   code.value = defaultCode.value.code
 }
-
 
 function parseCode() {
   const param = {
