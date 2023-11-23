@@ -74,7 +74,7 @@
         <button v-else @click="activateRule($event, rule)" class="ml-1 btn btn-success">
           <i class="fa fa-toggle-on"></i> Activate</button>
 
-          <a class="ml-1 action-icon dropdown-toggl btn btn-primary" data-bs-toggle="dropdown"
+          <a class="ml-1 action-icon dropdown-toggle btn btn-primary" data-bs-toggle="dropdown"
              aria-expanded="false">
             <i class="feather-plus-circle"></i> Add Combined Rule
           </a>

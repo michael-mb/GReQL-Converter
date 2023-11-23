@@ -1,7 +1,12 @@
 export default {
     empty_test: {
         code: "@startuml\n" +
-            "class A {}\n" +
+            "\n" +
+            "Animal <|-- Mammal : <!class, 5 points for rule, combineID=1>\n" +
+            "Swimmer <|.. Dolphin: <combineID=1>\n" +
+            "\n" +
+            "Swimmer <|.. Dolphin: <combineID=2>\n" +
+            "Flyer <|.. Bat: <!class, 5 points for rule, combineID=2>\n" +
             "@enduml"
     },
     annotation_test:{
