@@ -54,8 +54,7 @@
           </div>
         </div>
 
-        <hr>
-
+        <hr v-if="rule.rules.length > 0">
         <template v-for="(subRule, subIndex) in rule.rules">
           <SubDefineClass v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.DEFINE_CLASS" :index="`${index}_${subIndex}`" :rule="subRule"/>
           <SubAttribute v-if="subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.ATTRIBUTE" :index="`${index}_${subIndex}`" :rule="subRule"/>
