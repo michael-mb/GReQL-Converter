@@ -2,6 +2,9 @@ export default {
     empty_test: {
         code: "@startuml\n" +
             "\n" +
+            "(Student1, Course1) .. Enrollment1 : <combineID=4>\n" +
+            "(Student2, Course2) .. Enrollment2 : <combineID=4>\n" +
+            "\n" +
             "ClassA \"1..2\" -- \"+\" ClassB : <combineID=3>\n" +
             "ClassC -- ClassD  : <!class, 10 points for rule, combineID=3>\n" +
             "ClassC \"1\" -- \"1\" ClassE : <combineID=3>\n" +

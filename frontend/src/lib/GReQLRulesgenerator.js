@@ -722,7 +722,7 @@ export default {
             }else if(subRule.rule_type === rulesDefinitions.COMBINED_RULE_DEFINITION.ASSOCIATION_CLASS){
                 queries += "<!-- Association Class SubRule -->"
                 let checkName
-                if(rule.rule_specific.exact_match){
+                if(rule.exact_match){
                     checkName = `isDefined(x.name) and x.name="${subRule.class_A}" and
                               isDefined(y.name) and y.name="${subRule.class_B}" and
                               isDefined(z.name) and z.name="${subRule.class_C}" and`

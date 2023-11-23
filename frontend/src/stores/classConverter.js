@@ -438,7 +438,15 @@ const actions = {
                 subRule.class_A = elem.left
                 subRule.class_B = elem.right
             }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.association_class){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.ASSOCIATION_CLASS))
 
+                const classes = globalUtils.split(elem.left)
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_A = classes[0]
+                subRule.class_B = classes[1]
+                subRule.class_C = elem.right
+            }
 
             if(subRule !== undefined)
                 rule.rules.push(subRule)

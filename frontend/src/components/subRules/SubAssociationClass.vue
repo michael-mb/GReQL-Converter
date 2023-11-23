@@ -3,7 +3,7 @@
     <div class="card-header" :class="!rule.active ? 'disabled' : ''">
       <h5 class="accordion-faq m-0 position-relative">
         <a class="custom-accordion-title text-reset d-block" @click="toggle">
-          <span class="type"> SC </span> <span class="type_name">{{rule.rule_type}} : {{rule.class_C}}}
+          <span class="type"> SC </span> <span class="type_name">{{rule.rule_type}} : {{rule.class_C}}
           <i :class="isOpen ?  'feather-chevron-up' : 'feather-chevron-down'"></i></span>
         </a>
       </h5>
