@@ -401,6 +401,7 @@ const actions = {
             let subRule
             if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.generalization){
                 subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.GENERALIZATION))
+
                 if (elem.leftArrowBody === "-" && elem.rightArrowBody === "-")
                     subRule.type = rulesDefinitions.GENERALIZATION_TYPE.inheritance
                 else
@@ -410,7 +411,22 @@ const actions = {
                 subRule.class_parent = elem.left
                 subRule.class_child = elem.right
             }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.composition){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.COMPOSITION))
 
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_composite = elem.left
+                subRule.class_element = elem.right
+                subRule.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+            }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.aggregation){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.AGGREGATION))
+
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_aggregate = elem.left
+                subRule.class_element = elem.right
+                subRule.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+            }
 
             if(subRule !== undefined)
                 rule.rules.push(subRule)

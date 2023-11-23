@@ -13,7 +13,7 @@
     <div class="collapse " :class="isOpen === true ? 'show' : ''">
       <div class="card-body" :class="!rule.active ? 'disabled' : ''">
           <div class="form-group row">
-            <label class="col-form-label col-md-3">Class Aggregate</label>
+            <label class="col-form-label col-md-3">Class Composite</label>
             <div class="col-md-9">
               <input type="text" class="form-control" v-model="rule.class_composite">
             </div>
