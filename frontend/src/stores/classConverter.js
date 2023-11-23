@@ -393,7 +393,7 @@ const actions = {
     },
     generateCombineRule(elemList){
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.combined_rule))
-
+        rule.rule_name += ` : # ${elemList.id}`
         let points = 0
         elemList.elements.forEach(elem => {
             points = elem.annotation.p > points ? elem.annotation.p : points

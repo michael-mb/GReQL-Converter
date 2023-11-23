@@ -150,7 +150,7 @@ export default {
         // OTHERS
         'combined_rule': {
             rule_type: "combined_rule",
-            rule_name: "Combined Rule Definition",
+            rule_name: "Combined Rule",
             existence: 'presence',
             info_text: rulesExplanations.combined_rule,
             info_image: '',
