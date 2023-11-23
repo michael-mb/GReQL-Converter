@@ -498,10 +498,8 @@ const actions = {
                     }
                 });
             }
-
             if(subRule !== undefined)
                 rule.rules.push(subRule)
-
         })
 
         rule.points = points
