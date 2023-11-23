@@ -393,7 +393,6 @@ const actions = {
     },
     generateCombineRule(elemList){
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.combined_rule))
-        console.log("ELEM LIST:", elemList)
 
         let points = 0
         elemList.elements.forEach(elem => {
@@ -427,6 +426,19 @@ const actions = {
                 subRule.class_element = elem.right
                 subRule.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
             }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.simple_association){
+                if (globalUtils.isStringEmpty(elem.leftCardinality) && globalUtils.isStringEmpty(elem.rightCardinality))
+                    subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.TEST_ASSOCIATION))
+                else{
+                    subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.SIMPLE_ASSOCIATION))
+                    subRule.A_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
+                    subRule.B_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "1" : elem.rightCardinality
+                }
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_A = elem.left
+                subRule.class_B = elem.right
+            }
+
 
             if(subRule !== undefined)
                 rule.rules.push(subRule)

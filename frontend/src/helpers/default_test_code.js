@@ -2,6 +2,10 @@ export default {
     empty_test: {
         code: "@startuml\n" +
             "\n" +
+            "ClassA \"1..2\" -- \"+\" ClassB : <combineID=3>\n" +
+            "ClassC -- ClassD  : <!class, 10 points for rule, combineID=3>\n" +
+            "ClassC \"1\" -- \"1\" ClassE : <combineID=3>\n" +
+            "\n" +
             "ClassA o-- \"*\" ClassC : <!class, 10 points for rule, combineID=5>\n" +
             "ClassB *-- \"0..2\" ClassC : <!class, 11 points for rule, combineID=5>\n" +
             "\n" +
