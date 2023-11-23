@@ -102,6 +102,7 @@ const actions = {
         result["cID"] = -1
 
         result.classMatch = /!class/.test(input);
+        result.ignoreClass = /!ignoreClass/.test(input);
 
         const attrMatch = /!attr\((.*?)\)/.exec(input);
         if (attrMatch) {
@@ -123,8 +124,8 @@ const actions = {
         } else
             result.cID = -1;
 
-        const regex = /(\d+) (point|points) for (\w+)/g;
 
+        const regex = /(\d+) (point|points) for (\w+)/g;
         let match;
         while ((match = regex.exec(input)) !== null) {
             const points = parseInt(match[1]);
@@ -446,6 +447,56 @@ const actions = {
                 subRule.class_A = classes[0]
                 subRule.class_B = classes[1]
                 subRule.class_C = elem.right
+            } else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.defined_class){
+                if(!elem.annotation.ignoreClass){
+                    subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.DEFINE_CLASS))
+
+                    subRule.name = elem.name;
+                    subRule.exact_match = elem.annotation.classMatch
+                    if (elem.isAbstract)
+                        subRule.abstract = elem.isAbstract;
+
+                    if (elem.stereotypes.includes("interface"))
+                        subRule.interface = true;
+                }
+
+                let attr_index = 0
+                let method_index = 0
+                elem.members.forEach((member) => {
+                    // METHODS
+                    if (member.returnType) {
+                        const method = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.METHOD));
+                        method.name = member.name
+                        method.class = elem.name
+                        method.return_type = member.returnType
+                        method.arguments = member._arguments
+
+                        method.visibility = this.getVisibility(member.accessor)
+
+                        if(elem.annotation.method === '*')
+                            method.exact_match = true
+                        else if (elem.annotation.method.includes(method_index))
+                            method.exact_match = true
+                        method_index++
+                        rule.rules.push(method)
+                    }
+                    // ATTRIBUTES
+                    else if (member.type) {
+                        const attribute = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.ATTRIBUTE));
+                        attribute.name = member.name
+                        attribute.type = member.type
+                        attribute.class = elem.name
+
+                        attribute.visibility = this.getVisibility(member.accessor);
+
+                        if(elem.annotation.attr === '*')
+                            attribute.exact_match = true
+                        else if (elem.annotation.attr.includes(attr_index))
+                            attribute.exact_match = true
+                        attr_index++
+                        rule.rules.push(attribute)
+                    }
+                });
             }
 
             if(subRule !== undefined)

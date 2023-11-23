@@ -2,21 +2,49 @@ export default {
     empty_test: {
         code: "@startuml\n" +
             "\n" +
+            "// Complex Combinaison\n" +
+            "class ClassX <!ignoreClass, combineID=7>{\n" +
+            "  - Windows : List<Window>\n" +
+            "}\n" +
+            "ClassX \"1\" -- \"*\" Window: <combineID=7>\n" +
+            "\n" +
+            "// Complex Combinaison -- interpreted as lock or sperren in ClassY\n" +
+            "class ClassY <!ignoreClass, combineID=8>{\n" +
+            " + double lock()\n" +
+            " + double sperren()\n" +
+            "}\n" +
+            "\n" +
+            "// Complex Combinaison - interpreted as age or alter in ClassZ\n" +
+            "class ClassY <!ignoreClass, combineID=9>{\n" +
+            " + int age\n" +
+            " + int alter\n" +
+            "}\n" +
+            "\n" +
+            "// Simple Combinaison\n" +
+            "class ClassA <combineID=6>{}\n" +
+            "class ClassB <combineID=6>{}\n" +
+            "\n" +
+            "// Association Class Combinaison\n" +
             "(Student1, Course1) .. Enrollment1 : <combineID=4>\n" +
             "(Student2, Course2) .. Enrollment2 : <combineID=4>\n" +
             "\n" +
+            "// Association Combinaison\n" +
             "ClassA \"1..2\" -- \"+\" ClassB : <combineID=3>\n" +
             "ClassC -- ClassD  : <!class, 10 points for rule, combineID=3>\n" +
             "ClassC \"1\" -- \"1\" ClassE : <combineID=3>\n" +
             "\n" +
+            "// Aggr + Comp Combinaison\n" +
             "ClassA o-- \"*\" ClassC : <!class, 10 points for rule, combineID=5>\n" +
             "ClassB *-- \"0..2\" ClassC : <!class, 11 points for rule, combineID=5>\n" +
             "\n" +
+            "// Inheritance\n" +
             "Animal <|-- Mammal : <!class, 5 points for rule, combineID=1>\n" +
             "Swimmer <|.. Dolphin: <combineID=1>\n" +
             "\n" +
+            "// Inheritance\n" +
             "Swimmer <|.. Dolphin: <combineID=2>\n" +
             "Flyer <|.. Bat: <!class, 5 points for rule, combineID=2>\n" +
+            "\n" +
             "\n" +
             "@enduml"
     },
