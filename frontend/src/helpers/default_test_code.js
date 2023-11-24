@@ -15,7 +15,7 @@ export default {
             "}\n" +
             "\n" +
             "// Complex Combinaison - interpreted as age or alter in ClassZ\n" +
-            "class ClassY <!ignoreClass, combineID=9>{\n" +
+            "class ClassZ <!ignoreClass, combineID=9>{\n" +
             " + int age\n" +
             " + int alter\n" +
             "}\n" +
