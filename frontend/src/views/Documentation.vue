@@ -84,6 +84,13 @@
                 <code-editor v-model="annotation" font-size="14px" theme="github"  :languages="[['js', 'JS']]" :header="false"
                              :read-only="true" width="100%"/>
                 <br>
+
+                <h4>Combined Rules Annotation</h4>
+                <br>
+                <p>This annotation allows the user to create variants of a rule and combine them. Thanks to this
+                  annotation, it would be possible to generate GReQL code that could validate several correct versions of diagrams.</p>
+
+                <br>
                 <h4>Requires manual intervention</h4>
                 <br>
                 <p>However, there are a few PlantText features that are not yet supported by the parser:</p>
