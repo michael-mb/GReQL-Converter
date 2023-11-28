@@ -119,8 +119,6 @@
 
 <script setup>
 import {ref} from "vue";
-import rulesDefinitions from "@/lib/rulesDefinitions";
-import Swal from "sweetalert2";
 import useClassConverterStore from "@/stores/classConverter";
 
 const store = useClassConverterStore()

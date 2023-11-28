@@ -71,6 +71,8 @@
                                  :index="index"/>
                     <AssociationClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.association_class"
                                       :rule="rule" :index="index"/>
+                    <Combined v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.combined"
+                                      :ruleProps="rule" :index="index"/>
                     <TestAssociation v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.test_association" :rule="rule"
                                      :index="index"/>
                     <NominationConsistency v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.nomination_consistency"
@@ -102,6 +104,8 @@
                         class="feather-file-plus me-2"></i> Simple Association</a>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.association_class)"> <i
                         class="feather-file-plus me-2"></i> Association Class</a>
+                    <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.combined)"> <i
+                        class="feather-file-plus me-2"></i> Combined Rule</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" @click="addRule(rulesDefinitions.RULE_TYPE.test_association)"> <i
                         class="feather-file-plus me-2"></i> Test Association</a>
@@ -159,10 +163,9 @@
 </template>
 
 <script setup>
-import hljs from 'highlight.js';
 import CodeEditor from "simple-code-editor";
 import Header from "@/components/Header.vue";
-import {ref, watch} from "vue";
+import {ref} from "vue";
 import useClassConverterStore from "@/stores/classConverter"
 import Swal from "sweetalert2";
 import DefineClass from "@/components/rules/DefineClass.vue";
@@ -177,6 +180,7 @@ import Composition from "@/components/rules/Composition.vue";
 import SimpleAssociation from "@/components/rules/SimpleAssociation.vue";
 import TestAssociation from "@/components/rules/TestAssociation.vue";
 import AssociationClass from "@/components/rules/AssociationClass.vue";
+import Combined from "@/components/rules/Combined.vue";
 import GReQLRulesgenerator from "@/lib/GReQLRulesgenerator";
 import globalUtils from "@/helpers/globalUtils";
 import xmlFormat from 'xml-formatter';
@@ -184,14 +188,13 @@ import NominationConsistency from "@/components/rules/NominationConsistency.vue"
 
 const store = useClassConverterStore()
 
-const defaultCode = ref(default_test_code.annotation_test)
+const defaultCode = ref(default_test_code.combinaison_test)
 const code = ref(defaultCode.value.code)
 const GReQLCode = ref("")
 
 function updateDefaultCode() {
   code.value = defaultCode.value.code
 }
-
 
 function parseCode() {
   const param = {
@@ -244,6 +247,9 @@ function addRule(type) {
       break
     case rulesDefinitions.RULE_TYPE.nomination_consistency:
       rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.nomination_consistency_rule))
+      break
+    case rulesDefinitions.RULE_TYPE.combined:
+      rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.combined_rule))
       break
     default:
       console.log(type + " - Not supported 😢")

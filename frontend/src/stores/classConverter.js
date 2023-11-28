@@ -99,8 +99,10 @@ const actions = {
         result["p"] = 0
         result["mdp"] = 0
         result["adp"] = 0
+        result["cID"] = -1
 
         result.classMatch = /!class/.test(input);
+        result.ignoreClass = /!ignoreClass/.test(input);
 
         const attrMatch = /!attr\((.*?)\)/.exec(input);
         if (attrMatch) {
@@ -116,8 +118,14 @@ const actions = {
         } else
             result.method = [];
 
-        const regex = /(\d+) (point|points) for (\w+)/g;
+        const combineMatch = /combineID=(\d+)/.exec(input);
+        if (combineMatch) {
+            result.cID = parseInt(combineMatch[1]);
+        } else
+            result.cID = -1;
 
+
+        const regex = /(\d+) (point|points) for (\w+)/g;
         let match;
         while ((match = regex.exec(input)) !== null) {
             const points = parseInt(match[1]);
@@ -129,44 +137,76 @@ const actions = {
             else if (name === "attribute" || name === "attributes")
                 result.adp = points;
         }
+
+
         return result;
     },
     generateRules() {
         const elements = this.parsedCode[0].elements;
-        console.log(elements)
+        let combinedElements = []
         elements.forEach((elem) => {
-            // CLASS , ENUM, INTERFACE
+            if(elem.label)
+                if(elem.label.includes("combineID")){
+                    combinedElements.push(elem)
+                    return;
+                }
+
+            if(elem.generics)
+                if(elem.generics.length > 0)
+                    if(elem.generics[0].includes("combineID")){
+                        combinedElements.push(elem)
+                        return;
+                }
+
             let rule;
-            if (elem.name && elem.title) {
-                if (elem.stereotypes.includes("enum"))
-                    rule = this.generateEnumRule(elem);
-                else
-                    rule = this.generateClassRule(elem);
-            }
-            // GENERALIZATION & SPECIALIZATION
-            else if (elem.leftArrowHead.includes("<|"))
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.defined_enum)
+                rule = this.generateEnumRule(elem);
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.defined_class)
+                rule = this.generateClassRule(elem);
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.generalization)
                 rule = this.generateGeneralizationRule(elem)
-
-            // SIMPLE ASSOCIATION
-            else if (globalUtils.isStringEmpty(elem.leftArrowHead) && globalUtils.isStringEmpty(elem.rightArrowHead)
-                && elem.leftArrowBody.includes("-") && elem.rightArrowBody.includes("-"))
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.simple_association)
                 rule = this.generateSimpleAssociationRule(elem)
-
-            // AGGREGATION
-            else if (elem.leftArrowHead.includes("o"))
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.aggregation)
                 rule = this.generateAggregationRule(elem)
-            // COMPOSITION
-            else if (elem.leftArrowHead.includes("*"))
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.composition)
                 rule = this.generateCompositionRule(elem)
-            // ASSOCIATED CLASS
-            else if (elem.leftType.includes("UseCase") && elem.leftArrowBody.includes(".") && elem.rightArrowBody.includes("."))
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.association_class)
                 rule = this.generateAssociationClassRule(elem)
 
             if (rule !== undefined)
                 this.rules.push(rule);
         });
+
+        this.classifyAndGenerateCombineRules(combinedElements)
     },
 
+    identifyRuleType(elem){
+        if(elem.name && elem.title)
+            if (elem.stereotypes.includes("enum"))
+                return rulesDefinitions.RULE_TYPE.defined_enum
+            else
+                return rulesDefinitions.RULE_TYPE.defined_class
+        else if( elem.leftArrowHead.includes("<|"))
+            return  rulesDefinitions.RULE_TYPE.generalization
+
+        else if (globalUtils.isStringEmpty(elem.leftArrowHead) && globalUtils.isStringEmpty(elem.rightArrowHead)
+            && elem.leftArrowBody.includes("-") && elem.rightArrowBody.includes("-"))
+            return rulesDefinitions.RULE_TYPE.simple_association
+
+        else if (elem.leftArrowHead.includes("o"))
+            return rulesDefinitions.RULE_TYPE.aggregation
+
+        else if (elem.leftArrowHead.includes("*"))
+            return rulesDefinitions.RULE_TYPE.composition
+
+        else if (elem.leftType.includes("UseCase") && elem.leftArrowBody.includes(".") && elem.rightArrowBody.includes("."))
+            return rulesDefinitions.RULE_TYPE.association_class
+        else {
+            console.error("Cannot identify rule")
+            return null
+        }
+    },
     generateAssociationClassRule(elem) {
         const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.association_class_rule))
         const classes = globalUtils.split(elem.left)
@@ -339,6 +379,147 @@ const actions = {
         return rule;
     },
 
+    classifyAndGenerateCombineRules(elemList){
+        elemList.forEach(elem => {
+            if(elem.label)
+                elem["annotation"] = this.annotationConverter(elem.label)
+            else if (elem.generics)
+                elem["annotation"] = this.annotationConverter(elem.generics[0])
+        })
+
+        const groupedElements = this.groupBycID(elemList)
+        groupedElements.forEach(list => {
+            this.generateCombineRule(list)
+        })
+    },
+    generateCombineRule(elemList){
+        const rule = JSON.parse(JSON.stringify(rulesDefinitions.RULE_TYPE_JSON.combined_rule))
+        rule.rule_name += ` : # ${elemList.id}`
+        let points = 0
+        elemList.elements.forEach(elem => {
+            points = elem.annotation.p > points ? elem.annotation.p : points
+            let subRule
+            if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.generalization){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.GENERALIZATION))
+
+                if (elem.leftArrowBody === "-" && elem.rightArrowBody === "-")
+                    subRule.type = rulesDefinitions.GENERALIZATION_TYPE.inheritance
+                else
+                    subRule.type = rulesDefinitions.GENERALIZATION_TYPE.implementation
+
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_parent = elem.left
+                subRule.class_child = elem.right
+            }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.composition){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.COMPOSITION))
+
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_composite = elem.left
+                subRule.class_element = elem.right
+                subRule.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+            }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.aggregation){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.AGGREGATION))
+
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_aggregate = elem.left
+                subRule.class_element = elem.right
+                subRule.element_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "*" : elem.rightCardinality
+            }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.simple_association){
+                if (globalUtils.isStringEmpty(elem.leftCardinality) && globalUtils.isStringEmpty(elem.rightCardinality))
+                    subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.TEST_ASSOCIATION))
+                else{
+                    subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.SIMPLE_ASSOCIATION))
+                    subRule.A_multiplicity = globalUtils.isStringEmpty(elem.leftCardinality) ? "1" : elem.leftCardinality
+                    subRule.B_multiplicity = globalUtils.isStringEmpty(elem.rightCardinality) ? "1" : elem.rightCardinality
+                }
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_A = elem.left
+                subRule.class_B = elem.right
+            }
+            else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.association_class){
+                subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.ASSOCIATION_CLASS))
+
+                const classes = globalUtils.split(elem.left)
+                subRule.exact_match = elem.annotation.classMatch
+                subRule.class_A = classes[0]
+                subRule.class_B = classes[1]
+                subRule.class_C = elem.right
+            } else if(this.identifyRuleType(elem) === rulesDefinitions.RULE_TYPE.defined_class){
+                if(!elem.annotation.ignoreClass){
+                    subRule = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.DEFINE_CLASS))
+
+                    subRule.name = elem.name;
+                    subRule.exact_match = elem.annotation.classMatch
+                    if (elem.isAbstract)
+                        subRule.abstract = elem.isAbstract;
+
+                    if (elem.stereotypes.includes("interface"))
+                        subRule.interface = true;
+                }
+
+                let attr_index = 0
+                let method_index = 0
+                elem.members.forEach((member) => {
+                    // METHODS
+                    if (member.returnType) {
+                        const method = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.METHOD));
+                        method.name = member.name
+                        method.class = elem.name
+                        method.return_type = member.returnType
+                        method.arguments = member._arguments
+
+                        method.visibility = this.getVisibility(member.accessor)
+
+                        if(elem.annotation.method === '*')
+                            method.exact_match = true
+                        else if (elem.annotation.method.includes(method_index))
+                            method.exact_match = true
+                        method_index++
+                        rule.rules.push(method)
+                    }
+                    // ATTRIBUTES
+                    else if (member.type) {
+                        const attribute = JSON.parse(JSON.stringify(rulesDefinitions.COMBINED_RULE_ELEM.ATTRIBUTE));
+                        attribute.name = member.name
+                        attribute.type = member.type
+                        attribute.class = elem.name
+
+                        attribute.visibility = this.getVisibility(member.accessor);
+
+                        if(elem.annotation.attr === '*')
+                            attribute.exact_match = true
+                        else if (elem.annotation.attr.includes(attr_index))
+                            attribute.exact_match = true
+                        attr_index++
+                        rule.rules.push(attribute)
+                    }
+                });
+            }
+            if(subRule !== undefined)
+                rule.rules.push(subRule)
+        })
+
+        rule.points = points
+        this.rules.push(rule)
+    },
+
+    groupBycID(elements) {
+        const group = {};
+        elements.forEach(element => {
+            const id  = element.annotation.cID;
+            if (!group[id])
+                group[id] = [];
+            group[id].push(element);
+        });
+
+        return Object.keys(group).map(id => ({
+            id: parseInt(id, 10),
+            elements: group[id],
+        }));
+    },
     getVisibility(accessor) {
         switch (accessor) {
             case '+':

@@ -364,8 +364,8 @@
 <script setup>
 import {ref} from "vue";
 import rulesDefinitions from "@/lib/rulesDefinitions";
-import Swal from "sweetalert2";
 import useClassConverterStore from "@/stores/classConverter";
+import globalUtils from "@/helpers/globalUtils";
 
 const store = useClassConverterStore()
 
@@ -391,7 +391,11 @@ function addMethod(){
 }
 
 function addArgument(method, event, rule){
-  method.arguments = method.arguments + ", " + editedArg.value
+  if(globalUtils.isStringEmpty(method.arguments))
+    method.arguments += editedArg.value
+  else
+    method.arguments += ", " + editedArg.value
+
   editedArg.value = ""
   onAddArgMode.value = {}
 

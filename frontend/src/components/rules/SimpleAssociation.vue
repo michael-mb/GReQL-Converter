@@ -115,7 +115,6 @@
 
 <script setup>
 import {ref} from "vue";
-import Swal from "sweetalert2";
 import useClassConverterStore from "@/stores/classConverter";
 
 const store = useClassConverterStore()

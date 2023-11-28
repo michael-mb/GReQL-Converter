@@ -7,7 +7,7 @@ import '../public/assets/js/script.js'
 
 
 import {createApp, defineAsyncComponent} from 'vue'
-import { createPinia } from 'pinia'
+import {createPinia} from 'pinia'
 import router from './router'
 
 const app = createApp(defineAsyncComponent(() => import('./App.vue')))

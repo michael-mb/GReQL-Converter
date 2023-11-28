@@ -17,6 +17,9 @@ export default {
         // ASSOCIATION CLASS
         'association_class': 'association_class_rule',   
 
+        // OTHERS
+        'combined': 'combined_rule',
+
         // OPTIONAL
         'nomination_consistency': 'nomination_consistency_rule',   
         'test_association': 'test_association_rule',   
@@ -144,6 +147,18 @@ export default {
                 exact_match: false,
             }
         },
+        // OTHERS
+        'combined_rule': {
+            rule_type: "combined_rule",
+            rule_name: "Combined Rule",
+            existence: 'presence',
+            info_text: rulesExplanations.combined_rule,
+            info_image: '',
+            points: 0,
+            active: true,
+            feedback: "... i need a feedback please 😊.",
+            rules:[]
+        },
         // OPTIONAL
         'nomination_consistency_rule': {   
             rule_type: "nomination_consistency_rule",
@@ -226,5 +241,95 @@ export default {
     GENERALIZATION_TYPE: {
         'inheritance': 'inheritance',
         'implementation': 'implementation'
+    },
+    COMBINED_RULE_DEFINITION: {
+        DEFINE_CLASS : "Class Definition sub-rule",
+        METHOD: "Method sub-rule",
+        ATTRIBUTE: "Attribute sub-rule",
+        GENERALIZATION: "Generalization sub-rule",
+        COMPOSITION: "Composition sub-rule",
+        AGGREGATION: "Aggregation sub-rule",
+        SIMPLE_ASSOCIATION: "Simple_association sub-rule",
+        ASSOCIATION_CLASS: "Association_class sub-rule",
+        TEST_ASSOCIATION: "Test_association sub-rule"
+    },
+    COMBINED_RULE_ELEM: {
+        DEFINE_CLASS: {
+            rule_type: "Class Definition sub-rule",
+            name: "Class name",
+            exact_match: false,
+            abstract: false,
+            interface: false,
+            active: true,
+        },
+        METHOD: {
+            rule_type: "Method sub-rule",
+            name: "Method name",
+            class: "class name",
+            exact_match: false,
+            return_type: "void",
+            visibility: "public",
+            arguments: "",
+            active: true,
+            is_static: false,
+        },
+        ATTRIBUTE: {
+            rule_type: "Attribute sub-rule",
+            name: "Attribute name",
+            class: "class name",
+            exact_match: false,
+            type: "string",
+            visibility: "public",
+            active: true,
+            is_static: false,
+        },
+        GENERALIZATION: {
+            rule_type: "Generalization sub-rule",
+            active: true,
+            class_child: "Child",
+            class_parent: "Parent",
+            exact_match: false,
+            type: "inheritance" // implementation
+        },
+        AGGREGATION: {
+            rule_type: "Aggregation sub-rule",
+            active: true,
+            class_aggregate: "Aggregate",
+            class_element: "Element",
+            exact_match: false,
+            element_multiplicity: "*",
+        },
+        COMPOSITION: {
+            rule_type: "Composition sub-rule",
+            active: true,
+            class_composite: "Composite",
+            class_element: "Element",
+            exact_match: false,
+            element_multiplicity: "*",
+        },
+        SIMPLE_ASSOCIATION:{
+            rule_type: "Simple_association sub-rule",
+            active: true,
+            class_A: "Class A",
+            class_B: "Class B",
+            exact_match: false,
+            A_multiplicity: "1",
+            B_multiplicity: "1"
+        },
+        ASSOCIATION_CLASS:{
+            rule_type: "Association_class sub-rule",
+            active: true,
+            class_A: "Class A",
+            class_B: "Class B",
+            class_C: "Association Class",
+            exact_match: false,
+        },
+        TEST_ASSOCIATION: {
+            rule_type: "Test_association sub-rule",
+            active: true,
+            class_A: "Class A",
+            class_B: "Class B",
+            exact_match: false,
+        }
     }
 }
