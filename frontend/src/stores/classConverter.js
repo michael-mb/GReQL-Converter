@@ -2,7 +2,7 @@ import {defineStore} from 'pinia';
 import {BASE_API_URL} from "@/config/config";
 import rulesDefinitions from "@/lib/rulesDefinitions";
 import globalUtils from "@/helpers/globalUtils";
-import GReQLRulesgenerator from "@/lib/bouml/GReQLRulesgenerator";
+import GReQLRulesgenerator from "@/lib/bouml/ClassGReQLRulesgenerator";
 import xmlFormat from "xml-formatter";
 
 const API_CONFIG = {
