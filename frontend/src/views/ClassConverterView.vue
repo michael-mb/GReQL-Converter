@@ -168,23 +168,23 @@ import Header from "@/components/Header.vue";
 import {ref} from "vue";
 import useClassConverterStore from "@/stores/classConverter"
 import Swal from "sweetalert2";
-import DefineClass from "@/components/rules/DefineClass.vue";
+import DefineClass from "@/components/class_diagramm/rules/DefineClass.vue";
 import rulesDefinitions from "@/lib/classRulesDefinitions";
 import {API_ENDPOINTS} from "@/config/config";
-import Count from "@/components/rules/Count.vue";
-import DefineEnum from "@/components/rules/DefineEnum.vue";
+import Count from "@/components/class_diagramm/rules/Count.vue";
+import DefineEnum from "@/components/class_diagramm/rules/DefineEnum.vue";
 import default_test_code from "@/helpers/default_test_code";
-import Generalization from "@/components/rules/Generalization.vue";
-import Aggregation from "@/components/rules/Aggregation.vue";
-import Composition from "@/components/rules/Composition.vue";
-import SimpleAssociation from "@/components/rules/SimpleAssociation.vue";
-import TestAssociation from "@/components/rules/TestAssociation.vue";
-import AssociationClass from "@/components/rules/AssociationClass.vue";
-import Combined from "@/components/rules/Combined.vue";
+import Generalization from "@/components/class_diagramm/rules/Generalization.vue";
+import Aggregation from "@/components/class_diagramm/rules/Aggregation.vue";
+import Composition from "@/components/class_diagramm/rules/Composition.vue";
+import SimpleAssociation from "@/components/class_diagramm/rules/SimpleAssociation.vue";
+import TestAssociation from "@/components/class_diagramm/rules/TestAssociation.vue";
+import AssociationClass from "@/components/class_diagramm/rules/AssociationClass.vue";
+import Combined from "@/components/class_diagramm/rules/Combined.vue";
 import GReQLRulesgenerator from "@/lib/bouml/classGReQLRulesgenerator";
 import globalUtils from "@/helpers/globalUtils";
 import xmlFormat from 'xml-formatter';
-import NominationConsistency from "@/components/rules/NominationConsistency.vue";
+import NominationConsistency from "@/components/class_diagramm/rules/NominationConsistency.vue";
 
 const store = useClassConverterStore()
 

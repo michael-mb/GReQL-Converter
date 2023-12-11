@@ -105,15 +105,15 @@
 import {ref} from "vue";
 import rulesDefinitions from "@/lib/classRulesDefinitions";
 import useClassConverterStore from "@/stores/classConverter";
-import SubDefineClass from "@/components/subRules/SubDefineClass.vue";
-import SubAttribute from "@/components/subRules/SubAttribute.vue";
-import SubMethod from "@/components/subRules/SubMethod.vue";
-import SubGeneralization from "@/components/subRules/SubGeneralization.vue";
-import SubAggregation from "@/components/subRules/SubAggregation.vue";
-import SubComposition from "@/components/subRules/SubComposition.vue";
-import SubSimpleAssociation from "@/components/subRules/SubSimpleAssociation.vue";
-import SubAssociationClass from "@/components/subRules/SubAssociationClass.vue";
-import SubTestAssociation from "@/components/subRules/SubTestAssociation.vue";
+import SubDefineClass from "@/components/class_diagramm/subRules/SubDefineClass.vue";
+import SubAttribute from "@/components/class_diagramm/subRules/SubAttribute.vue";
+import SubMethod from "@/components/class_diagramm/subRules/SubMethod.vue";
+import SubGeneralization from "@/components/class_diagramm/subRules/SubGeneralization.vue";
+import SubAggregation from "@/components/class_diagramm/subRules/SubAggregation.vue";
+import SubComposition from "@/components/class_diagramm/subRules/SubComposition.vue";
+import SubSimpleAssociation from "@/components/class_diagramm/subRules/SubSimpleAssociation.vue";
+import SubAssociationClass from "@/components/class_diagramm/subRules/SubAssociationClass.vue";
+import SubTestAssociation from "@/components/class_diagramm/subRules/SubTestAssociation.vue";
 
 const store = useClassConverterStore()
 
