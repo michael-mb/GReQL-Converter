@@ -43,9 +43,7 @@ const state = () => ({
 })
 
 const getters = {
-    getParsedCode: (state) => {
-        return state.parsedCode
-    },
+    getParsedCode: (state) => state.parsedCode,
     isSpinning: (state) => state.spinner,
     getRules: (state) => state.rules,
     getOffCanvas: (state) => state.offCanvas,
