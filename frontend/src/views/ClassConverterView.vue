@@ -169,7 +169,7 @@ import {ref} from "vue";
 import useClassConverterStore from "@/stores/classConverter"
 import Swal from "sweetalert2";
 import DefineClass from "@/components/rules/DefineClass.vue";
-import rulesDefinitions from "@/lib/rulesDefinitions";
+import rulesDefinitions from "@/lib/classRulesDefinitions";
 import {API_ENDPOINTS} from "@/config/config";
 import Count from "@/components/rules/Count.vue";
 import DefineEnum from "@/components/rules/DefineEnum.vue";
@@ -181,7 +181,7 @@ import SimpleAssociation from "@/components/rules/SimpleAssociation.vue";
 import TestAssociation from "@/components/rules/TestAssociation.vue";
 import AssociationClass from "@/components/rules/AssociationClass.vue";
 import Combined from "@/components/rules/Combined.vue";
-import GReQLRulesgenerator from "@/lib/bouml/ClassGReQLRulesgenerator";
+import GReQLRulesgenerator from "@/lib/bouml/classGReQLRulesgenerator";
 import globalUtils from "@/helpers/globalUtils";
 import xmlFormat from 'xml-formatter';
 import NominationConsistency from "@/components/rules/NominationConsistency.vue";

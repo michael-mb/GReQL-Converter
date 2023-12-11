@@ -103,7 +103,7 @@
 
 <script setup>
 import {ref} from "vue";
-import rulesDefinitions from "@/lib/rulesDefinitions";
+import rulesDefinitions from "@/lib/classRulesDefinitions";
 import useClassConverterStore from "@/stores/classConverter";
 import SubDefineClass from "@/components/subRules/SubDefineClass.vue";
 import SubAttribute from "@/components/subRules/SubAttribute.vue";

@@ -156,7 +156,7 @@
 
 <script setup>
 import {ref} from "vue";
-import rulesDefinitions from "@/lib/rulesDefinitions";
+import rulesDefinitions from "@/lib/classRulesDefinitions";
 import useClassConverterStore from "@/stores/classConverter";
 
 const store = useClassConverterStore()
