@@ -173,7 +173,7 @@ import rulesDefinitions from "@/lib/classRulesDefinitions";
 import {API_ENDPOINTS} from "@/config/config";
 import Count from "@/components/class_diagramm/rules/Count.vue";
 import DefineEnum from "@/components/class_diagramm/rules/DefineEnum.vue";
-import default_test_code from "@/helpers/default_test_code";
+import default_test_code from "@/helpers/default_class_test_code";
 import Generalization from "@/components/class_diagramm/rules/Generalization.vue";
 import Aggregation from "@/components/class_diagramm/rules/Aggregation.vue";
 import Composition from "@/components/class_diagramm/rules/Composition.vue";
