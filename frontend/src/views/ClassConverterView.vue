@@ -181,7 +181,7 @@ import SimpleAssociation from "@/components/class_diagramm/rules/SimpleAssociati
 import TestAssociation from "@/components/class_diagramm/rules/TestAssociation.vue";
 import AssociationClass from "@/components/class_diagramm/rules/AssociationClass.vue";
 import Combined from "@/components/class_diagramm/rules/Combined.vue";
-import GReQLRulesgenerator from "@/lib/bouml/classGReQLRulesgenerator";
+import GReQLRulesgenerator from "@/lib/classGReQLRulesgenerator";
 import globalUtils from "@/helpers/globalUtils";
 import xmlFormat from 'xml-formatter';
 import NominationConsistency from "@/components/class_diagramm/rules/NominationConsistency.vue";
