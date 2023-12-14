@@ -169,7 +169,7 @@ import {ref} from "vue";
 import useClassConverterStore from "@/stores/classConverter"
 import Swal from "sweetalert2";
 import DefineClass from "@/components/class_diagramm/rules/DefineClass.vue";
-import rulesDefinitions from "@/lib/classRulesDefinitions";
+import rulesDefinitions from "@/lib/classRulesDefinition";
 import {API_ENDPOINTS} from "@/config/config";
 import Count from "@/components/class_diagramm/rules/Count.vue";
 import DefineEnum from "@/components/class_diagramm/rules/DefineEnum.vue";

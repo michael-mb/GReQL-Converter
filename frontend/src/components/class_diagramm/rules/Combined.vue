@@ -103,7 +103,7 @@
 
 <script setup>
 import {ref} from "vue";
-import rulesDefinitions from "@/lib/classRulesDefinitions";
+import rulesDefinitions from "@/lib/classRulesDefinition";
 import useClassConverterStore from "@/stores/classConverter";
 import SubDefineClass from "@/components/class_diagramm/subRules/SubDefineClass.vue";
 import SubAttribute from "@/components/class_diagramm/subRules/SubAttribute.vue";

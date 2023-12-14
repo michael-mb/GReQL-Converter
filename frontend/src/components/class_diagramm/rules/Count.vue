@@ -74,7 +74,7 @@
 
 <script setup>
 import {ref} from "vue";
-import rulesDefinitions from "@/lib/classRulesDefinitions";
+import rulesDefinitions from "@/lib/classRulesDefinition";
 import useClassConverterStore from "@/stores/classConverter";
 import globalUtils from "@/helpers/globalUtils";
 

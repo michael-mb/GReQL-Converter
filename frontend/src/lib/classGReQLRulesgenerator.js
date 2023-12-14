@@ -1,4 +1,4 @@
-import rulesDefinitions from "@/lib/classRulesDefinitions";
+import rulesDefinitions from "@/lib/classRulesDefinition";
 
 export default {
     ruleTypeToGenerator : {
