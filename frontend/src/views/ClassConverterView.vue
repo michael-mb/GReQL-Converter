@@ -36,7 +36,7 @@
                     </select>
                   </div>
                 </div>
-                <code-editor font-size="14px" v-model="code" theme="github"  :line-nums="true"
+                <code-editor class="scrollable-div" font-size="14px" v-model="code" theme="github"  :line-nums="true"
                              :languages="[['js', 'JS']]" :header="false"
                              width="100%" :autofocus="true"/>
                 <a class="btn btn-primary btn-blog mb-2 mt-5" @click="parseCode">
@@ -55,7 +55,7 @@
                 <h4 class="card-title"><i class="feather-list"></i> Derived Rules</h4>
               </div>
               <div class="card-body">
-                <div class="accordion custom-accordion" id="custom-accordion-one">
+                <div class="accordion custom-accordion scrollable-div" id="custom-accordion-one">
                   <template v-for="(rule, index) in store.rules">
                     <DefineClass v-if="rule.rule_type === rulesDefinitions.RULE_TYPE.defined_class" :rule="rule"
                                  :index="index"/>
@@ -125,7 +125,7 @@
           </div>
         </div>
 
-        <div class="col-md-12 col-sm-12 d-flex" v-if="!globalUtils.isStringEmpty(GReQLCode)">
+        <div class="col-md-12 col-sm-12 d-flex " v-if="!globalUtils.isStringEmpty(GReQLCode)">
           <div class="card">
             <div class="card-header">
               <h4 class="card-title"><i class="feather-code"></i> GReQL Code</h4>
@@ -311,7 +311,7 @@ function scrollDown() {
 }
 
 .scrollable-div {
-  height: calc(100vh + 20px); /* 100vh + 20px */
+  height: calc(100vh + 20px) !important; /* 100vh + 20px */
   overflow-y: auto;
   //border: 1px solid #ccc;
   padding: 10px;
